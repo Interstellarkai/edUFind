@@ -1,1 +1,1 @@
-# SchoolFinder
+# ed-U-find
