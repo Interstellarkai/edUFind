@@ -50,16 +50,15 @@ const ItemsContainer = styled.div`
   height: 100%;
   display: flex;
   /* border: 1px solid black; */
+  justify-content: space-between;
 `;
 
 const ItemText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 20px;
+  margin-right: 10px;
   padding: 0 10px;
-  width: 100%;
-  height: 100%;
   /* border: 1px solid black; */
   cursor: pointer;
   transition: all 0.3s ease;
@@ -85,8 +84,11 @@ const Navbar = () => {
       </SearchBar>
       <ItemsContainer>
         <ItemText>Recommendations</ItemText>
+
         <ItemText>My Shortlist</ItemText>
+
         <ItemText>Login</ItemText>
+
         <ItemText>Sign Up</ItemText>
       </ItemsContainer>
     </Container>
