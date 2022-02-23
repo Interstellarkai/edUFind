@@ -1,22 +1,22 @@
 import mongodb from "mongodb"
 const ObjectId = mongodb.ObjectId
 
-let reviews
+let comments
 
-export default class ReviewsDAO {
+export default class CommentsDAO {
   static async injectDB(conn) {
-      // if reviews exist
-    if (reviews) {
+      // if comments exist
+    if (comments) {
       return
     }
     try {
-      reviews = await conn.db(process.env.SCHOOLREVIEWS_NS).collection("reviews")
+      comments = await conn.db(process.env.SCHOOLREVIEWS_NS).collection("comments")
     } catch (e) {
       console.error(`Unable to establish collection handles in userDAO: ${e}`)
     }
   }
 
-  static async addReview(schoolId, user, review, date) {
+  static async addComment(schoolId, user, review, date) {
     try {
         // create review dp 
       const reviewDoc = { 
@@ -24,18 +24,18 @@ export default class ReviewsDAO {
           user_id: user._id,
           date: date,
           text: review,
-          school_id: ObjectId(schoolId), // creates a object id
+          school_id: schoolId, // creates a object id
         }
-        return await reviews.insertOne(reviewDoc)
+        return await comments.insertOne(reviewDoc)
     } catch (e) {
       console.error(`Unable to post review: ${e}`)
       return { error: e }
     }
   }
 
-  static async updateReview(reviewId, userId, text, date) {
+  static async updateComment(reviewId, userId, text, date) {
     try {
-      const updateResponse = await reviews.updateOne(
+      const updateResponse = await comments.updateOne(
         { user_id: userId, _id: ObjectId(reviewId)},
         { $set: { text: text, date: date  } },
       )
@@ -47,9 +47,9 @@ export default class ReviewsDAO {
     }
   }
 
-  static async deleteReview(reviewId, userId) {
+  static async deleteComment(reviewId, userId) {
     try {
-      const deleteResponse = await reviews.deleteOne({
+      const deleteResponse = await comments.deleteOne({
         _id: ObjectId(reviewId),
         user_id: userId,
       })

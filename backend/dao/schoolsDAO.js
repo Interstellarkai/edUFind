@@ -77,39 +77,39 @@ export default class SchoolsDAO {
             const pipeline = [
                 {
                     $match: {
-                        _id: new ObjectId(id),
+                        "school_id": id,
                     },
                 },
-                {
-                    // lookup other items to add to the results 
-                    $lookup: {
-                        from: "reviews",
-                        let: {
-                            id: "$_id",
-                        },
-                        pipeline: [
-                            {
-                                // find all the reviews that match the school id
-                                $match: {
-                                    $expr: {
-                                        $eq: ["$school_id", "$$id"],
-                                    },
-                                },
-                            },
-                            {
-                                $sort: {
-                                    date: -1,
-                                },
-                            },
-                        ],
-                        as: "reviews", // new field
-                    },
-                },
-                {
-                    $addFields: {
-                        reviews: "$reviews",
-                    },
-                },
+                // {
+                //     // lookup other items to add to the results 
+                //     $lookup: {
+                //         from: "comments",
+                //         let: {
+                //             school_id: "$school_id",
+                //         },
+                //         pipeline: [
+                //             {
+                //                 // find all the reviews that match the school id
+                //                 $match: {
+                //                     $expr: {
+                //                         $eq: ["$school_id", "$$school_id"],
+                //                     },
+                //                 },
+                //             },
+                //             {
+                //                 $sort: {
+                //                     date: -1,
+                //                 },
+                //             },
+                //         ],
+                //         as: "comments", // new field
+                //     },
+                // },
+                // {
+                //     $addFields: {
+                //         comments: "$comments",
+                //     },
+                // },
             ]
             // aggregate the pipeline means to combine everything together
             // return the next item 

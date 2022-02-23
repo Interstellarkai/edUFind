@@ -1,5 +1,7 @@
 // School Controller Class 
 import SchoolsDAO from "../dao/schoolsDAO.js"
+import { ObjectId } from "mongodb"
+
 
 export default class SchoolsController {
 
@@ -39,10 +41,12 @@ export default class SchoolsController {
 
     static async apiGetSchoolById(req, res, next) {
         try {
-            let id = req.params.id || {}
+            let id = parseInt(req.params.id) || {}
+            console.log(id)
             let school = await SchoolsDAO.getSchoolById(id)
+            console.log(school)
             if (!school) {
-                res.status(404).json({ errpr: "Not found" })
+                res.status(404).json({ error: "Not found" })
                 return
             }
             res.json(school)

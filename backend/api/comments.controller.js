@@ -1,7 +1,7 @@
-import ReviewsDAO from "../dao/reviewsDAO.js"
+import CommentsDAO from "../dao/commentsDAO.js"
 
-export default class ReviewsController {
-    static async apiPostReview(req, res, next) {
+export default class CommentsController {
+    static async apiPostComment(req, res, next) {
         try{
             const schoolId = req.body.school_id
             const review = req.body.text 
@@ -11,7 +11,7 @@ export default class ReviewsController {
             }
             const date = new Date()
 
-            const ReviewResponse = await ReviewsDAO.addReview(
+            const ReviewResponse = await CommentsDAO.addComment(
                 schoolId,
                 userInfo,
                 review,
@@ -23,13 +23,13 @@ export default class ReviewsController {
         }
     }
     
-    static async apiUpdateReview(req, res, next) {
+    static async apiUpdateComment(req, res, next) {
         try {
             const reviewId = req.body.review_id
             const text = req.body.text
             const date = new Date() 
 
-            const ReviewResponse = await ReviewsDAO.updateReview(
+            const ReviewResponse = await CommentsDAO.updateComment(
                 reviewId, 
                 req.body.user_id,
                 text, 
@@ -53,14 +53,14 @@ export default class ReviewsController {
         }
     }
 
-    static async apiDeleteReview(req, res, next) {
+    static async apiDeleteComment(req, res, next) {
         // check that the user id is the same person who wrote the review 
         try{
             const reviewId = req.query.id
             const userId = req.body.user_id
             console.log(reviewId)
 
-            const reviewResponse = await ReviewsDAO.deleteReview (
+            const reviewResponse = await CommentsDAO.deleteComment (
                 reviewId,
                 userId, 
             )
