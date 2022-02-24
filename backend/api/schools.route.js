@@ -7,7 +7,8 @@ const router = express.Router() // get access to the express router
 // Routes for getting general school information
 router.route("/").get(SchoolsCtrl.apiGetSchools) 
 router.route("/id/:id").get(SchoolsCtrl.apiGetSchoolById) 
-router.route("/zonecode").get(SchoolsCtrl.apiGetSchoolZoneCode) 
+router.route("/zonecode").get(SchoolsCtrl.apiGetSchoolZoneCode) // Filter by NSEW 
+router.route("/educationLevel").get(SchoolsCtrl.apiGetMainLevelCode) // Filter by level of education 
 
 // Routes for commenting function 
 router

@@ -121,13 +121,24 @@ export default class SchoolsDAO {
     }
 
     static async getZoneCode() {
-        let zonecode = []
+        let zoneCode = []
         try {
-            zonecode = await schools.distinct("zone_code")
-            return zonecode
+            zoneCode = await schools.distinct("zone_code")
+            return zoneCode
         } catch (e) {
-            console.error(`Unable to get zonecode, ${e}`)
-            return zonecode
+            console.error(`Unable to get zone code, ${e}`)
+            return zoneCode
+        }
+    }
+
+    static async getMainLevelCode() {
+        let mainLevelCode = []
+        try {
+            mainLevelCode = await schools.distinct("mainlevel_code")
+            return mainLevelCode 
+        } catch (e){
+            console.error(`Unable to get main level code,  ${e}`)
+            return mainLevelCode
         }
     }
 }

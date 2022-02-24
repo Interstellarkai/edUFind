@@ -59,11 +59,21 @@ export default class SchoolsController {
     static async apiGetSchoolZoneCode(req, res, next) {
         // get zonecode if not error
         try {
-            let zonecode = await SchoolsDAO.getZoneCode()
-            res.json(zonecode)
+            let zoneCode = await SchoolsDAO.getZoneCode()
+            res.json(zoneCode)
         } catch (e) {
             console.log(`api, ${e}`)
             res.status(500).json({ error: e })
+        }
+    }
+
+    static async apiGetMainLevelCode(req, res, next) {
+        try {
+            let mainLevelCode = await SchoolsDAO.getMainLevelCode()
+            res.json(mainLevelCode)
+        } catch (e) {
+            console.log(`api  ${e}`)
+            res.status(500).json({ error: e})
         }
     }
 
