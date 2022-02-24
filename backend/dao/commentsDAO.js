@@ -16,14 +16,14 @@ export default class CommentsDAO {
     }
   }
 
-  static async addComment(schoolId, user, review, date) {
+  static async addComment(schoolId, user, comment, date) {
     try {
         // create review dp 
       const reviewDoc = { 
           name: user.name,
           user_id: user._id,
           date: date,
-          text: review,
+          text: comment,
           school_id: schoolId, // creates a object id
         }
         return await comments.insertOne(reviewDoc)
@@ -33,10 +33,10 @@ export default class CommentsDAO {
     }
   }
 
-  static async updateComment(reviewId, userId, text, date) {
+  static async updateComment(commentId, userId, text, date) {
     try {
       const updateResponse = await comments.updateOne(
-        { user_id: userId, _id: ObjectId(reviewId)},
+        { user_id: userId, _id: ObjectId(commentId)},
         { $set: { text: text, date: date  } },
       )
 
@@ -47,10 +47,10 @@ export default class CommentsDAO {
     }
   }
 
-  static async deleteComment(reviewId, userId) {
+  static async deleteComment(commentId, userId) {
     try {
       const deleteResponse = await comments.deleteOne({
-        _id: ObjectId(reviewId),
+        _id: ObjectId(commentId),
         user_id: userId,
       })
 

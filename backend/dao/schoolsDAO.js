@@ -111,7 +111,6 @@ export default class SchoolsDAO {
                     },
                 },
             ]
-            console.log(pipeline)
             // aggregate the pipeline means to combine everything together
             // return the next item 
             return await schools.aggregate(pipeline).next()
