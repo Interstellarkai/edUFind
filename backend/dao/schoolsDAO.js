@@ -77,37 +77,37 @@ export default class SchoolsDAO {
             const pipeline = [
                 {
                     $match: {
-                        _id: new ObjectId(id),
+                        _id: id
                     },
                 },
                 {
-                    // lookup other items to add to the results 
                     $lookup: {
-                        from: "reviews",
+                        from: 'comments',
                         let: {
-                            id: "$_id",
+                            id: "$_id"
                         },
                         pipeline: [
                             {
-                                // find all the reviews that match the school id
                                 $match: {
                                     $expr: {
-                                        $eq: ["$school_id", "$$id"],
+                                        $eq: ["$school_id", "$$id"], 
                                     },
                                 },
+
                             },
                             {
                                 $sort: {
-                                    date: -1,
-                                },
-                            },
+                                    date: -1
+                                }
+                            }
+                            
                         ],
-                        as: "reviews", // new field
+                        as: 'comments'
                     },
                 },
                 {
                     $addFields: {
-                        reviews: "$reviews",
+                        comments: "$comments",
                     },
                 },
             ]

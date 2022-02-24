@@ -1,42 +1,42 @@
 import mongodb from "mongodb"
 const ObjectId = mongodb.ObjectId
 
-let reviews
+let comments
 
-export default class ReviewsDAO {
+export default class CommentsDAO {
   static async injectDB(conn) {
-      // if reviews exist
-    if (reviews) {
+      // if comments exist
+    if (comments) {
       return
     }
     try {
-      reviews = await conn.db(process.env.SCHOOLREVIEWS_NS).collection("reviews")
+      comments = await conn.db(process.env.SCHOOLREVIEWS_NS).collection("comments")
     } catch (e) {
       console.error(`Unable to establish collection handles in userDAO: ${e}`)
     }
   }
 
-  static async addReview(schoolId, user, review, date) {
+  static async addComment(schoolId, user, comment, date) {
     try {
         // create review dp 
       const reviewDoc = { 
           name: user.name,
           user_id: user._id,
           date: date,
-          text: review,
-          school_id: ObjectId(schoolId), // creates a object id
+          text: comment,
+          school_id: schoolId, // creates a object id
         }
-        return await reviews.insertOne(reviewDoc)
+        return await comments.insertOne(reviewDoc)
     } catch (e) {
       console.error(`Unable to post review: ${e}`)
       return { error: e }
     }
   }
 
-  static async updateReview(reviewId, userId, text, date) {
+  static async updateComment(commentId, userId, text, date) {
     try {
-      const updateResponse = await reviews.updateOne(
-        { user_id: userId, _id: ObjectId(reviewId)},
+      const updateResponse = await comments.updateOne(
+        { user_id: userId, _id: ObjectId(commentId)},
         { $set: { text: text, date: date  } },
       )
 
@@ -47,10 +47,10 @@ export default class ReviewsDAO {
     }
   }
 
-  static async deleteReview(reviewId, userId) {
+  static async deleteComment(commentId, userId) {
     try {
-      const deleteResponse = await reviews.deleteOne({
-        _id: ObjectId(reviewId),
+      const deleteResponse = await comments.deleteOne({
+        _id: ObjectId(commentId),
         user_id: userId,
       })
 

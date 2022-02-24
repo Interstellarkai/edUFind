@@ -1,20 +1,20 @@
-import ReviewsDAO from "../dao/reviewsDAO.js"
+import CommentsDAO from "../dao/commentsDAO.js"
 
-export default class ReviewsController {
-    static async apiPostReview(req, res, next) {
+export default class CommentsController {
+    static async apiPostComment(req, res, next) {
         try{
             const schoolId = req.body.school_id
-            const review = req.body.text 
+            const comment = req.body.text 
             const userInfo = {
                 name: req.body.name,
                 _id: req.body.user_id 
             }
             const date = new Date()
 
-            const ReviewResponse = await ReviewsDAO.addReview(
+            const ReviewResponse = await CommentsDAO.addComment(
                 schoolId,
                 userInfo,
-                review,
+                comment,
                 date,
             )
             res.json( { status: "success "})
@@ -23,14 +23,14 @@ export default class ReviewsController {
         }
     }
     
-    static async apiUpdateReview(req, res, next) {
+    static async apiUpdateComment(req, res, next) {
         try {
-            const reviewId = req.body.review_id
+            const commentId = req.body.comment_id
             const text = req.body.text
             const date = new Date() 
 
-            const ReviewResponse = await ReviewsDAO.updateReview(
-                reviewId, 
+            const ReviewResponse = await CommentsDAO.updateComment(
+                commentId, 
                 req.body.user_id,
                 text, 
                 date, 
@@ -53,15 +53,15 @@ export default class ReviewsController {
         }
     }
 
-    static async apiDeleteReview(req, res, next) {
+    static async apiDeleteComment(req, res, next) {
         // check that the user id is the same person who wrote the review 
         try{
-            const reviewId = req.query.id
+            const commentId = req.query.id
             const userId = req.body.user_id
-            console.log(reviewId)
+            console.log(commentId)
 
-            const reviewResponse = await ReviewsDAO.deleteReview (
-                reviewId,
+            const CommentResponse = await CommentsDAO.deleteComment (
+                commentId,
                 userId, 
             )
             res.json({ status: "success" })
