@@ -4,11 +4,12 @@ import CommentsCtrl from "./comments.controller.js"
 
 const router = express.Router() // get access to the express router 
 
-router.route("/").get(SchoolsCtrl.apiGetSchools) // get the Return at the route from the SchoolsCtrl file 
-router.route("/id/:id").get(SchoolsCtrl.apiGetSchoolById) // get specific school with specific id
-router.route("/zonecode").get(SchoolsCtrl.apiGetSchoolZoneCode) // allow the user to click from a dropdown. this populates the dropdown
+// Routes for getting general school information
+router.route("/").get(SchoolsCtrl.apiGetSchools) 
+router.route("/id/:id").get(SchoolsCtrl.apiGetSchoolById) 
+router.route("/zonecode").get(SchoolsCtrl.apiGetSchoolZoneCode) 
 
-// route to put the new comment
+// Routes for commenting function 
 router
     .route("/comment")
     .post(CommentsCtrl.apiPostComment)
