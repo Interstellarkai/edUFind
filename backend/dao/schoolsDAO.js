@@ -77,40 +77,41 @@ export default class SchoolsDAO {
             const pipeline = [
                 {
                     $match: {
-                        "school_id": id,
+                        _id: id
                     },
                 },
-                // {
-                //     // lookup other items to add to the results 
-                //     $lookup: {
-                //         from: "comments",
-                //         let: {
-                //             school_id: "$school_id",
-                //         },
-                //         pipeline: [
-                //             {
-                //                 // find all the reviews that match the school id
-                //                 $match: {
-                //                     $expr: {
-                //                         $eq: ["$school_id", "$$school_id"],
-                //                     },
-                //                 },
-                //             },
-                //             {
-                //                 $sort: {
-                //                     date: -1,
-                //                 },
-                //             },
-                //         ],
-                //         as: "comments", // new field
-                //     },
-                // },
-                // {
-                //     $addFields: {
-                //         comments: "$comments",
-                //     },
-                // },
+                {
+                    $lookup: {
+                        from: 'comments',
+                        let: {
+                            id: "$_id"
+                        },
+                        pipeline: [
+                            {
+                                $match: {
+                                    $expr: {
+                                        $eq: ["$school_id", "$$id"], 
+                                    },
+                                },
+
+                            },
+                            {
+                                $sort: {
+                                    date: -1
+                                }
+                            }
+                            
+                        ],
+                        as: 'comments'
+                    },
+                },
+                {
+                    $addFields: {
+                        comments: "$comments",
+                    },
+                },
             ]
+            console.log(pipeline)
             // aggregate the pipeline means to combine everything together
             // return the next item 
             return await schools.aggregate(pipeline).next()
