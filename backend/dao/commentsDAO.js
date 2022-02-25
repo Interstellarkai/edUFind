@@ -24,7 +24,7 @@ export default class CommentsDAO {
           user_id: user._id,
           date: date,
           text: comment,
-          school_id: schoolId, // creates a object id
+          school_id: schoolId, // creates a object id 
         }
         return await comments.insertOne(reviewDoc)
     } catch (e) {

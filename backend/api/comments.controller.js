@@ -57,7 +57,7 @@ export default class CommentsController {
         // check that the user id is the same person who wrote the review 
         try{
             const commentId = req.query.id
-            const userId = req.body.user_id
+            const userId = req.body.user_id // TODO: Need to replace this to query for proper application
             console.log(commentId)
 
             const CommentResponse = await CommentsDAO.deleteComment (
