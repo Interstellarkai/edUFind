@@ -3,7 +3,7 @@
 // import statements 
 import express from "express"
 import cors from "cors"
-import schools from "./api/schools.route.js" // yet to be created 
+import schools from "./api/schools.route.js" // URL for requests
 
 const app = express() // using to make server
 

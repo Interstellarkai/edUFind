@@ -132,6 +132,54 @@ export default class SchoolsDAO {
         }
     }
 
+    // // get reviews and put it into school
+    // static async getFullSchools() {
+    //     try {
+    //         // create a pipeling (mongo db) to help match different collections together
+    //         const pipeline = [
+    //             {
+    //                 $match: {},
+    //             },
+    //             {
+    //                 $lookup: {
+    //                     from: 'comments',
+    //                     let: {
+    //                         id: "$_id"
+    //                     },
+    //                     pipeline: [
+    //                         {
+    //                             $match: {
+    //                                 $expr: {
+    //                                     $eq: ["$school_id", "$$id"], 
+    //                                 },
+    //                             },
+
+    //                         },
+    //                         {
+    //                             $sort: {
+    //                                 date: -1
+    //                             }
+    //                         }
+                            
+    //                     ],
+    //                     as: 'comments'
+    //                 },
+    //             },
+    //             {
+    //                 $addFields: {
+    //                     comments: "$comments",
+    //                 },
+    //             },
+    //         ]
+    //         // aggregate the pipeline means to combine everything together
+    //         // return the next item 
+    //         return await schools.aggregate(pipeline).next()
+    //     } catch (e) {
+    //         console.error(`Something went wrong in getSchoolByID: ${e}`)
+    //         throw e
+    //     }
+    // }
+
     static async getZoneCode() {
         let zoneCode = []
         try {
