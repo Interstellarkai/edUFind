@@ -11,15 +11,24 @@ export default class SchoolsController {
         const schoolsPerPage = req.query.schoolsPerPage ? parseInt(req.query.schoolsPerPage, 10) : 20
         const page = req.query.page ? parseInt(req.query.page, 10) : 0
         
-        let filters = {} // Filter starts emppty
+        let filters = {} // Filter starts empty
         // if zone_code is in the query string, then the zone_code is set to the query string
-        if (req.query.zone_code) {
+        if (req.query.school_name) {
+            filters.school_name = req.query.school_name
+        } else if (req.query.zone_code) {
             filters.zone_code = req.query.zone_code
         } else if (req.query.postal_code) {
             filters.postal_code = req.query.postal_code
-        } else if (req.query.school_name) {
-            filters.school_name = req.query.school_name
+        } else if (req.query.mainlevel_code) {
+            filters.mainlevel_code = req.query.mainlevel_code
+        } else if (req.query.gifted_ind) {
+            filters.gifted_ind = req.query.gifted_ind
+        } else if (req.query.nature_code) {
+            filters.nature_code = req.query.nature_code
+        } else if (req.query.type_code) {
+            filters.type_code = req.query.type_code
         }
+        
         
         // call the getSchools 
         const { schoolsList, totalNumSchools } = await SchoolsDAO.getSchools({
@@ -76,5 +85,36 @@ export default class SchoolsController {
             res.status(500).json({ error: e})
         }
     }
+    
+    static async apiGetGiftedInd(req, res, next) {
+        try {
+            let giftedInd = await SchoolsDAO.getGiftedInd()
+            res.json(giftedInd)
+        } catch (e) {
+            console.log(`api  ${e}`)
+            res.status(500).json({ error: e})
+        }
+    }
+
+    static async apiGetNatureCode(req, res, next) {
+        try {
+            let natureCode = await SchoolsDAO.getNatureCode()
+            res.json(natureCode)
+        } catch (e) {
+            console.log(`api  ${e}`)
+            res.status(500).json({ error: e})
+        }
+    }
+
+    static async apiGetTypeCode(req, res, next) {
+        try {
+            let typeCode = await SchoolsDAO.getTypeCode()
+            res.json(typeCode)
+        } catch (e) {
+            console.log(`api  ${e}`)
+            res.status(500).json({ error: e})
+        }
+    }
+
 
 }

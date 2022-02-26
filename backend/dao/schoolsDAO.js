@@ -31,7 +31,7 @@ export default class SchoolsDAO {
     } = {}) {
         // query
         let query
-        // 3 different filters 
+        // filters 
         if (filters) {
             if ("school_name" in filters) {
                 query = { $text: { $search: filters["school_name"] } } // text search, search any word in that text
@@ -41,6 +41,18 @@ export default class SchoolsDAO {
             }
             else if ("postal_code" in filters) {
                 query = { "postal_code": { $eq: filters["postal_code"] } }
+            }
+            else if ("mainlevel_code" in filters) {
+                query = { "mainlevel_code": { $eq: filters["mainlevel_code"] } }
+            }
+            else if ("gifted_ind" in filters) {
+                query = { "gifted_ind": { $eq: filters["gifted_ind"] } }
+            }
+            else if ("type_code" in filters) {
+                query = { "type_code": { $eq: filters["type_code"] } }
+            }
+            else if ("nature_code" in filters) {
+                query = { "nature_code": { $eq: filters["nature_code"] } }
             }
         }
 
@@ -139,6 +151,39 @@ export default class SchoolsDAO {
         } catch (e){
             console.error(`Unable to get main level code,  ${e}`)
             return mainLevelCode
+        }
+    }
+
+    static async getGiftedInd() {
+        let giftedInd = []
+        try {
+            giftedInd = await schools.distinct("gifted_ind")
+            return giftedInd 
+        } catch (e){
+            console.error(`Unable to get giftedInd,  ${e}`)
+            return giftedInd
+        }
+    }
+
+    static async getTypeCode() {
+        let typeCode = []
+        try {
+            typeCode = await schools.distinct("type_code")
+            return typeCode 
+        } catch (e){
+            console.error(`Unable to get typeCode,  ${e}`)
+            return typeCode
+        }
+    }
+
+    static async getNatureCode() {
+        let natureCode = []
+        try {
+            natureCode = await schools.distinct("nature_code")
+            return natureCode 
+        } catch (e){
+            console.error(`Unable to get nature_code,  ${e}`)
+            return natureCode
         }
     }
 }
