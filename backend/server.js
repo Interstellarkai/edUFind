@@ -16,7 +16,7 @@ app.use(express.json())  // server can accept json in the body of a request
 
 // initial routes
 app.use("/api/v1/schools", schools)
-app.use("/signup", users)
+app.use("/users", users)
 app.use("*", (req, res) => res.status(404).json({error: "not found"})) // * means wild card, a route that is not in our route file, then we return 404 page not found
 
 
