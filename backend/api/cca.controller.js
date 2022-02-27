@@ -15,9 +15,9 @@ export default class CCAController {
         // if zone_code is in the query string, then the zone_code is set to the query string
         if (req.query.school_name) {
             filters.school_name = req.query.school_name
-        } else if (req.query.cca_grouping_desc) {
+        } if (req.query.cca_grouping_desc) {
             filters.cca_grouping_desc = req.query.cca_grouping_desc
-        } else if (req.query.cca_generic_name) {
+        } if (req.query.cca_generic_name) {
             filters.cca_generic_name = req.query.cca_generic_name
         }
         

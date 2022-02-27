@@ -30,29 +30,29 @@ export default class SchoolsDAO {
         schoolsPerPage = 20,
     } = {}) {
         // query
-        let query
+        let query = {}
         // filters 
         if (filters) {
             if ("school_name" in filters) {
-                query = { $text: { $search: filters["school_name"] } } // text search, search any word in that text
+                query[$text] =  { $search: filters["school_name"] } // text search, search any word in that text
             }
-            else if ("zone_code" in filters) {
-                query = { "zone_code": { $eq: filters["zone_code"] } } // if zone_code in db equals to the zone_code passed in, search for zone_code
+            if ("zone_code" in filters) {
+                query["zone_code"] =  { $eq: filters["zone_code"] } // if zone_code in db equals to the zone_code passed in, search for zone_code
             }
-            else if ("postal_code" in filters) {
-                query = { "postal_code": { $eq: filters["postal_code"] } }
+            if ("postal_code" in filters) {
+                query["postal_code"] =  { $eq: filters["postal_code"] }
             }
-            else if ("mainlevel_code" in filters) {
-                query = { "mainlevel_code": { $eq: filters["mainlevel_code"] } }
+            if ("mainlevel_code" in filters) {
+                query["mainlevel_code"] =  { $eq: filters["mainlevel_code"] }
             }
-            else if ("gifted_ind" in filters) {
-                query = { "gifted_ind": { $eq: filters["gifted_ind"] } }
+            if ("gifted_ind" in filters) {
+                query["gifted_ind"] =  { $eq: filters["gifted_ind"] }
             }
-            else if ("type_code" in filters) {
-                query = { "type_code": { $eq: filters["type_code"] } }
+            if ("type_code" in filters) {
+                query["type_code"] =  { $eq: filters["type_code"] }
             }
-            else if ("nature_code" in filters) {
-                query = { "nature_code": { $eq: filters["nature_code"] } }
+            if ("nature_code" in filters) {
+                query["nature_code"] =  { $eq: filters["nature_code"] }
             }
         }
 

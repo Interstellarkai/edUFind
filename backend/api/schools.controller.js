@@ -15,20 +15,19 @@ export default class SchoolsController {
         // if zone_code is in the query string, then the zone_code is set to the query string
         if (req.query.school_name) {
             filters.school_name = req.query.school_name
-        } else if (req.query.zone_code) {
+        } if (req.query.zone_code) {
             filters.zone_code = req.query.zone_code
-        } else if (req.query.postal_code) {
+        } if (req.query.postal_code) {
             filters.postal_code = req.query.postal_code
-        } else if (req.query.mainlevel_code) {
+        } if (req.query.mainlevel_code) {
             filters.mainlevel_code = req.query.mainlevel_code
-        } else if (req.query.gifted_ind) {
+        } if (req.query.gifted_ind) {
             filters.gifted_ind = req.query.gifted_ind
-        } else if (req.query.nature_code) {
+        } if (req.query.nature_code) {
             filters.nature_code = req.query.nature_code
-        } else if (req.query.type_code) {
+        } if (req.query.type_code) {
             filters.type_code = req.query.type_code
         }
-        
         
         // call the getSchools 
         const { schoolsList, totalNumSchools } = await SchoolsDAO.getSchools({

@@ -30,21 +30,20 @@ export default class CCADAO {
         CCAsPerPage = 20,
     } = {}) {
         // query
-        let query
+        let query = {}
         // filters 
         if (filters) {
             if ("school_name" in filters) {
-                query = { $text: { $search: filters["school_name"] } } // text search, search any word in that text
+                query[$text] =  { $search: filters["school_name"] } // text search, search any word in that text
             }
-            else if ("cca_grouping_desc" in filters) {
-                query = { "cca_grouping_desc": { $eq: filters["cca_grouping_desc"] } }
+            if ("cca_grouping_desc" in filters) {
+                query["cca_grouping_desc"] =  { $eq: filters["cca_grouping_desc"] }
             }
-            else if ("cca_generic_name" in filters) {
-                query = { "cca_generic_name": { $eq: filters["cca_generic_name"] } }
+            if ("cca_generic_name" in filters) {
+                query["cca_generic_name"] =  { $eq: filters["cca_generic_name"] }
             }
-            console.log(query)
         }
-
+        
         let cursor
 
         try {
@@ -55,13 +54,13 @@ export default class CCADAO {
             console.error(`Unable to issue find command, ${e}`)
             return { CCAsList: [], totalNumCCAs: 0 }
         }
-
+        
         const displayCursor = cursor.limit(CCAsPerPage).skip(CCAsPerPage * page) // get to a specific page
 
         try {
             const CCAsList = await displayCursor.toArray()
             const totalNumCCAs = await CCAs.countDocuments(query)
-
+            
             return { CCAsList, totalNumCCAs }
         } catch (e) {
             console.error(
