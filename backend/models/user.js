@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
-    userName: {
+    username: {
         type: String, // String is shorthand for {type: String}
         required: true
     },

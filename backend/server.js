@@ -3,8 +3,8 @@
 // import statements 
 import express, { application } from "express"
 import cors from "cors"
-import schools from "./api/schools.route.js" // Routes for school related functions 
-import users from "./api/user.route.js" // Routes for user related functions 
+import schools from "./routes/schools.route.js" // Routes for school related functions 
+import users from "./routes/user.route.js" // Routes for user related functions 
 import dotenv from "dotenv" // access env var
 import mongoose from "mongoose"
 

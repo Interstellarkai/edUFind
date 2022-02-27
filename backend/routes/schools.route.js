@@ -1,10 +1,10 @@
 import express from "express" 
-import SchoolsCtrl from "./schools.controller.js"
-import CommentsCtrl from "./comments.controller.js"
-import CCACtrl from "./cca.controller.js"
-import MOECtrl from "./moe.controller.js"
-import ProgrammesCtrl from "./programmes.controller.js"
-import SpecialNeedsCtrl from "./specialneeds.controller"
+import SchoolsCtrl from "../controllers/schools.controller.js"
+import CommentsCtrl from "../controllers/comments.controller.js"
+import CCACtrl from "../controllers/cca.controller.js"
+import MOECtrl from "../controllers/moe.controller.js"
+import ProgrammesCtrl from "../controllers/programmes.controller.js"
+import SpecialNeedsCtrl from "../controllers/specialneeds.controller.js"
 
 const router = express.Router() // get access to the express router 
 
