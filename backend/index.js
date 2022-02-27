@@ -6,6 +6,9 @@ import dotenv from "dotenv" // access env var
 import SchoolsDAO from "./dao/schoolsDAO.js"
 import CommentsDAO from "./dao/commentsDAO.js"
 import CCADAO from "./dao/ccaDAO.js"
+import MOEDAO from "./dao/moeDAO.js"
+import ProgrammesDAO from "./dao/programmesDAO.js"
+import SpecialNeedsDAO from "./dao/specialneedsDAO.js"
 
 // configure dotenv
 dotenv.config()
@@ -36,6 +39,9 @@ MongoClient.connect(
         await SchoolsDAO.injectDB(client) // get initial reference to the school collection in the DB
         await CommentsDAO.injectDB(client)
         await CCADAO.injectDB(client)
+        await MOEDAO.injectDB(client)
+        await ProgrammesDAO.injectDB(client)
+        await SpecialNeedsDAO.injectDB(client)
         app.listen(port, () => {
             console.log(`listening on port ${port}`) // ` not '
         }) 

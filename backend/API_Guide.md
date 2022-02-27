@@ -7,13 +7,18 @@
 
 This is a documentation of the various API calls to make or available from the **BackEnd Server**.
 
+## Default
+		
+    Adjustable Query Parameters
+	    schoolsPerPage
+	    page
+
 ## General School Information
 
     URL Query
 	    Default : http://localhost:8080/api/v1/schools/general
 	    ID : http://localhost:8080/api/v1/schools/general/id/1
-	    Search Name : http://localhost:8080/api/v1/schools/general?school_name=JURONG
-	    Search Name with Page No. : http://localhost:8080/api/v1/schools/general?school_name=JURONG&page=3  
+	    School Name : http://localhost:8080/api/v1/schools/general?school_name=JURONG SECONDARY SCHOOL  
 	    Zone Code : http://localhost:8080/api/v1/schools/general?zone_code=NORTH
 	    Education Level : http://localhost:8080/api/v1/schools/general?mainlevel_code=PRIMARY
 	    Gifted Programme : http://localhost:8080/api/v1/schools/general?gifted_ind=Yes
@@ -22,6 +27,7 @@ This is a documentation of the various API calls to make or available from the *
 
 
     DropDown Menu (Return Key)
+	    SchoolName : http://localhost:8080/api/v1/schools/general/school_name
 	    ZoneCode : http://localhost:8080/api/v1/schools/general/zone_code
 	    Education Level : http://localhost:8080/api/v1/schools/general/mainlevel_code
 	    Gifted Programme : http://localhost:8080/api/v1/schools/general/gifted_ind
@@ -62,6 +68,7 @@ This is a documentation of the various API calls to make or available from the *
 
     URL Query
 	    Default : http://localhost:8080/api/v1/schools/cca
+	    School Name : http://localhost:8080/api/v1/schools/general?school_name=JURONG SECONDARY SCHOOL
 	    CCA Name : http://localhost:8080/api/v1/schools/cca?cca_generic_name=BASKETBALL
 	    CCA Type : http://localhost:8080/api/v1/schools/cca?cca_grouping_desc=PHYSICAL%20SPORTS
     
@@ -69,4 +76,29 @@ This is a documentation of the various API calls to make or available from the *
 	    CCA Name : http://localhost:8080/api/v1/schools/cca/cca_generic_name
 	    CCA Type : http://localhost:8080/api/v1/schools/cca/cca_grouping_desc
 
+## MOE Programmes
+
+    URL Query
+	    Default : http://localhost:8080/api/v1/schools/moe
+	    School Name : http://localhost:8080/api/v1/schools/general?school_name=JURONG SECONDARY SCHOOL
+	    MOE Programmes : http://localhost:8080/api/v1/schools/moe?moe_programme_desc=ART ELECTIVE PROGRAMME
+    
+    DropDown Menu (Return Key)
+	    MOE Programmes : http://localhost:8080/api/v1/schools/moe/moe_programme_desc
+
+## School Distinctive Programmes
+
+    URL Query
+	    Default : http://localhost:8080/api/v1/schools/programmes
+	    School Name : http://localhost:8080/api/v1/schools/general?school_name=JURONG SECONDARY SCHOOL
+	    ALP Domain : http://localhost:8080/api/v1/schools/programmes?alp_domain=Coding
+	    ALP Title : http://localhost:8080/api/v1/schools/programmes?alp_title=21CC PW
+	    LLP Domain : http://localhost:8080/api/v1/schools/programmes?llp_domain1=Community %26 Youth Leadership
+	    LLP Title : http://localhost:8080/api/v1/schools/programmes?llp_title1=A%20Leader%20in%20Every%20Child    
+    
+    DropDown Menu (Return Key)
+	    ALP Domain : http://localhost:8080/api/v1/schools/programmes/alp_domain
+	    ALP Title : http://localhost:8080/api/v1/schools/programmes/alp_title
+	    LLP Domain : http://localhost:8080/api/v1/schools/programmes/llp_domain1
+	    LLP Title : http://localhost:8080/api/v1/schools/programmes/llp_title1
 
