@@ -4,7 +4,9 @@ import UserCtrl from "../controllers/user.controller.js"
 
 const router = express.Router()
 
+// TO DO: register and login functions 
 router.route('/signup').post(UserCtrl.apiRegisterUser)
+router.route('/login').post(UserCtrl.apiLoginUser)
 
 
 export default router
