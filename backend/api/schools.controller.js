@@ -64,7 +64,17 @@ export default class SchoolsController {
         }
     }
 
-    static async apiGetSchoolZoneCode(req, res, next) {
+    static async apiGetSchoolName(req, res, next) {
+        try {
+            let schoolName = await SchoolsDAO.getSchoolName()
+            res.json(schoolName)
+        } catch (e) {
+            console.log(`api, ${e}`)
+            res.status(500).json({ error: e })
+        }
+    }
+
+    static async apiGetZoneCode(req, res, next) {
         // get zonecode if not error
         try {
             let zoneCode = await SchoolsDAO.getZoneCode()

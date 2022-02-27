@@ -34,7 +34,8 @@ export default class CCADAO {
         // filters 
         if (filters) {
             if ("school_name" in filters) {
-                query[$text] =  { $search: filters["school_name"] } // text search, search any word in that text
+                // query = { $text: { $search: filters["school_name"] } } // text search, search any word in that text
+                query["school_name"] =  { $eq: filters["school_name"] } // text search, search any word in that text
             }
             if ("cca_grouping_desc" in filters) {
                 query["cca_grouping_desc"] =  { $eq: filters["cca_grouping_desc"] }

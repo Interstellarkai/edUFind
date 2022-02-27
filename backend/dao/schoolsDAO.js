@@ -34,7 +34,8 @@ export default class SchoolsDAO {
         // filters 
         if (filters) {
             if ("school_name" in filters) {
-                query[$text] =  { $search: filters["school_name"] } // text search, search any word in that text
+                // query = { $text: { $search: filters["school_name"] } } // text search, search any word in that text
+                query["school_name"] =  { $eq: filters["school_name"] } // text search, search any word in that text
             }
             if ("zone_code" in filters) {
                 query["zone_code"] =  { $eq: filters["zone_code"] } // if zone_code in db equals to the zone_code passed in, search for zone_code
@@ -55,6 +56,7 @@ export default class SchoolsDAO {
                 query["nature_code"] =  { $eq: filters["nature_code"] }
             }
         }
+        console.log(filters)
 
         let cursor
 
@@ -180,6 +182,17 @@ export default class SchoolsDAO {
     //     }
     // }
 
+    static async getSchoolName() {
+        let schoolName = []
+        try {
+            schoolName = await schools.distinct("school_name")
+            return schoolName
+        } catch (e){
+            console.error(`Unable to get school name,  ${e}`)
+            return schoolName
+        }
+    }
+
     static async getZoneCode() {
         let zoneCode = []
         try {
@@ -208,7 +221,7 @@ export default class SchoolsDAO {
             giftedInd = await schools.distinct("gifted_ind")
             return giftedInd 
         } catch (e){
-            console.error(`Unable to get giftedInd,  ${e}`)
+            console.error(`Unable to get gifted Ind,  ${e}`)
             return giftedInd
         }
     }
@@ -219,7 +232,7 @@ export default class SchoolsDAO {
             typeCode = await schools.distinct("type_code")
             return typeCode 
         } catch (e){
-            console.error(`Unable to get typeCode,  ${e}`)
+            console.error(`Unable to get type code,  ${e}`)
             return typeCode
         }
     }
@@ -230,7 +243,7 @@ export default class SchoolsDAO {
             natureCode = await schools.distinct("nature_code")
             return natureCode 
         } catch (e){
-            console.error(`Unable to get nature_code,  ${e}`)
+            console.error(`Unable to get nature code,  ${e}`)
             return natureCode
         }
     }
