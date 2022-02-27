@@ -71,6 +71,17 @@ export default class CCADAO {
         }
     }
 
+    static async getSchoolName() {
+        let schoolName = []
+        try {
+            schoolName = await CCAs.distinct("school_name")
+            return schoolName 
+        } catch (e){
+            console.error(`Unable to get school Name,  ${e}`)
+            return schoolName
+        }
+    }
+
     static async getCcaGenericName() {
         let ccaGenericName = []
         try {
@@ -88,7 +99,7 @@ export default class CCADAO {
             ccaGroupingDesc = await CCAs.distinct("cca_grouping_desc")
             return ccaGroupingDesc 
         } catch (e){
-            console.error(`Unable to get ccaGroupingDesc,  ${e}`)
+            console.error(`Unable to get CCA Grouping Desc,  ${e}`)
             return ccaGroupingDesc
         }
     }

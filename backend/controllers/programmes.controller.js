@@ -43,6 +43,16 @@ export default class programmesController {
         res.json(response) // send a json response to whoever made the request
     }
     
+    static async apiGetSchoolName(req, res, next) {
+        try {
+            let schoolName = await ProgrammesDAO.getSchoolName()
+            res.json(schoolName)
+        } catch (e) {
+            console.log(`api, ${e}`)
+            res.status(500).json({ error: e })
+        }
+    }
+
     static async apiGetProgrammesAlpDomain(req, res, next) {
         try {
             let programmesAlpDomain = await ProgrammesDAO.getProgrammeAlpDomain()

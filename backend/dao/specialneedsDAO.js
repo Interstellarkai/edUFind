@@ -83,8 +83,7 @@ export default class specialneedsDAO {
         }
     }
 
-    
-        static async getSchoolName() {
+    static async getSchoolName() {
         let schoolName = []
         try {
             schoolName = await SpecialNeeds.distinct("y2022_school")

@@ -83,8 +83,19 @@ export default class ProgrammesDAO {
             programmesAlpDomain = await Programmes.distinct("alp_domain")
             return programmesAlpDomain 
         } catch (e){
-            console.error(`Unable to get programmesAlpDomain,  ${e}`)
+            console.error(`Unable to get AlpDomain,  ${e}`)
             return programmesAlpDomain
+        }
+    }
+
+    static async getSchoolName() {
+        let schoolName = []
+        try {
+            schoolName = await Programmes.distinct("school_name")
+            return schoolName 
+        } catch (e){
+            console.error(`Unable to get school name,  ${e}`)
+            return schoolName
         }
     }
 
@@ -94,7 +105,7 @@ export default class ProgrammesDAO {
             programmesAlpTitle = await Programmes.distinct("alp_title")
             return programmesAlpTitle 
         } catch (e){
-            console.error(`Unable to get programmesAlpTitle,  ${e}`)
+            console.error(`Unable to get AlpTitle,  ${e}`)
             return programmesAlpTitle
         }
     }
@@ -105,7 +116,7 @@ export default class ProgrammesDAO {
             programmesLlpDomain = await Programmes.distinct("llp_domain1")
             return programmesLlpDomain 
         } catch (e){
-            console.error(`Unable to get programmesLlpDomain,  ${e}`)
+            console.error(`Unable to get llpDomain,  ${e}`)
             return programmesLlpDomain
         }
     }
@@ -116,7 +127,7 @@ export default class ProgrammesDAO {
             programmesLlpTitle = await Programmes.distinct("llp_title1")
             return programmesLlpTitle 
         } catch (e){
-            console.error(`Unable to get programmesLlpTitle,  ${e}`)
+            console.error(`Unable to get llpTitle,  ${e}`)
             return programmesLlpTitle
         }
     }

@@ -9,6 +9,7 @@ import CCADAO from "./dao/ccaDAO.js"
 import MOEDAO from "./dao/moeDAO.js"
 import ProgrammesDAO from "./dao/programmesDAO.js"
 import SpecialNeedsDAO from "./dao/specialneedsDAO.js"
+import SubjectsDAO from "./dao/subjectsDAO.js"
 import UserController from "./controllers/user.controller.js"
 
 // configure dotenv
@@ -43,6 +44,7 @@ MongoClient.connect(
         await MOEDAO.injectDB(client)
         await ProgrammesDAO.injectDB(client)
         await SpecialNeedsDAO.injectDB(client)
+        await SubjectsDAO.injectDB(client)
         await UserController.injectDB(client)
         app.listen(port, () => {
             console.log(`listening on port ${port}`) // ` not '

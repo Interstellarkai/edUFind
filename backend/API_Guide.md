@@ -68,11 +68,12 @@ This is a documentation of the various API calls to make or available from the *
 
     URL Query
 	    Default : http://localhost:8080/api/v1/schools/cca
-	    School Name : http://localhost:8080/api/v1/schools/general?school_name=JURONG SECONDARY SCHOOL
+	    School Name : http://localhost:8080/api/v1/schools/cca?school_name=JURONG SECONDARY SCHOOL
 	    CCA Name : http://localhost:8080/api/v1/schools/cca?cca_generic_name=BASKETBALL
 	    CCA Type : http://localhost:8080/api/v1/schools/cca?cca_grouping_desc=PHYSICAL%20SPORTS
     
     DropDown Menu (Return Key)
+	    School Name : http://localhost:8080/api/v1/schools/cca/school_name
 	    CCA Name : http://localhost:8080/api/v1/schools/cca/cca_generic_name
 	    CCA Type : http://localhost:8080/api/v1/schools/cca/cca_grouping_desc
 
@@ -80,25 +81,59 @@ This is a documentation of the various API calls to make or available from the *
 
     URL Query
 	    Default : http://localhost:8080/api/v1/schools/moe
-	    School Name : http://localhost:8080/api/v1/schools/general?school_name=JURONG SECONDARY SCHOOL
+	    School Name : http://localhost:8080/api/v1/moe/general?school_name=JURONG SECONDARY SCHOOL
 	    MOE Programmes : http://localhost:8080/api/v1/schools/moe?moe_programme_desc=ART ELECTIVE PROGRAMME
     
     DropDown Menu (Return Key)
+	    School Name : http://localhost:8080/api/v1/schools/moe/school_name
 	    MOE Programmes : http://localhost:8080/api/v1/schools/moe/moe_programme_desc
 
 ## School Distinctive Programmes
 
     URL Query
 	    Default : http://localhost:8080/api/v1/schools/programmes
-	    School Name : http://localhost:8080/api/v1/schools/general?school_name=JURONG SECONDARY SCHOOL
+	    School Name : http://localhost:8080/api/v1/schools/programmes?school_name=JURONG SECONDARY SCHOOL
 	    ALP Domain : http://localhost:8080/api/v1/schools/programmes?alp_domain=Coding
 	    ALP Title : http://localhost:8080/api/v1/schools/programmes?alp_title=21CC PW
 	    LLP Domain : http://localhost:8080/api/v1/schools/programmes?llp_domain1=Community %26 Youth Leadership
 	    LLP Title : http://localhost:8080/api/v1/schools/programmes?llp_title1=A%20Leader%20in%20Every%20Child    
     
     DropDown Menu (Return Key)
+	    School Name : http://localhost:8080/api/v1/schools/programmes/school_name
 	    ALP Domain : http://localhost:8080/api/v1/schools/programmes/alp_domain
 	    ALP Title : http://localhost:8080/api/v1/schools/programmes/alp_title
 	    LLP Domain : http://localhost:8080/api/v1/schools/programmes/llp_domain1
 	    LLP Title : http://localhost:8080/api/v1/schools/programmes/llp_title1
+
+## Special Needs
+
+    URL Query
+	    Default : http://localhost:8080/api/v1/schools/specialneeds
+	    School Name : http://localhost:8080/api/v1/schools/specialneeds?school_name=Edgefield Sec Sch
+	    Zone Code : http://localhost:8080/api/v1/schools/specialneeds?zone_code=North
+	    Barrier Free Facilities : http://localhost:8080/api/v1/schools/specialneeds?barrier_free_facilities=No
+	    Hearing Loss : http://localhost:8080/api/v1/schools/specialneeds?hearing_loss=No
+	    Visual Impairment : http://localhost:8080/api/v1/schools/specialneeds?visual_impairment=No
+	    Option Code : http://localhost:8080/api/v1/schools/specialneeds?option_code=3072
+	    AED-Learning Behavior : http://localhost:8080/api/v1/schools/specialneeds?aedlearningnbehavl_suppt=No
+    
+    DropDown Menu (Return Key)
+	    School Name : http://localhost:8080/api/v1/schools/specialneeds/school_name
+	    Zone Code : http://localhost:8080/api/v1/schools/specialneeds/zone_code
+	    Barrier Free Facilities : http://localhost:8080/api/v1/schools/specialneeds/barrier_free_facilities
+	    Hearing Loss : http://localhost:8080/api/v1/schools/specialneeds/hearing_loss
+	    Visual Impairment : http://localhost:8080/api/v1/schools/specialneeds/visual_impairmen
+	    Option Code : http://localhost:8080/api/v1/schools/specialneeds/option_code
+	    AED-Learning Behavior : http://localhost:8080/api/v1/schools/specialneeds/aedlearningnbehavl_suppt
+
+## Subjects Offered
+
+    URL Query
+	    Default : http://localhost:8080/api/v1/schools/subjects
+	    School Name : http://localhost:8080/api/v1/schools/subjects?school_name=AHMAD IBRAHIM PRIMARY SCHOOL
+	    Subject Name : http://localhost:8080/api/v1/schools/subjects?subject_desc=ART
+    
+    DropDown Menu (Return Key)
+	    School Name : http://localhost:8080/api/v1/schools/subjects/school_name
+	    Subject Name : http://localhost:8080/api/v1/schools/subjects/subject_desc
 

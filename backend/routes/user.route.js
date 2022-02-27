@@ -6,7 +6,7 @@ const router = express.Router()
 
 // TO DO: register and login functions 
 router.route('/signup').post(UserCtrl.apiRegisterUser)
-router.route('/login').post(UserCtrl.apiLoginUser)
+// router.route('/login').post(UserCtrl.apiLoginUser)
 
 
 export default router

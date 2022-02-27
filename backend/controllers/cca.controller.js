@@ -39,6 +39,16 @@ export default class CCAController {
         res.json(response) // send a json response to whoever made the request
     }
 
+    static async apiGetSchoolName(req, res, next) {
+        try {
+            let schoolName = await CCADAO.getSchoolName()
+            res.json(schoolName)
+        } catch (e) {
+            console.log(`api, ${e}`)
+            res.status(500).json({ error: e })
+        }
+    }
+
     static async apiGetCcaGroupingDesc(req, res, next) {
         try {
             let CcaGroupingDesc = await CCADAO.getCcaGroupingDesc()

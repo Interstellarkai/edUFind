@@ -1,33 +1,33 @@
 // DAO - Data Access Object 
 import mongodb from "mongodb"
 const ObjectId = mongodb.ObjectId
-let MOE // store reference to db 
+let Subjects // store reference to db 
 
 
 // export class with several async methods
-export default class MOEDAO {
+export default class subjectsDAO {
     // connect to db initially (as our server starts)
     static async injectDB(conn) {
         // reference is filled 
-        if (MOE) {
+        if (Subjects) {
             return
         }
         // if reference is not filled, we will try to connect with a specific reference in our DB 
         try {
-            MOE = await conn.db(process.env.SCHOOLREVIEWS_NS).collection("moe_programmes")
+            Subjects = await conn.db(process.env.SCHOOLREVIEWS_NS).collection("subjects_offered")
         } catch (e) {
             console.error(
-                `Unable to establish a collection handle in MOEDAO: ${e}`
+                `Unable to establish a collection handle in subjectsDAO: ${e}`
             )
         }
     }
 
-    // get a list of MOE in the DB 
-    static async getMOE({
+    // get a list of Subjects in the DB 
+    static async getSubjects({
         // options 
         filters = null,
         page = 0,
-        moePerPage = 20,
+        SubjectsPerPage = 20,
     } = {}) {
         // query
         let query = {}
@@ -37,41 +37,41 @@ export default class MOEDAO {
                 // query = { $text: { $search: filters["school_name"] } } // text search, search any word in that text
                 query["school_name"] =  { $eq: filters["school_name"] } // text search, search any word in that text
             }
-            if ("moe_programme_desc" in filters) {
-                query["moe_programme_desc"] =  { $eq: filters["moe_programme_desc"] }
+            if ("subject_desc" in filters) {
+                query["subject_desc"] =  { $eq: filters["subject_desc"] }
             }
         }
         
         let cursor
 
         try {
-            // find all the MOE from the database that go along with the query that was passed in
-            cursor = await MOE
+            // find all the Subjects from the database that go along with the query that was passed in
+            cursor = await Subjects
                 .find(query)
         } catch (e) {
             console.error(`Unable to issue find command, ${e}`)
-            return { moeList: [], totalNumMOE: 0 }
+            return { SubjectsList: [], totalNumSubjects: 0 }
         }
-
-        const displayCursor = cursor.limit(moePerPage).skip(moePerPage * page) // get to a specific page
+        
+        const displayCursor = cursor.limit(SubjectsPerPage).skip(SubjectsPerPage * page) // get to a specific page
 
         try {
-            const moeList = await displayCursor.toArray()
-            const totalNumMOE = await MOE.countDocuments(query)
+            const SubjectsList = await displayCursor.toArray()
+            const totalNumSubjects = await Subjects.countDocuments(query)
             
-            return { moeList, totalNumMOE }
+            return { SubjectsList, totalNumSubjects }
         } catch (e) {
             console.error(
                 `Unable to convert cursor to array or problem counting documents, ${e}`
             )
-            return { moeList: [], totalNumMOE: 0 }
+            return { SubjectsList: [], totalNumSubjects: 0 }
         }
     }
 
     static async getSchoolName() {
         let schoolName = []
         try {
-            schoolName = await MOE.distinct("school_name")
+            schoolName = await Subjects.distinct("school_name")
             return schoolName 
         } catch (e){
             console.error(`Unable to get school name,  ${e}`)
@@ -79,14 +79,14 @@ export default class MOEDAO {
         }
     }
 
-    static async getMoeProgrammeDesc() {
-        let moeProgrammeDesc = []
+    static async getSubjectDesc() {
+        let subjectDesc = []
         try {
-            moeProgrammeDesc = await MOE.distinct("moe_programme_desc")
-            return moeProgrammeDesc 
+            subjectDesc = await Subjects.distinct("subject_desc")
+            return subjectDesc 
         } catch (e){
-            console.error(`Unable to get MOE programme desc,  ${e}`)
-            return moeProgrammeDesc
+            console.error(`Unable to get subject desc,  ${e}`)
+            return subjectDesc
         }
     }
 }
