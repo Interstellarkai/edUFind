@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
+import { useState } from "react";
+import { publicRequest } from "../requestMethod";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   height: 100vh;
@@ -8,7 +11,7 @@ const Container = styled.div`
 `;
 
 const WrapperContainer = styled.div`
-  height: 80%;
+  /* height: 80%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +24,8 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   /* border: solid blue; */
-  height: 100%;
+  /* height: 100%; */
+  padding-top: 30px;
 `;
 
 const Title = styled.h1`
@@ -73,6 +77,54 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const RegistrationBasicInfo = () => {
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [confirmPassword, setConfrimPassword] = useState("");
+  // const [gender, setGender] = useState("");
+
+  const [user, setUser] = useState({
+    username: "qeweq",
+        password: "qeqwe",
+        email: "kll@gmail.com",
+        gender : null,
+        motherTongueLanguage : null,
+        educationLevel : null,
+        region : null,
+        ccaInterest : null
+  });
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const handleClick = async (e) => {
+    // send to server
+    e.preventDefault();
+    try {
+      console.log("Sending: ");
+      console.log(user)
+      const res = await publicRequest.post("/users/signup", user);
+      console.log("Message: ");
+      console.log(res.data);
+      // If res valid, go next page
+      // navigate("/register/2");
+
+      // if (res) {
+      // }
+      // // else display error
+      // else {
+      // }
+    } catch (err) {
+      console.log("ERROR");
+      console.log(err);
+    }
+  };
+
+  // console.log(user);
+
   return (
     <Container>
       <Navbar />
@@ -82,25 +134,30 @@ const RegistrationBasicInfo = () => {
 
           <Form>
             <Label>Name</Label>
-            <Input />
+            <Input name="name" onChange={handleChange} />
 
             <Label>Email</Label>
-            <Input />
+            <Input name="email" onChange={handleChange} />
 
             <Label>Password</Label>
-            <Input type="password" />
+            <Input type="password" name="password" onChange={handleChange} />
 
             <Label>Confirm Password</Label>
-            <Input type="password" />
+            <Input
+              type="password"
+              name="confirmPassword"
+              onChange={handleChange}
+            />
 
             <Label>Gender</Label>
-            <Select>
+            <Select name="gender" onChange={handleChange}>
               <Option>Male</Option>
               <Option>Female</Option>
-              <Option selected>-</Option>
+              <Option>Undefined</Option>
+              <Option>Prefer not to say</Option>
             </Select>
             <ButtonContainer>
-              <Button>Next</Button>
+              <Button onClick={handleClick}>Next</Button>
             </ButtonContainer>
           </Form>
         </Wrapper>

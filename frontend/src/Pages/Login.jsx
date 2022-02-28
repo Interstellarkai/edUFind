@@ -70,20 +70,16 @@ const Login = () => {
       <WrapperContainer>
         <Wrapper>
           <Title>Login to edUFind</Title>
-
           <Form>
             <Label>EMAIL</Label>
             <Input placeholder="Xyz@gmail.com" />
-
             <Label>PASSWORD</Label>
             <Input
               type="password"
               placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
             />
-
             <Button>LOGIN</Button>
           </Form>
-
           <Subtitle>
             Not a member yet?
             <Link>Sign up here!</Link>
