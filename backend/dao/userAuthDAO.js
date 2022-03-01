@@ -20,7 +20,7 @@ export default class UserAuthDAO {
     static async CreateUser(username, email, password, gender, region, mtl, eduLevel, interest){
         try{
             // const normalizedEmail = email.trim().toLowerCase();
-            const newUser = {
+            const newUser = new User({
                 username: username,
                 email: email,
                 password: password,
@@ -29,7 +29,7 @@ export default class UserAuthDAO {
                 motherTongueLanguage: mtl,
                 educationLevel: eduLevel,
                 ccaInterests: interest,
-            }
+            })
             return await accounts.insertOne(newUser)
         } catch (e) {
             console.error(`Unable to create account: ${e}`)
