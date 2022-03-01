@@ -9,7 +9,7 @@ export default class UserSevices {
     
         if (existingUser) {
             console.error(`An account with ${email} has already been created`);
-            return {success: false, message: `An account with ${email} has already been created` }
+            return { success: false, message: `An account with ${email} has already been created` }
         }
     
         let newUser = null;

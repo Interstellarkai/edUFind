@@ -102,7 +102,7 @@ export default class UserController {
                 res.json({ success: false, message: "Unable to edit account details" });
             }
 
-            res.json( { success: true, message: 'Successfully edited account' });
+            res.json({ success: true, message: 'Successfully edited account' });
         } catch(e) {
             res.json({ success: false, message: `${err}` });
         }

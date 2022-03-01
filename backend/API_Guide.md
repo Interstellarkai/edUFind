@@ -169,6 +169,55 @@ This is a documentation of the various API calls to make or available from the *
 			"ccaInterests"  :  null
 		}
 	
-	
+## Accounts
+
+    Register accounts	
+	    [ERROR] Email in database:
+		    { success: false, message: `An account with ${email} has already been created` }
+	    [ERROR] If any of the fields are not completed:
+			{ success: false, message: 'Compulsory fields (Username, Email, Password) are not completed' }
+	    [ERROR] Filling email without "@" or "."
+			{ success: false, message: 'Email must be in name@email.com format' }
+	    [ERROR] Email is more than 300 in length
+			{ success: false, message: 'Email is too long' }
+	    [ERROR] Incorect password length. Must be 6-50
+			{ success: false, message: 'Password should be within length of 6 - 50.' }
+
+	    [Success]
+		    { success: true, message: "Success"}
+	================================================================================
+    Login
+	    [ERROR] Filling email without "@" or "."
+		    { success: false, message: 'Email must be in name@email.com format' }
+	    [ERROR] Email is more than 300 in length
+		    { success: false, message: 'Email is too long' }
+	    [ERROR] Incorect password length. Must be 6-50
+		    { success: false, message: 'Password should be within length of 6 - 50.' }
 
 
+	    [ERROR] There is no such email in database
+		    { success: false, message: `Invalid Login: User Account does not exist ${email}`}
+	    [ERROR] Wrong Password
+		    { success: false, message: 'Invalid Login: Wrong password'}
+
+	    [SUCCESS] 
+		    { success: true, message: 'Successfully logged in' }    
+	================================================================================
+	LogOut
+	    [ERROR] Logout email is left empty
+		    { success: false, message: 'No user ID' }
+	    [ERROR] Logout email is not found in database
+		    { success: false, message: `User of ID ${userID} not found` }
+
+	    [SUCCESS]
+		    { success: true, message: 'Successfully logged out' }
+
+	================================================================================
+	Edit User Account
+	    [ERROR] If got any error
+		    { success: false, message: `${error}` }
+	    [ERROR] User never edit and send to server the same old thing
+		    { success: false, message: "Unable to edit account details" }
+
+	    [SUCCESS] 
+		    { success: true, message: 'Successfully edited account' }
