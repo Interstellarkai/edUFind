@@ -98,7 +98,7 @@ const RegistrationBasicInfo = () => {
     confirmPassword: null,
   });
 
-  const [checks, setChecks, getChecks] = useState({
+  const [checks, setChecks] = useState({
     wrongPassword: null,
     invalidEmail: null,
   });
@@ -135,12 +135,13 @@ const RegistrationBasicInfo = () => {
       try {
         // const res = await publicRequest.post(SIGNUP, user);
         // const message = res.data.message
-        const message = "Invalid Email";
+        const message = "success";
         // Check response
         switch (message) {
           // Success
           case "success":
-            dispatch(updateNewUserInfo(user));
+            const { confirmPassword, ...others } = user;
+            dispatch(updateNewUserInfo(others));
             navigate(PAGES.registerPage2);
             break;
 
