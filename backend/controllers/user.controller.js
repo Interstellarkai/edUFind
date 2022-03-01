@@ -14,36 +14,34 @@ export default class UserController {
         const eduLevel = req.body.educationLevel
         const interests = req.body.ccaInterests
 
-        // Compulsory fields not completed
+        // Compulsory fields are not completed
         if (!username || !email || !password) {
-            return res.status(422).json({ error: "Add all data" })
+            // return res.json({ error: "Add all data" })
+            res.json({ success: false, message: 'Compulsory fields (Username, Email, Password) are not completed' })
         }
 
         // Check validity of email 
         const emailRegex = "[a-zA-Z0-9_\\.\\+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-\\.]+"
         if (!email.match(emailRegex)) {
             console.error(`Invalid email: ${email}`)
-            return res.status(500).json({ message: 'Email must be in name@email.com format' });
+            res.json({ success: false, message: 'Email must be in name@email.com format' });
         }else if (email.length > 300){
             console.error(`Invalid email: ${email}`)
-            return res.status(500).json({ message: 'Email is too long' });
+            res.json({ success: false, message: 'Email is too long' });
         }
         
         // // Check length of password
         if (password.length < 6 || password.lenth > 50){
             console.error(`Invalid password string: ${password}`)
-            return res.status(500).json({ message: 'Password should be within length of 6 - 50.' });
+            res.json({ success: false, message: 'Password should be within length of 6 - 50.' });
         }
         try {
-            console.log("STATUS NOW")
-            const status = await UserServices.Register(username, email, password, gender, region, mtl, eduLevel, interests);
-            console.log("STATUS NOW")
-            console.log(status)
+            const status = await UserServices.Register(username, email, password, gender, region, mtl, eduLevel, interests, req, res, next);
             res.json(status);
         } catch (err) {
-            return res.status(500).json({ message: err.message });
+            console.error(`AuthController: Register: ${err}`)
+            res.json({ success: false, message: `${err}` });
         }
-
     }
 
     static async userLogin(req, res){
@@ -52,22 +50,22 @@ export default class UserController {
         const emailRegex = "[a-zA-Z0-9_\\.\\+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-\\.]+";
         if (!email.match(emailRegex)) {
             console.error(`AuthController: Login: Invalid email string: ${email}`)
-            return res.status(500).json({ message: 'Email must be in name@email.com format' });
+            res.json({ success: false, message: 'Email must be in name@email.com format' });
         }else if (email.length > 300){
             console.error(`AuthController: Login: Invalid email string: ${email}`)
-            return res.status(500).json({ message: 'Email is too long' });
+            res.json({ success: false, message: 'Email is too long' });
         }
 
         if (password.length < 6 || password.length > 50){
             console.error(`AuthController: Login: Invalid password string: ${email}`)
-            return res.status(500).json({ message: 'Password should be within length of 6 - 50.' });
+            res.json({ success: true, message: 'Password should be within length of 6 - 50.' });
         }
 
         try {
             const result = await UserServices.Login(email, password);
             res.json(result);
         } catch (err) {
-            res.status(500).json({ message: err.message });
+            res.json({ success: false, message: `${err}` });
         }
     }
 
@@ -78,7 +76,7 @@ export default class UserController {
             const result = await UserServices.Logout(userID);
             res.json(result);
         } catch(err){
-            res.status(500).json({ message: err.message });
+            res.json({ success: false, message: `${err}` });
         }
     }
 
@@ -93,24 +91,20 @@ export default class UserController {
             const mtl = req.body.motherTongueLanguage
             const eduLevel = req.body.educationLevel
             const interests = req.body.ccaInterests
-            console.log(userId, username)
 
             const ReviewResponse = await UserAuthDAO.editUser(userId, username, email, password, gender, region, mtl, eduLevel, interests)
-            console.log(ReviewResponse)
             var { error } = ReviewResponse
             if (error) {
-                res.status(400).json({ error })
+                res.json({ success: false, message: `${error}` });
             }
 
             if (ReviewResponse.modifiedCount == 0) {
-                throw new Error(
-                    "Unable to edit account details"
-                )
+                res.json({ success: false, message: "Unable to edit account details" });
             }
 
-            res.json( { status: "success "})
+            res.json( { success: true, message: 'Successfully edited account' });
         } catch(e) {
-            res.status(500).json( { error: e.message })
+            res.json({ success: false, message: `${err}` });
         }
     }
 }
