@@ -1,5 +1,6 @@
 import mongodb from "mongodb"
 const ObjectId = mongodb.ObjectId
+import Comments from "../models/comments.js"
 
 let comments
 
@@ -19,13 +20,13 @@ export default class CommentsDAO {
   static async addComment(schoolId, user, comment, date) {
     try {
         // create review dp 
-      const reviewDoc = { 
+      const reviewDoc = new Comments({ 
           name: user.name,
           user_id: user._id,
           date: date,
           text: comment,
           school_id: schoolId, // creates a object id 
-        }
+        })
         return await comments.insertOne(reviewDoc)
     } catch (e) {
       console.error(`Unable to post review: ${e}`)
