@@ -1,5 +1,10 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
+import { updateNewUserInfo } from "../redux/newUserRedux";
+import PAGES from "../pageRoute";
 
 const Container = styled.div`
   height: 100vh;
@@ -69,7 +74,37 @@ const Select = styled.select`
 const Option = styled.option`
   /* margin-top: 50px; */
 `;
+
 const RegistrationMoreDetails = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const newUser = useSelector((state) => state.newUser);
+
+  const [details, setDetails] = useState({
+    region: null,
+    educationLevel: null,
+    motherTongueLanguage: null,
+  });
+
+  useEffect(() => {
+    console.log("Details: ", details);
+  }, [details]);
+
+  // Handle Change
+  const handleChange = (e) => {
+    e.preventDefault();
+    setDetails({ ...details, [e.target.name]: e.target.value });
+  };
+
+  // Submit Action
+  const handleSubmit = async (e) => {
+    // Send again?
+    e.preventDefault();
+    await dispatch(updateNewUserInfo(details));
+    // navigate(PAGES.registerPage3);
+    console.log(newUser);
+  };
+
   return (
     <Container>
       <Navbar />
@@ -77,9 +112,9 @@ const RegistrationMoreDetails = () => {
         <Wrapper>
           <Title>Let's get a few more details!</Title>
 
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <SelectContainer>
-              <Select>
+              <Select onChange={handleChange} name="region">
                 <Option disabled selected>
                   Region
                 </Option>
@@ -91,7 +126,7 @@ const RegistrationMoreDetails = () => {
             </SelectContainer>
 
             <SelectContainer>
-              <Select>
+              <Select onChange={handleChange} name="educationLevel">
                 <Option disabled selected>
                   Level Of Education
                 </Option>
@@ -102,7 +137,7 @@ const RegistrationMoreDetails = () => {
             </SelectContainer>
 
             <SelectContainer>
-              <Select>
+              <Select onChange={handleChange} name="motherTongueLanguage">
                 <Option disabled selected>
                   Mother Tongue Language
                 </Option>
