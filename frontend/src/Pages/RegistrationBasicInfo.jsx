@@ -107,7 +107,7 @@ const RegistrationBasicInfo = () => {
       console.log("Sending: ");
       console.log(user)
       const res = await publicRequest.post("/users/signup", user);
-      console.log("Message: ");
+      console.log("Data: ");
       console.log(res.data);
       // If res valid, go next page
       // navigate("/register/2");

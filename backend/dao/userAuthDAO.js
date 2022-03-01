@@ -33,14 +33,13 @@ export default class UserAuthDAO {
             return await accounts.insertOne(newUser)
         } catch (e) {
             console.error(`Unable to create account: ${e}`)
-            return { error: e }
+            return { success: false, message: `Unable to create account: ${e}` }
         }
     }
     
     static async GetUserByEmail(email){
         try{
             // const normalizedEmail = email.trim().toLowerCase();
-            const normalizedEmail = email
             const user = await accounts.findOne({ email: email })
             return user
         } catch (e) {
@@ -55,7 +54,7 @@ export default class UserAuthDAO {
             return user;
         } catch (e) {
             console.error(`Unable to get user by id: ${e}`)
-            return { error: e }
+            return { success: false, message: `Unable to get user by id: ${e}` }
         }
     }
     
