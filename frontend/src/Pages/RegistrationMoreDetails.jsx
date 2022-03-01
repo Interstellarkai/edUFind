@@ -97,12 +97,11 @@ const RegistrationMoreDetails = () => {
   };
 
   // Submit Action
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     // Send again?
     e.preventDefault();
-    await dispatch(updateNewUserInfo(details));
-    // navigate(PAGES.registerPage3);
-    console.log(newUser);
+    dispatch(updateNewUserInfo(details));
+    navigate(PAGES.registerPage3);
   };
 
   return (

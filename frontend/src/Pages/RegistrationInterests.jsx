@@ -1,4 +1,5 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 
@@ -64,6 +65,8 @@ const Button = styled.button`
 `;
 
 const RegistrationInterests = () => {
+  // const newUser = useSelector((state) => state.newUser);
+  // console.log(newUser);
   return (
     <Container>
       <Navbar />
