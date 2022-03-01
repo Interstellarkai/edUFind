@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
-import { useState } from "react";
-import { publicRequest } from "../requestMethod";
+import { useEffect, useState } from "react";
+import { publicRequest, SIGNUP } from "../requestMethod";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateNewUserInfo } from "../redux/newUserRedux";
 
 const Container = styled.div`
   height: 100vh;
@@ -40,6 +42,11 @@ const Form = styled.form`
 const Label = styled.label`
   margin: 10px 0;
 `;
+
+const Span = styled.span`
+  color: red;
+`;
+
 const Input = styled.input`
   padding: 10px;
   font-weight: 600;
@@ -84,17 +91,21 @@ const RegistrationBasicInfo = () => {
   // const [gender, setGender] = useState("");
 
   const [user, setUser] = useState({
-    username: "qeweq",
-        password: "qeqwe",
-        email: "kll@gmail.com",
-        gender : null,
-        motherTongueLanguage : null,
-        educationLevel : null,
-        region : null,
-        ccaInterest : null
+    username: null,
+    password: null,
+    email: null,
+    gender: "Male",
+    motherTongueLanguage: null,
+    educationLevel: null,
+    region: null,
+    ccaInterest: null,
+    confirmPassword: null,
+    wrongPassword: false,
   });
 
   const navigate = useNavigate();
+  const newUser = useSelector((state) => state.newUser);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -103,23 +114,28 @@ const RegistrationBasicInfo = () => {
   const handleClick = async (e) => {
     // send to server
     e.preventDefault();
-    try {
-      console.log("Sending: ");
-      console.log(user)
-      const res = await publicRequest.post("/users/signup", user);
-      console.log("Data: ");
-      console.log(res.data);
-      // If res valid, go next page
-      // navigate("/register/2");
 
-      // if (res) {
-      // }
-      // // else display error
-      // else {
-      // }
-    } catch (err) {
-      console.log("ERROR");
-      console.log(err);
+    // Check password
+    if (user.password === user.confirmPassword) {
+      setUser({ wrongPassword: false });
+      try {
+        const res = await publicRequest.post(SIGNUP, user);
+        // Check response
+        // switch (res.data.message) {
+        //   // Success
+        //   case value:
+        //     dispatch(updateNewUserInfo(user));
+        //     navigate()
+        //     break;
+
+        //   default:
+        //     break;
+        // }
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      setUser({ wrongPassword: true });
     }
   };
 
@@ -134,16 +150,25 @@ const RegistrationBasicInfo = () => {
 
           <Form>
             <Label>Name</Label>
-            <Input name="name" onChange={handleChange} />
+            <Input required name="username" onChange={handleChange} />
 
             <Label>Email</Label>
-            <Input name="email" onChange={handleChange} />
+            <Input required name="email" onChange={handleChange} />
 
             <Label>Password</Label>
-            <Input type="password" name="password" onChange={handleChange} />
-
-            <Label>Confirm Password</Label>
             <Input
+              required
+              type="password"
+              name="password"
+              onChange={handleChange}
+            />
+
+            <Label>
+              Confirm Password
+              {user.wrongPassword && <Span> PASSWORD DIFFERENT!</Span>}
+            </Label>
+            <Input
+              required
               type="password"
               name="confirmPassword"
               onChange={handleChange}

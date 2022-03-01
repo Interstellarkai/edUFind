@@ -10,18 +10,22 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import PAGES from "./pageRoute";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path={PAGES.homePage} element={<Home />} />
 
-        <Route path="login" element={<Login />} />
+        <Route path={PAGES.loginPage} element={<Login />} />
         {/* <Route exact path="register" element={<RegistrationBasicInfo />}> */}
-        <Route path="register" element={<RegistrationBasicInfo />} />
-        <Route path="register/2" element={<RegistrationMoreDetails />} />
-        <Route path="register/3" element={<RegistrationInterests />} />
+        <Route path={PAGES.registerPage1} element={<RegistrationBasicInfo />} />
+        <Route
+          path={PAGES.registerPage2}
+          element={<RegistrationMoreDetails />}
+        />
+        <Route path={PAGES.registerPage3} element={<RegistrationInterests />} />
       </Routes>
     </Router>
   );

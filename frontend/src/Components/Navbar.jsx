@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import SchoolIcon from "@mui/icons-material/School";
+import { Link } from "react-router-dom";
+import PAGES from "../pageRoute";
 
 const Container = styled.div`
   height: 60px;
@@ -19,7 +21,7 @@ const Logo = styled.div`
   color: #3838d1;
 `;
 const LogoText = styled.h1`
-  margin-left: 10px;
+  /* margin-left: 10px; */
 `;
 
 const SearchBar = styled.div`
@@ -49,7 +51,6 @@ const ItemsContainer = styled.div`
   flex: 1;
   height: 100%;
   display: flex;
-  /* border: 1px solid black; */
   justify-content: space-between;
 `;
 
@@ -57,25 +58,33 @@ const ItemText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
-  padding: 0 10px;
-  /* border: 1px solid black; */
-  cursor: pointer;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: ${(props) => props.shouldHover && "0 10px"};
+  color: inherit;
   transition: all 0.3s ease;
   font-weight: 700;
+  cursor: pointer;
 
-  &:hover {
-    background-color: teal;
-    color: white;
-  }
+  ${(props) =>
+    props.shouldHover ? "&:hover { background-color: teal; color: white;}" : ""}
 `;
 
 const Navbar = () => {
   return (
     <Container>
       <Logo>
-        <SchoolIcon sx={{ fontSize: 30, color: "primary" }} />
-        <LogoText>edUFind</LogoText>
+        <SchoolIcon
+          sx={{ fontSize: 30, color: "primary", padding: "0 10px" }}
+        />
+        <StyledLink to="/">
+          <LogoText>edUFind</LogoText>
+        </StyledLink>
       </Logo>
 
       <SearchBar>
@@ -83,13 +92,18 @@ const Navbar = () => {
         <Button>Search</Button>
       </SearchBar>
       <ItemsContainer>
-        <ItemText>Recommendations</ItemText>
-
-        <ItemText>My Shortlist</ItemText>
-
-        <ItemText>Login</ItemText>
-
-        <ItemText>Sign Up</ItemText>
+        <StyledLink to={PAGES.homePage} shouldHover="true">
+          <ItemText>Recommendations</ItemText>
+        </StyledLink>
+        <StyledLink to={PAGES.homePage} shouldHover="true">
+          <ItemText>My Shortlist</ItemText>
+        </StyledLink>
+        <StyledLink to={PAGES.loginPage} shouldHover="true">
+          <ItemText>Login</ItemText>
+        </StyledLink>
+        <StyledLink to={PAGES.registerPage1} shouldHover="true">
+          <ItemText>Sign Up</ItemText>
+        </StyledLink>
       </ItemsContainer>
     </Container>
   );
