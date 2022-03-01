@@ -45,7 +45,8 @@ const Label = styled.label`
 `;
 
 const Span = styled.span`
-  color: red;
+  color: #eb0000;
+  font-weight: 600;
 `;
 
 const Input = styled.input`
@@ -106,20 +107,20 @@ const RegistrationBasicInfo = () => {
   const newUser = useSelector((state) => state.newUser);
   const dispatch = useDispatch();
 
-  // Check most recent User props and password mismatch
-  useEffect(() => {
-    // console.log("Updated User: ", user);
+  // Check confirm password
+  const checkConfirmPass = (user) => {
     if (user.password === user.confirmPassword) {
       setChecks({ ...checks, wrongPassword: false });
     } else {
       setChecks({ ...checks, wrongPassword: true });
     }
-  }, [user]);
+  };
 
-  // Update most recent checks
+  // Renders most recent User Props
   useEffect(() => {
-    console.log("Updated checks: ", checks);
-  }, [checks]);
+    // console.log("Updated User: ", user);
+    checkConfirmPass(user);
+  }, [user]);
 
   // Handle Input Change
   const handleChange = async (e) => {
