@@ -153,8 +153,17 @@ This is a documentation of the various API calls to make or available from the *
 			"region"  :  null,
 			"ccaInterests"  :  null
 		}
+
+		
+    Login
+    
+        Post request : http://localhost:8080/users/login
+		{
+			"email":  "123@abc.com",
+			"password":  "12345678"
+		}
 	
-    Edit Post
+    Edit Account Details S
 
 		Put request : http://localhost:8080/users/editAccountDetails
 		{
