@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialStateValue = {
-  username: null,
+  username: false,
   password: null,
   email: null,
   gender: null,
@@ -27,15 +27,15 @@ const userSlice = createSlice({
 
     // Do this cause Async function (using API)
     loginStart: (state) => {
-      state.isFetching = true;
+      state.value.isFetching = true;
     },
     loginSuccess: (state, action) => {
-      state.isFetching = false;
-      state.currentUser = action.payload;
+      state.value.isFetching = false;
+      state.value = action.payload;
     },
     loginFailure: (state) => {
-      state.isFetching = false;
-      state.error = true;
+      state.value.isFetching = false;
+      state.value.error = true;
     },
 
     logout: (state) => {
