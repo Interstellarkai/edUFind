@@ -3,6 +3,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import { Link } from "react-router-dom";
 import PAGES from "../pageRoute";
 import { useSelector } from "react-redux";
+import AccountDropDown from "./AccountDropDown";
 
 const Container = styled.div`
   height: 60px;
@@ -98,7 +99,7 @@ const Navbar = () => {
         <Button>Search</Button>
       </SearchBar>
 
-      {currentUser.username !== null ? (
+      {currentUser.username !== false ? (
         <ItemsContainer>
           <StyledLink to={PAGES.homePage} hoverable="true">
             <ItemText>Recommendations</ItemText>
@@ -106,8 +107,11 @@ const Navbar = () => {
           <StyledLink to={PAGES.homePage} hoverable="true">
             <ItemText>My Shortlist</ItemText>
           </StyledLink>
-          <StyledLink to={PAGES.loginPage} hoverable="true">
-            <ItemText>Welcome {currentUser.username}!</ItemText>
+          <StyledLink to="#">
+            <ItemText>
+              Welcome {currentUser.username}!
+              <AccountDropDown />
+            </ItemText>
           </StyledLink>
         </ItemsContainer>
       ) : (
