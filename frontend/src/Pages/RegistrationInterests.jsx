@@ -3,12 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import { useNavigate } from "react-router-dom";
-import { updateNewUserInfo } from "../redux/newUserRedux";
+import { newUserReset, updateNewUserInfo } from "../redux/newUserRedux";
 import PAGES from "../pageRoute";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { publicRequest, UPDATE } from "../requestMethod";
 import { setCurrentUser } from "../redux/userRedux";
+import { login, updateUserDetails } from "../redux/apiCalls";
 
 const Container = styled.div`
   height: 100vh;
@@ -75,9 +74,9 @@ const RegistrationInterests = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const newUser = useSelector((state) => state.newUser.value);
-
+  const currentUser = useSelector((state) => state.user.value);
   const [details, setDetails] = useState({
-    ccaInterest: [],
+    ccaInterests: [],
   });
 
   useEffect(() => {
@@ -89,32 +88,43 @@ const RegistrationInterests = () => {
   const handleChange = (e) => {
     const { checked, value } = e.target;
     if (checked) {
-      setDetails(({ ccaInterest }) => ({
-        ccaInterest: [...ccaInterest, value],
+      setDetails(({ ccaInterests }) => ({
+        ccaInterests: [...ccaInterests, value],
       }));
     } else {
-      setDetails(({ ccaInterest }) => ({
-        ccaInterest: ccaInterest.filter((e) => e !== value),
+      setDetails(({ ccaInterests }) => ({
+        ccaInterests: ccaInterests.filter((e) => e !== value),
       }));
     }
   };
 
-  // Submit Action
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // API call to update user profile
-    // const res = await publicRequest.post(UPDATE, { ...newUser, ...details });
-    // const message = res.data.message;
-    const message = "success";
-
-    if (message === "success") {
-      // If res is completed, set currentUser, redirect to recommendations page?
-      dispatch(setCurrentUser({ ...newUser, ...details }));
-      navigate(PAGES.homePage);
+  useEffect(() => {
+    // call update userAccount
+    if (currentUser.username !== false) {
+      const { educationLevel, motherTongueLanguage, region, email, password } =
+        newUser;
+      updateUserDetails(dispatch, {
+        ...currentUser,
+        ...details,
+        educationLevel,
+        motherTongueLanguage,
+        region,
+      });
+      dispatch(newUserReset());
+      // Call login function here
+      login(dispatch, { email, password });
+      // navigate(PAGES.homePage);
     }
-  };
+  }, [currentUser]);
 
-  console.log("NewUser: ", newUser);
+  // Submit Action
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Log user in to get UID
+    const { email, password } = newUser;
+    // Replace with a GET ID request
+    login(dispatch, { email, password });
+  };
 
   return (
     <Container>
