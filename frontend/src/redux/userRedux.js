@@ -22,7 +22,7 @@ const userSlice = createSlice({
   reducers: {
     // Set Current User (After Registration)
     setCurrentUser: (state, action) => {
-      state.value = action.payload;
+      state.value = { ...state.value, ...action.payload };
     },
 
     // Do this cause Async function (using API)
