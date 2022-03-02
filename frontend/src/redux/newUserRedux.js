@@ -1,33 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialStateValue = {
+  username: null,
+  password: null,
+  email: null,
+  gender: null,
+  motherTongueLanguage: null,
+  educationLevel: null,
+  region: null,
+  ccaInterest: null,
+};
+
 const newUserSlice = createSlice({
   name: "newUser",
   initialState: {
-    username: null,
-    password: null,
-    email: null,
-    gender: null,
-    motherTongueLanguage: null,
-    educationLevel: null,
-    region: null,
-    ccaInterest: null,
+    value: initialStateValue,
   },
   reducers: {
-    // Do this cause Async function (using API)
     updateNewUserInfo: (state, action) => {
-      Object.keys(state).forEach((key) => {
-        if (action.payload[key]) {
-          state[key] = action.payload[key];
-        }
-      });
-      //   state.username = action.payload.username;
-      //   state.email = action.payload.email;
-      //   state.password = action.payload.password;
-      //   state.gender = action.payload.gender;
-      //   state.montherTongueLanguage = action.payload.montherTongueLanguage;
-      //   state.educationLevel = action.payload.educationLevel;
-      //   state.region = action.payload.region;
-      //   state.ccaInterest = action.payload.ccaInterest;
+      state.value = { ...state.value, ...action.payload };
     },
   },
 });

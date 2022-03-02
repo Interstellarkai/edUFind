@@ -78,7 +78,7 @@ const Option = styled.option`
 const RegistrationMoreDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const newUser = useSelector((state) => state.newUser);
+  const newUser = useSelector((state) => state.newUser.value);
 
   const [details, setDetails] = useState({
     region: null,
@@ -87,7 +87,7 @@ const RegistrationMoreDetails = () => {
   });
 
   useEffect(() => {
-    console.log("Details: ", details);
+    // console.log("Details: ", details);
   }, [details]);
 
   // Handle Change
@@ -113,10 +113,12 @@ const RegistrationMoreDetails = () => {
 
           <Form onSubmit={handleSubmit}>
             <SelectContainer>
-              <Select onChange={handleChange} name="region">
-                <Option disabled selected>
-                  Region
-                </Option>
+              <Select
+                defaultValue="Region"
+                onChange={handleChange}
+                name="region"
+              >
+                <Option disabled>Region</Option>
                 <Option>North</Option>
                 <Option>East</Option>
                 <Option>South</Option>
@@ -125,10 +127,12 @@ const RegistrationMoreDetails = () => {
             </SelectContainer>
 
             <SelectContainer>
-              <Select onChange={handleChange} name="educationLevel">
-                <Option disabled selected>
-                  Level Of Education
-                </Option>
+              <Select
+                defaultValue="Level Of Education"
+                onChange={handleChange}
+                name="educationLevel"
+              >
+                <Option disabled>Level Of Education</Option>
                 <Option>Primary</Option>
                 <Option>Secondary</Option>
                 <Option>Junior College</Option>
@@ -136,10 +140,12 @@ const RegistrationMoreDetails = () => {
             </SelectContainer>
 
             <SelectContainer>
-              <Select onChange={handleChange} name="motherTongueLanguage">
-                <Option disabled selected>
-                  Mother Tongue Language
-                </Option>
+              <Select
+                defaultValue="Mother Tongue Language"
+                onChange={handleChange}
+                name="motherTongueLanguage"
+              >
+                <Option disabled>Mother Tongue Language</Option>
                 <Option>Chinese</Option>
                 <Option>Malay</Option>
                 <Option>Tamil</Option>

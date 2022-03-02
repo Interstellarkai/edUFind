@@ -2,6 +2,7 @@ import styled from "styled-components";
 import SchoolIcon from "@mui/icons-material/School";
 import { Link } from "react-router-dom";
 import PAGES from "../pageRoute";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   height: 60px;
@@ -48,10 +49,11 @@ const Button = styled.button`
 `;
 
 const ItemsContainer = styled.div`
+  /* border: 1px solid black; */
   flex: 1;
   height: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 const ItemText = styled.div`
@@ -65,17 +67,21 @@ const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: ${(props) => props.shouldHover && "0 10px"};
+  padding: ${(props) => props.hoverable && "0 10px"};
+  margin: ${(props) => props.hoverable && "0 10px"};
   color: inherit;
   transition: all 0.3s ease;
   font-weight: 700;
   cursor: pointer;
 
   ${(props) =>
-    props.shouldHover ? "&:hover { background-color: teal; color: white;}" : ""}
+    props.hoverable ? "&:hover { background-color: teal; color: white;}" : ""}
 `;
 
 const Navbar = () => {
+  const currentUser = useSelector((state) => state.user.value);
+  console.log(currentUser);
+
   return (
     <Container>
       <Logo>
@@ -91,20 +97,29 @@ const Navbar = () => {
         <Input placeholder="Find a School" />
         <Button>Search</Button>
       </SearchBar>
-      <ItemsContainer>
-        <StyledLink to={PAGES.homePage} shouldHover="true">
-          <ItemText>Recommendations</ItemText>
-        </StyledLink>
-        <StyledLink to={PAGES.homePage} shouldHover="true">
-          <ItemText>My Shortlist</ItemText>
-        </StyledLink>
-        <StyledLink to={PAGES.loginPage} shouldHover="true">
-          <ItemText>Login</ItemText>
-        </StyledLink>
-        <StyledLink to={PAGES.registerPage1} shouldHover="true">
-          <ItemText>Sign Up</ItemText>
-        </StyledLink>
-      </ItemsContainer>
+
+      {currentUser.username !== null ? (
+        <ItemsContainer>
+          <StyledLink to={PAGES.homePage} hoverable="true">
+            <ItemText>Recommendations</ItemText>
+          </StyledLink>
+          <StyledLink to={PAGES.homePage} hoverable="true">
+            <ItemText>My Shortlist</ItemText>
+          </StyledLink>
+          <StyledLink to={PAGES.loginPage} hoverable="true">
+            <ItemText>Welcome {currentUser.username}!</ItemText>
+          </StyledLink>
+        </ItemsContainer>
+      ) : (
+        <ItemsContainer>
+          <StyledLink to={PAGES.loginPage} hoverable="true">
+            <ItemText>Login</ItemText>
+          </StyledLink>
+          <StyledLink to={PAGES.registerPage1} hoverable="true">
+            <ItemText>Sign Up</ItemText>
+          </StyledLink>
+        </ItemsContainer>
+      )}
     </Container>
   );
 };

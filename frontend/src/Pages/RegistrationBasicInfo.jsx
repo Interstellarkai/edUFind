@@ -86,7 +86,7 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const RegistrationBasicInfo = () => {
-  const [user, setUser] = useState({
+  const [details, setDetails] = useState({
     username: null,
     password: null,
     email: null,
@@ -104,12 +104,12 @@ const RegistrationBasicInfo = () => {
   });
 
   const navigate = useNavigate();
-  const newUser = useSelector((state) => state.newUser);
+  const newUser = useSelector((state) => state.newUser.values);
   const dispatch = useDispatch();
 
   // Check confirm password
-  const checkConfirmPass = (user) => {
-    if (user.password === user.confirmPassword) {
+  const checkConfirmPass = (details) => {
+    if (details.password === details.confirmPassword) {
       setChecks({ ...checks, wrongPassword: false });
     } else {
       setChecks({ ...checks, wrongPassword: true });
@@ -119,12 +119,12 @@ const RegistrationBasicInfo = () => {
   // Renders most recent User Props
   useEffect(() => {
     // console.log("Updated User: ", user);
-    checkConfirmPass(user);
-  }, [user]);
+    checkConfirmPass(details);
+  }, [details]);
 
   // Handle Input Change
   const handleChange = async (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setDetails({ ...details, [e.target.name]: e.target.value });
   };
 
   // Handle Form Submit
@@ -133,15 +133,16 @@ const RegistrationBasicInfo = () => {
     // Check flag
     if (!checks.wrongPassword) {
       try {
-        // const res = await publicRequest.post(SIGNUP, user);
+        // const res = await publicRequest.post(SIGNUP, details);
         // const message = res.data.message
         const message = "success";
         // Check response
         switch (message) {
           // Success
           case "success":
-            const { confirmPassword, ...others } = user;
+            const { confirmPassword, ...others } = details;
             dispatch(updateNewUserInfo(others));
+            console.log(newUser);
             navigate(PAGES.registerPage2);
             break;
 
@@ -158,8 +159,6 @@ const RegistrationBasicInfo = () => {
       }
     }
   };
-
-  // console.log(user);
 
   return (
     <Container>
