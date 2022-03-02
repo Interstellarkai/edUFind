@@ -12,3 +12,6 @@ export const SIGNUP = "users/signup/";
 
 // UPDATE
 export const UPDATE = "users/editAccountDetails";
+
+// LOGIN
+export const LOGIN = "users/login";
