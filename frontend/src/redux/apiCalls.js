@@ -1,4 +1,4 @@
-import { publicRequest, SIGNUP } from "../requestMethod";
+import { EDITACCOUNT, publicRequest, SIGNUP } from "../requestMethod";
 import { LOGIN } from "../requestMethod";
 import {
   createUserFailure,
@@ -40,6 +40,16 @@ export const createNewUser = async (dispatch, signupDetails) => {
       dispatch(createUserFailure({ errorType, errorMessage: message }));
       // console.log("FAILURE");
     }
+  } catch (err) {
+    dispatch(createUserFailure());
+  }
+};
+
+export const updateUserDetails = async (dispatch, userDetails) => {
+  console.log("Update: ", userDetails);
+  try {
+    const res = await publicRequest.post(EDITACCOUNT, userDetails);
+    console.log(res);
   } catch (err) {
     dispatch(createUserFailure());
   }
