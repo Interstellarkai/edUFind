@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialStateValue = {
+  userId: null,
   username: false,
   password: null,
   email: null,
@@ -8,7 +9,7 @@ const initialStateValue = {
   motherTongueLanguage: null,
   educationLevel: null,
   region: null,
-  ccaInterest: null,
+  ccaInterests: null,
 
   isFetching: false,
   error: false,
@@ -31,7 +32,9 @@ const userSlice = createSlice({
     },
     loginSuccess: (state, action) => {
       state.value.isFetching = false;
-      state.value = action.payload;
+      // Cause Backend is returning user object which is _id, not userId
+      const { _id, ...others } = action.payload;
+      state.value = { userId: _id, ...others };
     },
     loginFailure: (state) => {
       state.value.isFetching = false;

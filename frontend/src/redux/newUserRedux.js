@@ -4,11 +4,11 @@ const initialStateValue = {
   username: null,
   password: null,
   email: null,
-  gender: null,
+  gender: "Male",
   motherTongueLanguage: null,
   educationLevel: null,
   region: null,
-  ccaInterest: null,
+  ccaInterests: null,
 
   isFetching: false,
   error: null,
@@ -40,6 +40,10 @@ const newUserSlice = createSlice({
       state.value.errorType = action.payload.errorType;
       state.value.errorMessage = action.payload.errorMessage;
     },
+
+    newUserReset: (state) => {
+      state.value = initialStateValue;
+    },
   },
 });
 
@@ -48,5 +52,6 @@ export const {
   createUserStart,
   createUserSuccess,
   createUserFailure,
+  newUserReset,
 } = newUserSlice.actions;
 export default newUserSlice.reducer;
