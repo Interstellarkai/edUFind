@@ -12,9 +12,11 @@ import {
 } from "react-router-dom";
 import PAGES from "./pageRoute";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const App = () => {
   const currentUser = useSelector((state) => state.user.value);
+  useEffect(() => {}, [currentUser]);
   return (
     <Router>
       <Routes>
@@ -22,15 +24,35 @@ const App = () => {
 
         <Route
           path={PAGES.loginPage}
-          element={currentUser.username ? <Home /> : <Login />}
+          element={currentUser.username ? <Navigate to="/" /> : <Login />}
         />
         {/* <Route exact path="register" element={<RegistrationBasicInfo />}> */}
-        <Route path={PAGES.registerPage1} element={<RegistrationBasicInfo />} />
+        <Route
+          path={PAGES.registerPage1}
+          element={
+            currentUser.username ? (
+              <Navigate to="/" />
+            ) : (
+              <RegistrationBasicInfo />
+            )
+          }
+        />
         <Route
           path={PAGES.registerPage2}
-          element={<RegistrationMoreDetails />}
+          element={
+            currentUser.username ? (
+              <Navigate to="/" />
+            ) : (
+              <RegistrationMoreDetails />
+            )
+          }
         />
-        <Route path={PAGES.registerPage3} element={<RegistrationInterests />} />
+        <Route
+          path={
+            currentUser.username ? <Navigate to="/" /> : PAGES.registerPage3
+          }
+          element={<RegistrationInterests />}
+        />
       </Routes>
     </Router>
   );
