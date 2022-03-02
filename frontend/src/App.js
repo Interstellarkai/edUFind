@@ -11,14 +11,19 @@ import {
   Navigate,
 } from "react-router-dom";
 import PAGES from "./pageRoute";
+import { useSelector } from "react-redux";
 
 const App = () => {
+  const currentUser = useSelector((state) => state.user.value);
   return (
     <Router>
       <Routes>
         <Route path={PAGES.homePage} element={<Home />} />
 
-        <Route path={PAGES.loginPage} element={<Login />} />
+        <Route
+          path={PAGES.loginPage}
+          element={currentUser.username ? <Home /> : <Login />}
+        />
         {/* <Route exact path="register" element={<RegistrationBasicInfo />}> */}
         <Route path={PAGES.registerPage1} element={<RegistrationBasicInfo />} />
         <Route
