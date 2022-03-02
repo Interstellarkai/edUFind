@@ -123,7 +123,7 @@ const RegistrationBasicInfo = () => {
   }, [details]);
 
   // Handle Input Change
-  const handleChange = async (e) => {
+  const handleChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
 
