@@ -4,7 +4,7 @@ import UserCtrl from "../controllers/user.controller.js"
 const router = express.Router()
 
 router.route('/signup').post(UserCtrl.registerUser)
-router.route('/login').get(UserCtrl.userLogin)
+router.route('/login').post(UserCtrl.userLogin)
 router.route('/editAccountDetails').post(UserCtrl.editAccountDetails)
 
 export default router
