@@ -11,6 +11,7 @@ import ProgrammesDAO from "./dao/programmesDAO.js"
 import SpecialNeedsDAO from "./dao/specialneedsDAO.js"
 import SubjectsDAO from "./dao/subjectsDAO.js"
 import UserAuthDAO from "./dao/userAuthDAO.js"
+import crypto from 'crypto';
 
 // configure dotenv
 dotenv.config()
@@ -20,6 +21,10 @@ const MongoClient = mongodb.MongoClient
 
 // if the port we specified cannot be accessed, we use port 8000
 const port = process.env.PORT || 8000
+
+// Generate a key
+// https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
+console.log(`GENERATED JWT SK: ${crypto.randomBytes(64).toString('hex')}`);
 
 // connect to db
 MongoClient.connect(

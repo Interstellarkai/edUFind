@@ -19,8 +19,8 @@ This is a documentation of the various API calls to make or available from the *
 
     URL Query
 	    Default : http://localhost:8080/schools/general
-	    ID : http://localhost:8080/schools/general/id/1
 	    School Name : http://localhost:8080/schools/general?school_name=JURONG SECONDARY SCHOOL  
+	    School Name with Review : http://localhost:8080/schools/general/school_name/ADMIRALTY PRIMARY SCHOOL
 	    Zone Code : http://localhost:8080/schools/general?zone_code=NORTH
 	    Education Level : http://localhost:8080/schools/general?mainlevel_code=PRIMARY
 	    Gifted Programme : http://localhost:8080/schools/general?gifted_ind=Yes
@@ -46,7 +46,7 @@ This is a documentation of the various API calls to make or available from the *
         {
         "user_id": "3", 
         "name": "ElonMusk", 
-        "school_id": 1, 
+        "school_name": "ADMIRALTY PRIMARY SCHOOL", 
         "text": "Good school!"
         }
     

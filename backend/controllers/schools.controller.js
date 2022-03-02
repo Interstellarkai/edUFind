@@ -12,7 +12,6 @@ export default class SchoolsController {
         const page = req.query.page ? parseInt(req.query.page, 10) : 0
         
         let filters = {} // Filter starts empty
-        // if zone_code is in the query string, then the zone_code is set to the query string
         if (req.query.school_name) {
             filters.school_name = req.query.school_name
         } if (req.query.zone_code) {
@@ -47,11 +46,11 @@ export default class SchoolsController {
         return res.json(response) // send a json response to whoever made the request
     }
 
-    static async apiGetSchoolById(req, res, next) {
+    static async apiGetSchoolBySchoolName(req, res, next) {
         try {
-            let id = parseInt(req.params.id) || {}
-            console.log(id)
-            let school = await SchoolsDAO.getSchoolById(id)
+            let school_name = req.params.school_name || {}
+            console.log(school_name)
+            let school = await SchoolsDAO.getSchoolBySchoolName(school_name)
             console.log(school)
             if (!school) {
                 res.status(404).json({ error: "Not found" })

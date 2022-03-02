@@ -12,8 +12,8 @@ const CommentsSchema = new Schema({
     }, 
     date: Date,
     text: String,
-    school_id: {
-        type:mongoose.Schema.Types.ObjectId,
+    school_name: {
+        type:mongoose.Schema.Types.String,
         ref: 'general_schools_information'
     }
 })
