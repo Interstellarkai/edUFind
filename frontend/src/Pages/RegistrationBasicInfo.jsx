@@ -99,7 +99,7 @@ const RegistrationBasicInfo = () => {
     motherTongueLanguage: null,
     educationLevel: null,
     region: null,
-    ccaInterest: null,
+    ccaInterests: null,
     confirmPassword: null,
   });
 
