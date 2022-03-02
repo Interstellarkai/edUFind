@@ -54,7 +54,6 @@ export default class UserAuthDAO {
             return user;
         } catch (e) {
             console.error(`Unable to get user by id: ${e}`)
-            return { success: false, message: `Unable to get user by id: ${e}` }
         }
     }
     

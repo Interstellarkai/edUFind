@@ -36,13 +36,13 @@ export default class CCAController {
             entries_per_page: CCAsPerPage,
             total_results: totalNumCCAs,
         }
-        res.json(response) // send a json response to whoever made the request
+        return res.json(response) // send a json response to whoever made the request
     }
 
     static async apiGetSchoolName(req, res, next) {
         try {
             let schoolName = await CCADAO.getSchoolName()
-            res.json(schoolName)
+            return res.json(schoolName)
         } catch (e) {
             console.log(`api, ${e}`)
             res.status(500).json({ error: e })
@@ -52,7 +52,7 @@ export default class CCAController {
     static async apiGetCcaGroupingDesc(req, res, next) {
         try {
             let CcaGroupingDesc = await CCADAO.getCcaGroupingDesc()
-            res.json(CcaGroupingDesc)
+            return res.json(CcaGroupingDesc)
         } catch (e) {
             console.log(`api, ${e}`)
             res.status(500).json({ error: e })
@@ -62,7 +62,7 @@ export default class CCAController {
     static async apiGetCcaGenericName(req, res, next) {
         try {
             let CcaGenericName = await CCADAO.getCcaGenericName()
-            res.json(CcaGenericName)
+            return res.json(CcaGenericName)
         } catch (e) {
             console.log(`api  ${e}`)
             res.status(500).json({ error: e})

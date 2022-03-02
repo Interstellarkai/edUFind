@@ -17,7 +17,7 @@ export default class CommentsController {
                 comment,
                 date,
             )
-            res.json( { status: "success "})
+            return res.json( { status: "success "})
         } catch(e){
             res.status(500).json({ error: e.message })
         }
@@ -47,7 +47,7 @@ export default class CommentsController {
                 )
             }
 
-            res.json( { status: "success "})
+            return res.json( { status: "success "})
         } catch(e) {
             res.status(500).json( { error: e.message })
         }
@@ -64,7 +64,7 @@ export default class CommentsController {
                 commentId,
                 userId, 
             )
-            res.json({ status: "success" })
+            return res.json({ status: "success" })
         } catch(e) {
             res.status(500).json({ error: e.message })
         }

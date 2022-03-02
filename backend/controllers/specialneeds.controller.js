@@ -43,13 +43,13 @@ export default class SpecialNeedsController {
             entries_per_page: SpecialNeedsPerPage,
             total_results: totalNumSpecialNeeds,
         }
-        res.json(response) // send a json response to whoever made the request
+        return res.json(response) // send a json response to whoever made the request
     }
 
     static async apiGetSchoolName(req, res, next) {
         try {
             let schoolName = await SpecialNeedsDAO.getSchoolName()
-            res.json(schoolName)
+            return res.json(schoolName)
         } catch (e) {
             console.log(`api, ${e}`)
             res.status(500).json({ error: e })
@@ -59,7 +59,7 @@ export default class SpecialNeedsController {
     static async apiGetZoneCode(req, res, next) {
         try {
             let zoneCode = await SpecialNeedsDAO.getZoneCode()
-            res.json(zoneCode)
+            return res.json(zoneCode)
         } catch (e) {
             console.log(`api  ${e}`)
             res.status(500).json({ error: e})
@@ -69,7 +69,7 @@ export default class SpecialNeedsController {
     static async apiGetBarrierFreeFacilities(req, res, next) {
         try {
             let barrierFreeFacilities = await SpecialNeedsDAO.getBarrierFreeFacilities()
-            res.json(barrierFreeFacilities)
+            return res.json(barrierFreeFacilities)
         } catch (e) {
             console.log(`api  ${e}`)
             res.status(500).json({ error: e})
@@ -79,7 +79,7 @@ export default class SpecialNeedsController {
     static async apiGetHearingLoss(req, res, next) {
         try {
             let hearingLoss = await SpecialNeedsDAO.getHearingLoss()
-            res.json(hearingLoss)
+            return res.json(hearingLoss)
         } catch (e) {
             console.log(`api  ${e}`)
             res.status(500).json({ error: e})
@@ -89,7 +89,7 @@ export default class SpecialNeedsController {
     static async apiGetVisualImpairment(req, res, next) {
         try {
             let visualImpairment = await SpecialNeedsDAO.getVisualImpairment()
-            res.json(visualImpairment)
+            return res.json(visualImpairment)
         } catch (e) {
             console.log(`api  ${e}`)
             res.status(500).json({ error: e})
@@ -99,7 +99,7 @@ export default class SpecialNeedsController {
     static async apiGetOptionCode(req, res, next) {
         try {
             let optionCode = await SpecialNeedsDAO.getOptionCode()
-            res.json(optionCode)
+            return res.json(optionCode)
         } catch (e) {
             console.log(`api  ${e}`)
             res.status(500).json({ error: e})
@@ -109,7 +109,7 @@ export default class SpecialNeedsController {
     static async apiGetAedLearningnBehavlSuppt(req, res, next) {
         try {
             let AedLearningnBehavlSuppt = await SpecialNeedsDAO.getAedLearningnBehavlSuppt()
-            res.json(AedLearningnBehavlSuppt)
+            return res.json(AedLearningnBehavlSuppt)
         } catch (e) {
             console.log(`api  ${e}`)
             res.status(500).json({ error: e})

@@ -9,7 +9,7 @@ export default class UserSevices {
     
         if (existingUser) {
             console.error(`An account with ${email} has already been created`);
-            return { success: false, message: `An account with ${email} has already been created` }
+            return { success: false, errorType: 'RegisterAccountExist', message: `An account with ${email} has already been created` }
         }
     
         let newUser = null;
@@ -19,7 +19,7 @@ export default class UserSevices {
             return { success: true, message: "Success"}
         } catch (err) {
             console.error(`An error occured while trying to create account ${err}`);
-            return { success: false, message: `An error occured while trying to create account ${err}`}
+            return { success: false, errorType: 'RegisterCatchBlock', message: `An error occured while trying to create account ${err}`}
         }
     }
     
@@ -28,12 +28,12 @@ export default class UserSevices {
         // If user does not exist 
         if (!user) {
             console.error(`User Account does not exist ${email}`);
-            return { success: false, message: `Invalid Login: User Account does not exist ${email}`};
+            return { success: false, errorType: 'LoginNoSuchAccount', message: `Invalid Login: User Account does not exist ${email}`};
         }
     
         if (password != user.password) {
             console.error(`Failed login for account ${email}`);
-            return { success: false, message: 'Invalid Login: Wrong password'};
+            return { success: false, errorType: 'LoginWrongPassword', message: 'Invalid Login: Wrong password'};
         }
     
         return { user, success: true, message: 'Successfully logged in' };
@@ -42,19 +42,20 @@ export default class UserSevices {
     static async Logout(userID){
         if (!userID) {
             console.error('No user ID');
-            return { success: false, message: 'No user ID' };
+            return { success: false, errorType: 'LogoutIdEmpty', message: 'user ID is empty' };
         }
         
         const user = await UserAuthDAO.GetUserByID(userID)
         if (!user) {
             console.error(`User of ID ${userID} not found`);
-            return { success: false, message: `User of ID ${userID} not found` }
+            return { success: false, errorType: 'LogoutNoSuchAccount', message: `User of ID ${userID} not found` }
         }
         
         try {
             await user.save();
         } catch (err) {
             console.error(`AuthService: Logout: ${err}`);
+            return { success: false, errorType: 'LogoutCatchBlock', message: `${err}` }
         }
         return { success: true, message: 'Successfully logged out' }
     }   
