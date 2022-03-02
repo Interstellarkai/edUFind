@@ -1,5 +1,6 @@
 
 
+
   
 
 # Guide to API routing!
@@ -153,70 +154,75 @@ This is a documentation of the various API calls to make or available from the *
 			"region"  :  null,
 			"ccaInterests"  :  null
 		}
-
-		
+    	
     Login
     
-        Post request : http://localhost:8080/users/login
-		{
-			"email":  "123@abc.com",
-			"password":  "12345678"
-		}
-	
-    Edit Account Details S
-
-		Put request : http://localhost:8080/users/editAccountDetails
-		{
-			"userId"  :  "621c6bc88b3a55851a1005cd",
-			"username":  "ly",
-			"password":  "987654321",
-			"email":  "123@xyt.com",
-			"gender"  :  "Male",
-			"motherTongueLanguage"  :  null,
-			"educationLevel"  :  null,
-			"region"  :  null,
-			"ccaInterests"  :  null
-		}
+    Post request : http://localhost:8080/users/login
+    {
+		"email": "123@abc.com",
+		"password": "12345678"
+    }
+    
+    Edit Account Details
+    Put request : http://localhost:8080/users/editAccountDetails
+    {
+		"userId" : "621c6bc88b3a55851a1005cd",
+		"username": "ly",
+		"password": "987654321",
+		"email": "123@xyt.com",
+		"gender" : "Male",
+		"motherTongueLanguage" : null,
+		"educationLevel" : null,
+		"region" : null,
+		"ccaInterests" : null
+    }
 	
 ## Accounts
 
     Register accounts	
 	    [ERROR] Email in database:
-		    { success: false, message: `An account with ${email} has already been created` }
+		    { success: false, errorType: 'RegisterAccountExist', message: `An account with ${email} has already been created` }
 	    [ERROR] If any of the fields are not completed:
-			{ success: false, message: 'Compulsory fields (Username, Email, Password) are not completed' }
+			{ success: false, errorType: 'RegisterFieldsEmpty', message: 'Compulsory fields (Username, Email, Password) are not completed' }
 	    [ERROR] Filling email without "@" or "."
-			{ success: false, message: 'Email must be in name@email.com format' }
+			{ success: false, errorType: 'RegisterEmailRegex', message: 'Email must be in name@email.com format' }
 	    [ERROR] Email is more than 300 in length
-			{ success: false, message: 'Email is too long' }
+			{ success: false, errorType: 'RegisterEmailLength', message: 'Email is too long' }
 	    [ERROR] Incorect password length. Must be 6-50
-			{ success: false, message: 'Password should be within length of 6 - 50.' }
+			{ success: false, errorType: 'RegisterPasswordLength', message: 'Password should be within length of 6 - 50.' }
+	    [ERROR] CatchBlock Triggered
+			{ success: false, errorType: 'RegisterCatchBlock', message: `An error occured while trying to create account ${err}`}
 
 	    [Success]
 		    { success: true, message: "Success"}
 	================================================================================
     Login
 	    [ERROR] Filling email without "@" or "."
-		    { success: false, message: 'Email must be in name@email.com format' }
+		    { success: false, errorType: 'LoginEmailRegex', message: 'Email must be in name@email.com format' }
 	    [ERROR] Email is more than 300 in length
-		    { success: false, message: 'Email is too long' }
+		    { success: false, errorType: 'LoginEmailLength', message: 'Email is too long' }
 	    [ERROR] Incorect password length. Must be 6-50
-		    { success: false, message: 'Password should be within length of 6 - 50.' }
+		    { success: false, errorType: 'LoginPasswordLength', message: 'Password should be within length of 6 - 50.' }
 
 
 	    [ERROR] There is no such email in database
-		    { success: false, message: `Invalid Login: User Account does not exist ${email}`}
+		    { success: false, errorType: 'LoginNoSuchAccount', message: `Invalid Login: User Account does not exist ${email}`}
 	    [ERROR] Wrong Password
-		    { success: false, message: 'Invalid Login: Wrong password'}
-
+		    { success: false, errorType: 'LoginWrongPassword', message: 'Invalid Login: Wrong password'}
+	    [ERROR] CatchBlock Triggered
+		    { success: false, errorType: 'LoginCatchBlock', message: `${err}` }
+		    
 	    [SUCCESS] 
 		    { success: true, message: 'Successfully logged in' }    
+	
 	================================================================================
 	LogOut
 	    [ERROR] Logout email is left empty
-		    { success: false, message: 'No user ID' }
+		    { success: false, errorType: 'LogoutIdEmpty', message: 'user ID is empty' }
 	    [ERROR] Logout email is not found in database
-		    { success: false, message: `User of ID ${userID} not found` }
+		    { success: false, errorType: 'LogoutNoSuchAccount', message: `User of ID ${userID} not found` }
+	    [ERROR] CatchBlock Triggered
+		    { success: false, errorType: 'LogoutCatchBlock', message: `${err}` }
 
 	    [SUCCESS]
 		    { success: true, message: 'Successfully logged out' }
@@ -226,7 +232,9 @@ This is a documentation of the various API calls to make or available from the *
 	    [ERROR] If got any error
 		    { success: false, message: `${error}` }
 	    [ERROR] User never edit and send to server the same old thing
-		    { success: false, message: "Unable to edit account details" }
-
+		    { success: false, errorType: 'EditNoChange', message: "Unable to edit account details" }
+	    [ERROR] CatchBlock Triggered
+		    { success: false, errorType: 'EditCatchBlock', message: `${err}` }
+		    
 	    [SUCCESS] 
 		    { success: true, message: 'Successfully edited account' }
