@@ -18,7 +18,7 @@ const WrapperContainer = styled.div`
 
 const Title = styled.h1`
   padding-top: 25px;
-  font-size: 40px;
+  font-size: 45px;
   font-weight: 700;
   text-align: center;
   color: #000000;
@@ -105,21 +105,27 @@ const SidebarHeader = styled.h3`
 `;
 
 const SidebarElement = styled.p`
-  padding-top: 8px;
-  font-size: 15px;
+  padding-top: 10px;
+  font-size: 18px;
+`;
+
+const SidebarElementBr = styled.br`
+  display: block;
+  content: "";
+  margin-top: 10px;
 `;
 
 const SidebarDropdown = styled.select`
-  word-wrap: break-word;
-  max-width: 85%;
   border: none;
   padding: 5px;
   display: flex;
-  height: 50%;
+  height: fit-content;
   width: 85%;
-  text-align: left;
   cursor: pointer;
   font-size: 15px;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  white-space: normal;
 `;
 
 const Schools = styled.div`
@@ -132,17 +138,18 @@ const Schools = styled.div`
 `;
 
 const WrapperSchoolAddress = styled.div`
+  margin-top: 5px;
+  margin-left: 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: auto;
+  align-items: baseline;
+  height: 90%;
   /* border: solid black; */
 `;
 
 const WrapperSchoolDetails = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
   width: 95%;
   /* border: solid black; */
 `;
@@ -152,23 +159,20 @@ const SchoolElement = styled.div`
   flex-direction: column;
   text-align: center;
   width: 100%;
-  height: 25%;
-  background-color: #ffffff;
-  overflow: visible;
+  height: 23%;
+  background-color: white;
 `;
 
 const SchoolName = styled.h1`
-  width: 90%;
-  padding-top: 10px;
-  padding-left: 30px;
+  padding-top: 5px;
   font-size: 25px;
   font-weight: 700;
   /* border: 1px solid teal; */
 `;
 
 const SchoolAddress = styled.p`
-  width: 100%;
-  padding-top: 10px;
+  padding-top: 5px;
+  padding-inline: 15px;
   font-size: 15px;
 `;
 
@@ -210,7 +214,7 @@ const PrimarySchoolFinder = () => {
             <SidebarHeader>What are your interest?</SidebarHeader>
             <SidebarElement>Co-Curricular Activities</SidebarElement>
             {/* Spacing between elements */}
-            <SidebarElement />
+            <SidebarElementBr />
             <SidebarDropdown>
               <Option value="" disabled selected hidden>
                 Category
@@ -218,7 +222,7 @@ const PrimarySchoolFinder = () => {
               <Option>Category 1</Option>
               <Option>Category 2</Option>
             </SidebarDropdown>
-            <SidebarElement />
+            <SidebarElementBr />
             <SidebarDropdown>
               <Option value="" disabled selected hidden>
                 Specific CCAs
@@ -227,7 +231,7 @@ const PrimarySchoolFinder = () => {
               <Option>CCA 2</Option>
             </SidebarDropdown>
             <SidebarElement>Academic Interests</SidebarElement>
-            <SidebarElement />
+            <SidebarElementBr />
             <SidebarDropdown>
               <Option value="" disabled selected hidden>
                 Subjects Offered
@@ -235,7 +239,7 @@ const PrimarySchoolFinder = () => {
               <Option>Subject 1</Option>
               <Option>Subject 2</Option>
             </SidebarDropdown>
-            <SidebarElement />
+            <SidebarElementBr />
             <SidebarDropdown>
               <Option value="" disabled selected hidden>
                 Mother Tongue Languages Offered
@@ -243,7 +247,7 @@ const PrimarySchoolFinder = () => {
               <Option>MTL 1</Option>
               <Option>MTL 2</Option>
             </SidebarDropdown>
-            <SidebarElement />
+            <SidebarElementBr />
             <SidebarDropdown>
               <Option value="" disabled selected hidden>
                 Elective Programmes
@@ -251,9 +255,9 @@ const PrimarySchoolFinder = () => {
               <Option>EP 1</Option>
               <Option>EP 2</Option>
             </SidebarDropdown>
-            <SidebarElement />
+            <SidebarElementBr />
             <SidebarElement>Location</SidebarElement>
-            <SidebarElement />
+            <SidebarElementBr />
             <SidebarDropdown>
               <Option value="" disabled selected hidden>
                 Region/Area
@@ -276,7 +280,9 @@ const PrimarySchoolFinder = () => {
             <SchoolElement>
               <WrapperSchoolDetails>
                 <WrapperSchoolAddress>
-                  <SchoolName>Primary School #231312312312</SchoolName>
+                  <SchoolName>
+                    Primary School #2313123123123123121312312312
+                  </SchoolName>
                   <SchoolAddress>123 Address Street 234</SchoolAddress>
                 </WrapperSchoolAddress>
                 <AddSchoolButton>Add</AddSchoolButton>
