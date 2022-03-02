@@ -1,9 +1,15 @@
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
+import PAGES from "../pageRoute";
+import { users } from "../data";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser } from "../redux/userRedux";
 
 const Container = styled.div`
   height: 100vh;
-  width: 100vw;
+  /* width: 100vw; */
   background-color: #ffe7c3;
 `;
 
@@ -44,6 +50,12 @@ const Input = styled.input`
 
   letter-spacing: ${(props) => props.type === "password" && "0.125em"};
 `;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const Button = styled.button`
   width: 20%;
   margin: 20px 0;
@@ -54,35 +66,106 @@ const Button = styled.button`
   background-color: #5a5add;
   cursor: pointer;
 `;
-const Subtitle = styled.div``;
-const Link = styled.a`
-  color: #5a5add;
-  /* text-decoration: underline; */
-  cursor: pointer;
-  padding-left: 5px;
+
+const Span = styled.span`
+  margin-left: 20px;
+  color: red;
   font-weight: 600;
 `;
 
+const Subtitle = styled.div``;
+// const  = styled.a`
+//   color: #5a5add;
+//   /* text-decoration: underline; */
+//   cursor: pointer;
+//   padding-left: 5px;
+//   font-weight: 600;
+// `;
+
+const StyledLink = styled(Link)`
+  color: #5a5add;
+  text-decoration: none;
+  cursor: pointer;
+  padding-left: 5px;
+  font-weight: 600;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const Login = () => {
+  const [loginDetails, setLoginDetails] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [loginError, setloginError] = useState(null);
+
+  const currentUser = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("Login Details: ", loginDetails);
+    console.log("Login Error: ", loginError);
+  }, [loginDetails]);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Find one
+    try {
+      users.map((user) => {
+        if (
+          user.email === loginDetails.email &&
+          user.password === loginDetails.password
+        ) {
+          // Enable Log in
+          setloginError(false);
+          // Set current user
+          dispatch(setCurrentUser(user));
+          navigate(PAGES.homePage);
+        } else {
+          // Print Error
+          setloginError(true);
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Container>
       <Navbar />
       <WrapperContainer>
         <Wrapper>
           <Title>Login to edUFind</Title>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Label>EMAIL</Label>
-            <Input placeholder="Xyz@gmail.com" />
+            <Input
+              name="email"
+              placeholder="Xyz@gmail.com"
+              onChange={handleChange}
+            />
             <Label>PASSWORD</Label>
             <Input
+              name="password"
               type="password"
               placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+              onChange={handleChange}
             />
-            <Button>LOGIN</Button>
+            <ButtonContainer>
+              <Button>LOGIN</Button>
+              {loginError && <Span>INVALID EMAIL/PASSWORD</Span>}
+            </ButtonContainer>
           </Form>
           <Subtitle>
             Not a member yet?
-            <Link>Sign up here!</Link>
+            <StyledLink to={PAGES.registerPage1}>Sign up here!</StyledLink>
           </Subtitle>
         </Wrapper>
       </WrapperContainer>
