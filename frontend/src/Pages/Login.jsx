@@ -3,9 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import PAGES from "../pageRoute";
-import { users } from "../data";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentUser } from "../redux/userRedux";
+import { login } from "../redux/apiCalls";
 
 const Container = styled.div`
   height: 100vh;
@@ -100,42 +99,21 @@ const Login = () => {
     password: "",
   });
 
-  const [loginError, setloginError] = useState(null);
+  // const [loginError, setloginError] = useState(null);
 
   const currentUser = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("Login Details: ", loginDetails);
-    console.log("Login Error: ", loginError);
-  }, [loginDetails]);
-  const navigate = useNavigate();
+    console.log(currentUser);
+  }, [loginDetails, currentUser]);
 
   const handleChange = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Find one
-    try {
-      users.map((user) => {
-        if (
-          user.email === loginDetails.email &&
-          user.password === loginDetails.password
-        ) {
-          // Enable Log in
-          setloginError(false);
-          // Set current user
-          dispatch(setCurrentUser(user));
-          navigate(PAGES.homePage);
-        } else {
-          // Print Error
-          setloginError(true);
-        }
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    login(dispatch, loginDetails);
   };
 
   return (
@@ -160,7 +138,7 @@ const Login = () => {
             />
             <ButtonContainer>
               <Button>LOGIN</Button>
-              {loginError && <Span>INVALID EMAIL/PASSWORD</Span>}
+              {currentUser.error && <Span>INVALID EMAIL/PASSWORD</Span>}
             </ButtonContainer>
           </Form>
           <Subtitle>
