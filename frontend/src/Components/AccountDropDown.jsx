@@ -22,6 +22,7 @@ const Button = styled.button`
   border: none;
   margin: 0 20px;
   cursor: pointer;
+  z-index: 3;
 `;
 const DropDownMenuContainer = styled.div`
   position: absolute;
@@ -32,6 +33,10 @@ const DropDownMenuContainer = styled.div`
   justify-content: flex-end;
   /* border: 1px solid black; */
   overflow: hidden;
+  transition: all 0.8s ease;
+  box-shadow: ${(props) =>
+    !props.notOpen && "rgba(0, 0, 0, 0.2) 0px 16px 24px;"};
+  z-index: 2;
 `;
 
 const DropDownMenu = styled.ul`
@@ -45,7 +50,8 @@ const DropDownMenu = styled.ul`
   margin: 0;
   padding: 0;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 16px 24px;
-  overflow: hidden;
+  z-index: 1;
+
   transition: all 0.8s ease;
   transform: translateY(${(props) => props.notOpen * -200}%);
 `;
@@ -96,7 +102,7 @@ const AccountDropDown = () => {
         }
       </Button>
 
-      <DropDownMenuContainer>
+      <DropDownMenuContainer notOpen={notOpen}>
         <DropDownMenu notOpen={notOpen}>
           <MenuItem>
             <StyledLink to={PAGES.homePage}>Account</StyledLink>
