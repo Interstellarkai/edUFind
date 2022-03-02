@@ -81,7 +81,6 @@ const StyledLink = styled(Link)`
 
 const Navbar = () => {
   const currentUser = useSelector((state) => state.user.value);
-  console.log(currentUser);
 
   return (
     <Container>

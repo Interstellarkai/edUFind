@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateNewUserInfo } from "../redux/newUserRedux";
 import PAGES from "../pageRoute";
+import { createNewUser } from "../redux/apiCalls";
 
 const Container = styled.div`
   height: 100vh;
@@ -47,6 +48,7 @@ const Label = styled.label`
 const Span = styled.span`
   color: #eb0000;
   font-weight: 600;
+  margin-left: 20px;
 `;
 
 const Input = styled.input`
@@ -86,6 +88,9 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const RegistrationBasicInfo = () => {
+  const { isFetching, error, errorType, errorMessage } = useSelector(
+    (state) => state.newUser.value
+  );
   const [details, setDetails] = useState({
     username: null,
     password: null,
@@ -104,7 +109,6 @@ const RegistrationBasicInfo = () => {
   });
 
   const navigate = useNavigate();
-  const newUser = useSelector((state) => state.newUser.values);
   const dispatch = useDispatch();
 
   // Check confirm password
@@ -122,38 +126,45 @@ const RegistrationBasicInfo = () => {
     checkConfirmPass(details);
   }, [details]);
 
+  useEffect(() => {
+    if (!error && error !== null) {
+      // Reset Error else cannot access Register1 page
+      dispatch(updateNewUserInfo({ error: null }));
+      navigate(PAGES.registerPage2);
+    }
+    // if (error) {
+    //   console.log("Use Effect Error: ", error);
+    //   console.log("Use Effect Type: ", errorType);
+    //   console.log("Use Effect Msg: ", errorMessage);
+    // } else if (error == false) {
+    //   // console.log("NAVIGATED");
+    //   navigate(PAGES.registerPage2);
+    // } else {
+    //   // console.log("ELSE ", error);
+    // }
+  }, [error]);
+
   // Handle Input Change
   const handleChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
 
   // Handle Form Submit
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
+    console.log("Handle Submit Head: ", error);
     e.preventDefault();
     // Check flag
     if (!checks.wrongPassword) {
       try {
-        // const res = await publicRequest.post(SIGNUP, details);
-        // const message = res.data.message
-        const message = "success";
-        // Check response
-        switch (message) {
-          // Success
-          case "success":
-            const { confirmPassword, ...others } = details;
-            dispatch(updateNewUserInfo(others));
-            console.log(newUser);
-            navigate(PAGES.registerPage2);
-            break;
-
-          case "Invalid Email":
-            setChecks({ ...checks, invalidEmail: true });
-            break;
-
-          default:
-            console.log("There was an error");
-            break;
-        }
+        const { confirmPassword, ...others } = details;
+        createNewUser(dispatch, others);
+        // console.log(error);
+        // if (!error) {
+        //   console.log("here");
+        //   // navigate(PAGES.registerPage2);
+        // } else {
+        //   console.log("In main:", errorType, errorMessage);
+        // }
       } catch (err) {
         console.log(err);
       }
@@ -172,11 +183,21 @@ const RegistrationBasicInfo = () => {
             <Input required name="username" onChange={handleChange} />
 
             <Label>
-              Email {checks.invalidEmail && <Span> EMAIL ALREADY IN USE!</Span>}
+              Email
+              {(errorType === "RegisterAccountExist" ||
+                errorType === "RegisterEmailRegex" ||
+                errorType === "RegisterEmailLength") && (
+                <Span> {errorMessage}</Span>
+              )}
             </Label>
             <Input required name="email" onChange={handleChange} />
 
-            <Label>Password</Label>
+            <Label>
+              Password
+              {errorType === "RegisterPasswordLength" && (
+                <Span> {errorMessage}</Span>
+              )}
+            </Label>
             <Input
               required
               type="password"
@@ -202,6 +223,7 @@ const RegistrationBasicInfo = () => {
               <Option>Undefined</Option>
               <Option>Prefer not to say</Option>
             </Select>
+            {/* Set disabled when fetching */}
             <ButtonContainer>
               <Button>Next</Button>
             </ButtonContainer>

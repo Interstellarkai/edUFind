@@ -1,5 +1,10 @@
-import { publicRequest } from "../requestMethod";
+import { publicRequest, SIGNUP } from "../requestMethod";
 import { LOGIN } from "../requestMethod";
+import {
+  createUserFailure,
+  createUserStart,
+  createUserSuccess,
+} from "./newUserRedux";
 import {
   loginStart,
   loginSuccess,
@@ -20,5 +25,22 @@ export const login = async (dispatch, loginDetails) => {
     }
   } catch (err) {
     dispatch(loginFailure());
+  }
+};
+
+export const createNewUser = async (dispatch, signupDetails) => {
+  dispatch(createUserStart());
+  try {
+    const res = await publicRequest.post(SIGNUP, signupDetails);
+    if (res.data.success === true) {
+      dispatch(createUserSuccess(signupDetails));
+      // console.log("SUCCESS");
+    } else {
+      const { errorType, message } = res.data;
+      dispatch(createUserFailure({ errorType, errorMessage: message }));
+      // console.log("FAILURE");
+    }
+  } catch (err) {
+    dispatch(createUserFailure());
   }
 };
