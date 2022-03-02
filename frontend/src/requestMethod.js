@@ -15,3 +15,5 @@ export const UPDATE = "users/editAccountDetails";
 
 // LOGIN
 export const LOGIN = "users/login";
+
+export const EDITACCOUNT = "users/editAccountDetails";
