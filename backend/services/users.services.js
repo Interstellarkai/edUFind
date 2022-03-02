@@ -36,7 +36,7 @@ export default class UserSevices {
             return { success: false, message: 'Invalid Login: Wrong password'};
         }
     
-        return { success: true, message: 'Successfully logged in' };
+        return { user, success: true, message: 'Successfully logged in' };
     }
 
     static async Logout(userID){
