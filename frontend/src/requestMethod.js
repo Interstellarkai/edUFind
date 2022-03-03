@@ -16,4 +16,7 @@ export const UPDATE = "users/editAccountDetails";
 // LOGIN
 export const LOGIN = "users/login";
 
+// EDIT ACCOUNT
 export const EDITACCOUNT = "users/editAccountDetails";
+
+export const GETUID = "users/loginID";

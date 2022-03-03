@@ -48,10 +48,14 @@ const App = () => {
           }
         />
         <Route
-          path={
-            currentUser.username ? <Navigate to="/" /> : PAGES.registerPage3
+          path={PAGES.registerPage3}
+          element={
+            currentUser.username ? (
+              <Navigate to="/" />
+            ) : (
+              <RegistrationInterests />
+            )
           }
-          element={<RegistrationInterests />}
         />
       </Routes>
     </Router>

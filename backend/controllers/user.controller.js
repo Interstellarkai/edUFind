@@ -126,6 +126,22 @@ export default class UserController {
 		}
 	}
 
+	static async userLoginGetID(req, res) {
+		const { email, password } = req.body;
+
+		try {
+			const result = await UserServices.LoginGetID(email, password);
+			return res.json(result);
+		} catch (err) {
+			return res.json({
+				success: false,
+				errorType: "LoginCatchBlock",
+				message: `${err}`,
+			});
+		}
+	}
+
+
 	static async userLogout(req, res) {
 		const userID = req.params.user;
 		try {

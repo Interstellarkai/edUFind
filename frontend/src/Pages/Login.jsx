@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import PAGES from "../pageRoute";
@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 const WrapperContainer = styled.div`
-  height: 80%;
+  /* height: 80%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +26,8 @@ const Wrapper = styled.div`
   /* align-items: center; */
   justify-content: center;
   /* border: solid blue; */
-  height: 100%;
+  /* height: 100%; */
+  margin-top: 10%;
 `;
 
 const Title = styled.h1`

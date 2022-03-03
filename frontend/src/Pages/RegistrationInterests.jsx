@@ -2,12 +2,10 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
-import { useNavigate } from "react-router-dom";
-import { newUserReset, updateNewUserInfo } from "../redux/newUserRedux";
-import PAGES from "../pageRoute";
+import { newUserReset } from "../redux/newUserRedux";
 import { useEffect, useState } from "react";
-import { setCurrentUser } from "../redux/userRedux";
 import { login, updateUserDetails } from "../redux/apiCalls";
+import { publicRequest, GETUID } from "../requestMethod";
 
 const Container = styled.div`
   height: 100vh;
@@ -16,7 +14,7 @@ const Container = styled.div`
 `;
 
 const WrapperContainer = styled.div`
-  height: 80%;
+  /* height: 80%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,7 +27,8 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   /* border: solid blue; */
-  height: 100%;
+  /* height: 100%; */
+  margin-top: 10%;
 `;
 
 const Title = styled.h1`
@@ -71,13 +70,12 @@ const Button = styled.button`
 `;
 
 const RegistrationInterests = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
   const newUser = useSelector((state) => state.newUser.value);
-  const currentUser = useSelector((state) => state.user.value);
   const [details, setDetails] = useState({
     ccaInterests: [],
   });
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     console.log("Details: ", details);
@@ -100,30 +98,36 @@ const RegistrationInterests = () => {
 
   useEffect(() => {
     // call update userAccount
-    if (currentUser.username !== false) {
-      const { educationLevel, motherTongueLanguage, region, email, password } =
-        newUser;
+    if (userId !== "") {
+      console.log("In Effect UID: ", userId);
+      // Get rid of unwanted variables
+      const { error, errorMessage, errorType, isFetching, ...others } = newUser;
       updateUserDetails(dispatch, {
-        ...currentUser,
+        ...others,
         ...details,
-        educationLevel,
-        motherTongueLanguage,
-        region,
+        userId,
       });
       dispatch(newUserReset());
       // Call login function here
-      login(dispatch, { email, password });
+      login(dispatch, { email: others.email, password: others.password });
       // navigate(PAGES.homePage);
     }
-  }, [currentUser]);
+  }, [userId]);
 
   // Submit Action
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Log user in to get UID
     const { email, password } = newUser;
-    // Replace with a GET ID request
-    login(dispatch, { email, password });
+    try {
+      const res = await publicRequest.post(GETUID, {
+        email,
+        password,
+      });
+      setUserId(res.data._id);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

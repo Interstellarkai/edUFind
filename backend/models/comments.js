@@ -1,4 +1,3 @@
-// Not too sure if this is needed 
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 

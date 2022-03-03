@@ -71,8 +71,33 @@ export default class UserSevices {
 				message: "Invalid Login: Wrong password",
 			};
 		}
-
+		// const accessToken = jwt.sign(user, process.env.JWT_SECRET)
 		return { user, success: true, message: "Successfully logged in" };
+	}
+
+	static async LoginGetID(email, password) {
+		const user = await UserAuthDAO.GetUserByEmail(email);
+		// If user does not exist
+		if (!user) {
+			console.error(`User Account does not exist ${email}`);
+			return {
+				success: false,
+				errorType: "LoginNoSuchAccount",
+				message: `Invalid Login: User Account does not exist ${email}`,
+			};
+		}
+
+		if (password != user.password) {
+			console.error(`Failed login for account ${email}`);
+			return {
+				success: false,
+				errorType: "LoginWrongPassword",
+				message: "Invalid Login: Wrong password",
+			};
+		}
+		// TODO: 
+		const {_id, ...others} = user
+		return { _id, success: true, message: "Successfully logged in" };
 	}
 
 	static async Logout(userID) {

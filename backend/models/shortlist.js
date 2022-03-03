@@ -8,9 +8,17 @@ const ShortlistSchema = new Schema({
         ref: 'User'
     },
 
-    // TO DO: Figure out a way to store an array of schools with some details?
-    schools: [{ type: String }],
-    notes: String
+    // Schools in this schema only stores school name + any notes that the user has added about the school 
+    schools: [{ 
+        name: {
+            type: String, 
+            required: true
+        },
+        notes: {
+            type: String
+        }
+
+    }]
 })
 
 let Shortlist = mongoose.model('Shortlist', UserSchema);
