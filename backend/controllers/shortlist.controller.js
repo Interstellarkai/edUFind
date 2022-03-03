@@ -4,16 +4,18 @@
 // Delete shortlist
 // Get all shortlists 
 
-import ShortlistDAO from "../dao/shortlistDAO";
+import ShortlistDAO from "../dao/shortlistDAO.js";
 
 export default class ShortlistController {
     static async addShortlist(req, res){
-        const userId = req.params.id
-        const schoolName = req.body.school_name
-        const schoolNotes = req.body.school_notes
-
+        console.log("Entered")
         try {
-            const shortlistItem = await ShortlistDAO.createShortlist( userId, schoolName, schoolNotes)
+            const userId = req.body.user_id
+            const schoolName = req.body.school_name
+            const schoolNotes = req.body.school_notes
+    
+            console.log(userId, schoolName, schoolName)
+            const shortlistItem = await ShortlistDAO.createShortlist(userId, schoolName, schoolNotes)
             return res.json( { status: "success"})
 
         } catch (e) {
@@ -27,6 +29,7 @@ export default class ShortlistController {
             const shortlistId = req.body.shortlist_id
             const schoolName = req.body.school_name
             const schoolNotes = req.body.school_notes
+            console.log(userId)
 
             const ShortlistRespones = await ShortlistDAO.editShortlist(userId, shortlistId, schoolName, schoolNotes)
 
@@ -57,6 +60,10 @@ export default class ShortlistController {
         // TO DO: Add per page queries 
         const userId = req.params.id
         const shortlisted = await ShortlistDAO.getAllShortlisted(userId)
-        return res.json(shortlisted)
+        // response when the api url is called 
+        let response = {
+            Shortlist: shortlisted
+        }
+        res.json(response) // send a json response to whoever made the request
     }
 }

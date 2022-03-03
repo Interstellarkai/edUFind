@@ -8,7 +8,6 @@
 import mongodb from "mongodb";
 const ObjectId = mongodb.ObjectId;
 import Shortlist from "../models/shortlist.js";
-import School from "../models/schools.js";
 
 let shortlist;
 
@@ -23,25 +22,16 @@ export default class ShortlistDAO {
 				.collection("shortlist");
 		} catch (e) {
 			console.error(
-				`Unable to establish collection handles in commentDAO: ${e}`
+				`Unable to establish collection handles in shortlistDAO: ${e}`
 			);
 		}
 	}
 
 	// Creates shortlist
 	static async createShortlist(user, schoolName, schoolNotes) {
-		let school = await School.findOne({ school_name: schoolName});
-		if (!school){
-			console.error(`School not found!`)
-			return {
-				success: false,
-				message: `School Not Found: ${e}`,
-			};
-		}
-
 		try {
 			const newShortlist = new Shortlist({
-				user: user.ObjectId,
+				user_id: user,
 				school_name: schoolName,
 				school_notes: schoolNotes,
 			});
@@ -59,12 +49,13 @@ export default class ShortlistDAO {
 	// Edit the notes on the school
 	static async editShortlist(userId, shortlistId, schoolName, schoolNotes) {
 		try {
+			
 			const addShortlist = await shortlist.updateOne(
-				{ user_id: userId, _id: ObjectId(shortlistId), school_name: schoolName },
+				{  _id: ObjectId(shortlistId), user_id: ObjectId(userId), school_name: schoolName },
 				{
 					$set: {
 						school_notes: schoolNotes,
-					},
+					}
 				}
 			);
 			return addShortlist;
@@ -80,15 +71,35 @@ export default class ShortlistDAO {
 
 	// Get all shortlisted schools by User Id
 	static async getAllShortlisted(userId) {
-		const allShortlist = await shortlist.find({ user: userId });
-		return res.json(allShortlist);
+		let allShortlist
+        try {
+            allShortlist = await shortlist.find({ user_id: userId });
+        } catch (e) {
+            console.error(`Unable to issue find command, ${e}`)
+            return { shortlisted: [], totalNumShortlisted: 0 }
+        }
+
+        const displayShortlist = allShortlist
+        try {
+			console.log("Help")
+            const shortlisted = await displayShortlist.toArray()
+			// console.log(shortlisted)
+            // const totalNumShortlisted = await shortlist.countDocuments(userId)
+
+            return { shortlisted }
+        } catch (e) {
+            console.error(
+                `Unable to convert cursor to array or problem counting documents, ${e}`
+            )
+            return { shortlisted: [] }
+        }
 	}
 
 	static async deleteShortlisted(userId, shortlistId) {
 		try {
 			const deleteResponse = await shortlist.deleteOne({
 				_id: ObjectId(shortlistId),
-				user_id: userId,
+				user_id: ObjectId(userId),
 			});
 
 			return deleteResponse;

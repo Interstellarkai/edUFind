@@ -18,7 +18,7 @@ const ShortlistSchema = new Schema({
     },
 
     school_notes: {
-        type: String,
+        type: String
     }
 })
 
