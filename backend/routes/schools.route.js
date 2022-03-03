@@ -11,7 +11,7 @@ const router = express.Router() // get access to the express router
 
 // Routes for getting general school information
 router.route("/general").get(SchoolsCtrl.apiGetSchools) // List all schools 
-router.route("/general/id/:id").get(SchoolsCtrl.apiGetSchoolById) // List a specific school with comments
+router.route("/general/school_name/:school_name").get(SchoolsCtrl.apiGetSchoolBySchoolName) // List a specific school with comments
 
 router.route("/general/school_name").get(SchoolsCtrl.apiGetSchoolName) // Returns 'Keys' for drop-down menu
 router.route("/general/zone_code").get(SchoolsCtrl.apiGetZoneCode) // Returns 'Keys' for drop-down menu

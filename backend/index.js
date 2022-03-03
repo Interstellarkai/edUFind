@@ -11,6 +11,7 @@ import ProgrammesDAO from "./dao/programmesDAO.js"
 import SpecialNeedsDAO from "./dao/specialneedsDAO.js"
 import SubjectsDAO from "./dao/subjectsDAO.js"
 import UserAuthDAO from "./dao/userAuthDAO.js"
+import crypto from 'crypto';
 
 // configure dotenv
 dotenv.config()
@@ -20,6 +21,12 @@ const MongoClient = mongodb.MongoClient
 
 // if the port we specified cannot be accessed, we use port 8000
 const port = process.env.PORT || 8000
+
+// Random string generated using 'crypto'. Used to encrypt user's token later on
+// https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
+console.log(`Backend Secret Key Token:\n${crypto.randomBytes(64).toString('hex')}\n`);
+console.log(`Backend Refresh SK Token:\n${crypto.randomBytes(64).toString('hex')}`);
+console.log("\n<Please store this secret key into .env file>\n");
 
 // connect to db
 MongoClient.connect(

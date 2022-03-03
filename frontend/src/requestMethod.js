@@ -9,3 +9,11 @@ export const publicRequest = axios.create({
 
 // SIGN UP LINK
 export const SIGNUP = "users/signup/";
+
+// UPDATE
+export const UPDATE = "users/editAccountDetails";
+
+// LOGIN
+export const LOGIN = "users/login";
+
+export const EDITACCOUNT = "users/editAccountDetails";

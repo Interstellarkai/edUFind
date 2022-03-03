@@ -34,13 +34,13 @@ export default class moeController {
             entries_per_page: moePerPage,
             total_results: totalNumMOE,
         }
-        res.json(response) // send a json response to whoever made the request
+        return res.json(response) // send a json response to whoever made the request
     }
 
     static async apiGetSchoolName(req, res, next) {
         try {
             let schoolName = await MOEDAO.getSchoolName()
-            res.json(schoolName)
+            return res.json(schoolName)
         } catch (e) {
             console.log(`api, ${e}`)
             res.status(500).json({ error: e })
@@ -50,7 +50,7 @@ export default class moeController {
     static async apiGetMoeProgrammeDesc(req, res, next) {
         try {
             let moeProgrammeDesc = await MOEDAO.getMoeProgrammeDesc()
-            res.json(moeProgrammeDesc)
+            return res.json(moeProgrammeDesc)
         } catch (e) {
             console.log(`api, ${e}`)
             res.status(500).json({ error: e })

@@ -33,13 +33,13 @@ export default class SubjectsController {
             entries_per_page: SubjectsPerPage,
             total_results: totalNumSubjects,
         }
-        res.json(response) // send a json response to whoever made the request
+        return res.json(response) // send a json response to whoever made the request
     }
 
     static async apiGetSchoolName(req, res, next) {
         try {
             let schoolName = await SubjectsDAO.getSchoolName()
-            res.json(schoolName)
+            return res.json(schoolName)
         } catch (e) {
             console.log(`api, ${e}`)
             res.status(500).json({ error: e })
@@ -49,7 +49,7 @@ export default class SubjectsController {
     static async apiGetSubjectDesc(req, res, next) {
         try {
             let subjectDesc = await SubjectsDAO.getSubjectDesc()
-            res.json(subjectDesc)
+            return res.json(subjectDesc)
         } catch (e) {
             console.log(`api  ${e}`)
             res.status(500).json({ error: e})

@@ -31,7 +31,7 @@ export default class CCADAO {
     } = {}) {
         // query
         let query = {}
-        // filters 
+        // filters s
         if (filters) {
             if ("school_name" in filters) {
                 // query = { $text: { $search: filters["school_name"] } } // text search, search any word in that text

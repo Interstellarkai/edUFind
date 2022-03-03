@@ -17,7 +17,7 @@ export default class CommentsDAO {
     }
   }
 
-  static async addComment(schoolId, user, comment, date) {
+  static async addComment(schoolName, user, comment, date) {
     try {
         // create review dp 
       const reviewDoc = new Comments({ 
@@ -25,7 +25,7 @@ export default class CommentsDAO {
           user_id: user._id,
           date: date,
           text: comment,
-          school_id: schoolId, // creates a object id 
+          school_name: schoolName, // creates a object id 
         })
         return await comments.insertOne(reviewDoc)
     } catch (e) {

@@ -40,13 +40,13 @@ export default class programmesController {
             entries_per_page: programmesPerPage,
             total_results: totalNumProgrammes,
         }
-        res.json(response) // send a json response to whoever made the request
+        return res.json(response) // send a json response to whoever made the request
     }
     
     static async apiGetSchoolName(req, res, next) {
         try {
             let schoolName = await ProgrammesDAO.getSchoolName()
-            res.json(schoolName)
+            return res.json(schoolName)
         } catch (e) {
             console.log(`api, ${e}`)
             res.status(500).json({ error: e })
@@ -56,7 +56,7 @@ export default class programmesController {
     static async apiGetProgrammesAlpDomain(req, res, next) {
         try {
             let programmesAlpDomain = await ProgrammesDAO.getProgrammeAlpDomain()
-            res.json(programmesAlpDomain)
+            return res.json(programmesAlpDomain)
         } catch (e) {
             console.log(`api, ${e}`)
             res.status(500).json({ error: e })
@@ -66,7 +66,7 @@ export default class programmesController {
     static async apiGetProgrammesAlpTitle(req, res, next) {
         try {
             let programmesAlpTitle = await ProgrammesDAO.getProgrammeAlpTitle()
-            res.json(programmesAlpTitle)
+            return res.json(programmesAlpTitle)
         } catch (e) {
             console.log(`api, ${e}`)
             res.status(500).json({ error: e })
@@ -76,7 +76,7 @@ export default class programmesController {
     static async apiGetProgrammesLlpDomain(req, res, next) {
         try {
             let programmesLlpDomain = await ProgrammesDAO.getProgrammeLlpDomain()
-            res.json(programmesLlpDomain)
+            return res.json(programmesLlpDomain)
         } catch (e) {
             console.log(`api, ${e}`)
             res.status(500).json({ error: e })
@@ -86,7 +86,7 @@ export default class programmesController {
     static async apiGetProgrammesLlpTitle(req, res, next) {
         try {
             let programmesLlpTitle = await ProgrammesDAO.getProgrammeLlpTitle()
-            res.json(programmesLlpTitle)
+            return res.json(programmesLlpTitle)
         } catch (e) {
             console.log(`api, ${e}`)
             res.status(500).json({ error: e })

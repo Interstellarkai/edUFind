@@ -1,36 +1,57 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialStateValue = {
+  username: null,
+  password: null,
+  email: null,
+  gender: "Male",
+  motherTongueLanguage: null,
+  educationLevel: null,
+  region: null,
+  ccaInterests: null,
+
+  isFetching: false,
+  error: null,
+  errorType: "",
+  errorMessage: "",
+};
+
 const newUserSlice = createSlice({
   name: "newUser",
   initialState: {
-    username: null,
-    password: null,
-    email: null,
-    gender: null,
-    motherTongueLanguage: null,
-    educationLevel: null,
-    region: null,
-    ccaInterest: null,
+    value: initialStateValue,
   },
   reducers: {
-    // Do this cause Async function (using API)
     updateNewUserInfo: (state, action) => {
-      Object.keys(state).forEach((key) => {
-        if (action.payload[key]) {
-          state[key] = action.payload[key];
-        }
-      });
-      //   state.username = action.payload.username;
-      //   state.email = action.payload.email;
-      //   state.password = action.payload.password;
-      //   state.gender = action.payload.gender;
-      //   state.montherTongueLanguage = action.payload.montherTongueLanguage;
-      //   state.educationLevel = action.payload.educationLevel;
-      //   state.region = action.payload.region;
-      //   state.ccaInterest = action.payload.ccaInterest;
+      state.value = { ...state.value, ...action.payload };
+    },
+
+    createUserStart: (state) => {
+      state.value.isFetching = true;
+    },
+    createUserSuccess: (state, action) => {
+      state.value.isFetching = false;
+      state.value.error = false;
+      state.value = { ...state.value, ...action.payload };
+    },
+    createUserFailure: (state, action) => {
+      state.value.isFetching = false;
+      state.value.error = true;
+      state.value.errorType = action.payload.errorType;
+      state.value.errorMessage = action.payload.errorMessage;
+    },
+
+    newUserReset: (state) => {
+      state.value = initialStateValue;
     },
   },
 });
 
-export const { updateNewUserInfo } = newUserSlice.actions;
+export const {
+  updateNewUserInfo,
+  createUserStart,
+  createUserSuccess,
+  createUserFailure,
+  newUserReset,
+} = newUserSlice.actions;
 export default newUserSlice.reducer;

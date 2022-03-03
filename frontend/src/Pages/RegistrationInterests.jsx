@@ -1,7 +1,13 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
+import { useNavigate } from "react-router-dom";
+import { newUserReset, updateNewUserInfo } from "../redux/newUserRedux";
+import PAGES from "../pageRoute";
+import { useEffect, useState } from "react";
+import { setCurrentUser } from "../redux/userRedux";
+import { login, updateUserDetails } from "../redux/apiCalls";
 
 const Container = styled.div`
   height: 100vh;
@@ -65,27 +71,93 @@ const Button = styled.button`
 `;
 
 const RegistrationInterests = () => {
-  // const newUser = useSelector((state) => state.newUser);
-  // console.log(newUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const newUser = useSelector((state) => state.newUser.value);
+  const currentUser = useSelector((state) => state.user.value);
+  const [details, setDetails] = useState({
+    ccaInterests: [],
+  });
+
+  useEffect(() => {
+    console.log("Details: ", details);
+    console.log("NewUser: ", newUser);
+  }, [details]);
+
+  // Handle Change
+  const handleChange = (e) => {
+    const { checked, value } = e.target;
+    if (checked) {
+      setDetails(({ ccaInterests }) => ({
+        ccaInterests: [...ccaInterests, value],
+      }));
+    } else {
+      setDetails(({ ccaInterests }) => ({
+        ccaInterests: ccaInterests.filter((e) => e !== value),
+      }));
+    }
+  };
+
+  useEffect(() => {
+    // call update userAccount
+    if (currentUser.username !== false) {
+      const { educationLevel, motherTongueLanguage, region, email, password } =
+        newUser;
+      updateUserDetails(dispatch, {
+        ...currentUser,
+        ...details,
+        educationLevel,
+        motherTongueLanguage,
+        region,
+      });
+      dispatch(newUserReset());
+      // Call login function here
+      login(dispatch, { email, password });
+      // navigate(PAGES.homePage);
+    }
+  }, [currentUser]);
+
+  // Submit Action
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Log user in to get UID
+    const { email, password } = newUser;
+    // Replace with a GET ID request
+    login(dispatch, { email, password });
+  };
+
   return (
     <Container>
       <Navbar />
       <WrapperContainer>
         <Wrapper>
           <Title>What Are Your Interests?</Title>
-
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <FormItemContainer>
               <FormControlLabel
                 control={<Checkbox />}
                 label="Performing Arts"
+                value="Performing Arts"
+                onChange={handleChange}
               />
-              <FormControlLabel control={<Checkbox />} label="Sports" />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Sports"
+                value="Sports"
+                onChange={handleChange}
+              />
               <FormControlLabel
                 control={<Checkbox />}
                 label="Clubs and Societies"
+                value="Clubs and Societies"
+                onChange={handleChange}
               />
-              <FormControlLabel control={<Checkbox />} label="Others" />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Others"
+                value="Others"
+                onChange={handleChange}
+              />
             </FormItemContainer>
             <ButtonContainer>
               <Button>Submit</Button>

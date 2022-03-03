@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import About from "../Components/About";
 import EducationJourney from "../Components/EducationJourney";

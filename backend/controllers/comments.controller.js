@@ -3,7 +3,7 @@ import CommentsDAO from "../dao/commentsDAO.js"
 export default class CommentsController {
     static async apiPostComment(req, res, next) {
         try{
-            const schoolId = req.body.school_id
+            const schoolName = req.body.school_name
             const comment = req.body.text 
             const userInfo = {
                 name: req.body.name,
@@ -12,12 +12,12 @@ export default class CommentsController {
             const date = new Date()
 
             const ReviewResponse = await CommentsDAO.addComment(
-                schoolId,
+                schoolName,
                 userInfo,
                 comment,
                 date,
             )
-            res.json( { status: "success "})
+            return res.json( { status: "success "})
         } catch(e){
             res.status(500).json({ error: e.message })
         }
@@ -47,7 +47,7 @@ export default class CommentsController {
                 )
             }
 
-            res.json( { status: "success "})
+            return res.json( { status: "success "})
         } catch(e) {
             res.status(500).json( { error: e.message })
         }
@@ -64,7 +64,7 @@ export default class CommentsController {
                 commentId,
                 userId, 
             )
-            res.json({ status: "success" })
+            return res.json({ status: "success" })
         } catch(e) {
             res.status(500).json({ error: e.message })
         }
