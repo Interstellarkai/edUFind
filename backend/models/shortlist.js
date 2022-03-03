@@ -1,25 +1,26 @@
+// Shortlist Schema
+// Each shortlist item is a school 
+// Everytime the user "adds to shortlist", we are creating a new shortlist
+
 import { Int32 } from 'mongodb';
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ShortlistSchema = new Schema({
-    user: {
+    user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
 
-    // Schools in this schema only stores school name + any notes that the user has added about the school 
-    schools: [{ 
-        name: {
-            type: String, 
-            required: true
-        },
-        notes: {
-            type: String
-        }
+    school_name: {
+        type: String, 
+        required: true
+    },
 
-    }]
+    school_notes: {
+        type: String,
+    }
 })
 
-let Shortlist = mongoose.model('Shortlist', UserSchema);
+let Shortlist = mongoose.model('Shortlist', ShortlistSchema);
 export default Shortlist

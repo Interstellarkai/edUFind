@@ -1,8 +1,14 @@
-// TO DO: Shortlist Functions
+// TO DO:
+// Inject DB
+// Create Shortlist --> Creates a new shortlist table
+// Edit Shortlist --> Edit a shortlist table (Changing the notes)
+// Remove Shortlist --> Delete a shortlist table
+// Get Shortlist --. Get all shortlist items by user ID
 
 import mongodb from "mongodb";
 const ObjectId = mongodb.ObjectId;
 import Shortlist from "../models/shortlist.js";
+import School from "../models/schools.js";
 
 let shortlist;
 
@@ -23,15 +29,24 @@ export default class ShortlistDAO {
 	}
 
 	// Creates shortlist
-	static async createShortlist(user, schools) {
+	static async createShortlist(user, schoolName, schoolNotes) {
+		let school = await School.findOne({ school_name: schoolName});
+		if (!school){
+			console.error(`School not found!`)
+			return {
+				success: false,
+				message: `School Not Found: ${e}`,
+			};
+		}
+
 		try {
-			// const normalizedEmail = email.trim().toLowerCase();
 			const newShortlist = new Shortlist({
 				user: user.ObjectId,
-				schools: schools,
+				school_name: schoolName,
+				school_notes: schoolNotes,
 			});
 
-			return await accounts.insertOne(newShortlist);
+			return await shortlist.insertOne(newShortlist);
 		} catch (e) {
 			console.error(`Unable to create shortlist: ${e}`);
 			return {
@@ -41,43 +56,45 @@ export default class ShortlistDAO {
 		}
 	}
 
-  // Adding new schools to the current shortlist 
-	static async addToShortlist(userId, schools) {
+	// Edit the notes on the school
+	static async editShortlist(userId, shortlistId, schoolName, schoolNotes) {
 		try {
 			const addShortlist = await shortlist.updateOne(
-				{ _id: ObjectId(userId) },
+				{ user_id: userId, _id: ObjectId(shortlistId), school_name: schoolName },
 				{
 					$set: {
-						schools: schools,
+						school_notes: schoolNotes,
 					},
 				}
 			);
 			return addShortlist;
 		} catch (e) {
 			console.error(`Unable to update shortlist: ${e}`);
+			return { 
+				sucess: false,
+				error: e,
+				message: `Unable to update shortlist`
+			};
+		}
+	}
+
+	// Get all shortlisted schools by User Id
+	static async getAllShortlisted(userId) {
+		const allShortlist = await shortlist.find({ user: userId });
+		return res.json(allShortlist);
+	}
+
+	static async deleteShortlisted(userId, shortlistId) {
+		try {
+			const deleteResponse = await shortlist.deleteOne({
+				_id: ObjectId(shortlistId),
+				user_id: userId,
+			});
+
+			return deleteResponse;
+		} catch (e) {
+			console.error(`Unable to remove item from shortlist: ${e}`);
 			return { error: e };
 		}
-	}
-
-  // Get shortlisted schools by User Id 
-	static async getShortlistedById(userId) {
-		// TO DO
-    try {
-			// const normalizedEmail = email.trim().toLowerCase();
-			const shortlistId = await shortlist.findOne({ user: userId });
-			return shortlistId;
-		} catch (e) {
-			console.error(`Unable to get shortlist from User: ${e}`);
-			return null;
-		}
-	}
-
-	static async getAllShortlisted(userId) {
-		const allShortlist = await shortlist.find( { user: userId})
-    return res.json(allShortlist)
-	}
-
-	static async deleteShortlistedById() {
-		// TO DO 
 	}
 }

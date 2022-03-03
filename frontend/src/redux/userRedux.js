@@ -10,35 +10,54 @@ const initialStateValue = {
   educationLevel: null,
   region: null,
   ccaInterests: null,
+};
 
+const initialStateError = {
   isFetching: false,
   error: false,
+  errorType: "",
+  message: "",
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
     value: initialStateValue,
+    error: initialStateError,
   },
   reducers: {
     // Set Current User (After Registration)
     setCurrentUser: (state, action) => {
       state.value = { ...state.value, ...action.payload };
+      state.error = initialStateError;
     },
 
     // Do this cause Async function (using API)
     loginStart: (state) => {
-      state.value.isFetching = true;
+      state.error.isFetching = true;
     },
     loginSuccess: (state, action) => {
-      state.value.isFetching = false;
+      state.error.isFetching = false;
       // Cause Backend is returning user object which is _id, not userId
       const { _id, ...others } = action.payload;
       state.value = { userId: _id, ...others };
+      state.error = initialStateError;
     },
+
     loginFailure: (state) => {
-      state.value.isFetching = false;
-      state.value.error = true;
+      state.error.isFetching = false;
+      state.error.error = true;
+    },
+
+    updateAccFailure: (state, action) => {
+      state.error.isFetching = false;
+      state.error.error = true;
+      state.error.errorType = action.payload.errorType;
+      state.error.message = action.payload.message;
+    },
+
+    resetError: (state) => {
+      state.error = initialStateError;
     },
 
     logout: (state) => {
@@ -53,5 +72,7 @@ export const {
   loginSuccess,
   loginFailure,
   logout,
+  updateAccFailure,
+  resetError,
 } = userSlice.actions;
 export default userSlice.reducer;

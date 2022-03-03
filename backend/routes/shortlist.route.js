@@ -3,8 +3,9 @@ import ShortlistCtrl from "../controllers/shortlist.controller.js"
 
 const router = express.Router()
 
-router.route('/').put(ShortlistCtrl.addToShortlist)
-router.route('/viewShortlist').get(ShortlistCtrl.getShortlist)
-router.route('/deleteShortlisted').delete(ShortlistCtrl.removeFromShortlist)
+router.route('/:id').post(ShortlistCtrl.addToShortlist)
+router.route('/:id/viewShortlist').get(ShortlistCtrl.getShortlisted)
+router.route('/:id/editShortlist').put(ShortlistCtrl.editShortlist)
+router.route('/:id/deleteShortlisted').delete(ShortlistCtrl.removeShortlistItem)
 
 export default router

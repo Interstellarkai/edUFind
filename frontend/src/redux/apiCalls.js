@@ -1,5 +1,5 @@
-import { EDITACCOUNT, publicRequest, SIGNUP } from "../requestMethod";
-import { LOGIN } from "../requestMethod";
+import { EDITACCOUNT, publicRequest, SIGNUP, LOGIN } from "../requestMethod";
+
 import {
   createUserFailure,
   createUserStart,
@@ -10,6 +10,7 @@ import {
   loginSuccess,
   loginFailure,
   setCurrentUser,
+  updateAccFailure,
 } from "./userRedux";
 
 export const login = async (dispatch, loginDetails) => {
@@ -49,8 +50,14 @@ export const updateUserDetails = async (dispatch, userDetails) => {
   console.log("Update: ", userDetails);
   try {
     const res = await publicRequest.post(EDITACCOUNT, userDetails);
-    console.log(res);
+    if (res.data.success) {
+      dispatch(setCurrentUser(userDetails));
+    } else {
+      // Error
+      const { errorType, message } = res.data;
+      dispatch(updateAccFailure({ errorType, message }));
+    }
   } catch (err) {
-    dispatch(createUserFailure());
+    console.log(err);
   }
 };

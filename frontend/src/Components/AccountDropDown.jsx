@@ -105,7 +105,7 @@ const AccountDropDown = () => {
       <DropDownMenuContainer notOpen={notOpen}>
         <DropDownMenu notOpen={notOpen}>
           <MenuItem>
-            <StyledLink to={PAGES.homePage}>Account</StyledLink>
+            <StyledLink to={PAGES.accountPage}>Account</StyledLink>
           </MenuItem>
           <MenuItem onClick={handleClick}>Logout</MenuItem>
         </DropDownMenu>

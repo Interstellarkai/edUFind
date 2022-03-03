@@ -3,6 +3,8 @@ import Login from "./Pages/Login";
 import RegistrationBasicInfo from "./Pages/RegistrationBasicInfo";
 import RegistrationInterests from "./Pages/RegistrationInterests";
 import RegistrationMoreDetails from "./Pages/RegistrationMoreDetails";
+import UserAccountPage from "./Pages/UserAccountPage"
+import ShortlistPage from "./Pages/ShortlistPage"
 
 import {
   BrowserRouter as Router,
@@ -57,6 +59,30 @@ const App = () => {
             )
           }
         />
+
+      <Route
+          path={PAGES.accountPage}
+          element={
+            currentUser.username ? (
+              <UserAccountPage />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+        <Route
+          path={PAGES.shortlistPage}
+          element={
+            currentUser.username ? (
+              <ShortlistPage />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+        
       </Routes>
     </Router>
   );

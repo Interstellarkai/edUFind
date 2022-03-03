@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import { useEffect, useState } from "react";
-import { publicRequest, SIGNUP } from "../requestMethod";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateNewUserInfo } from "../redux/newUserRedux";
@@ -10,7 +9,7 @@ import { createNewUser } from "../redux/apiCalls";
 
 const Container = styled.div`
   height: 100vh;
-  width: 100vw;
+  /* width: 100vw; */
   background-color: #ffe7c3;
 `;
 
@@ -132,16 +131,6 @@ const RegistrationBasicInfo = () => {
       dispatch(updateNewUserInfo({ error: null }));
       navigate(PAGES.registerPage2);
     }
-    // if (error) {
-    //   console.log("Use Effect Error: ", error);
-    //   console.log("Use Effect Type: ", errorType);
-    //   console.log("Use Effect Msg: ", errorMessage);
-    // } else if (error == false) {
-    //   // console.log("NAVIGATED");
-    //   navigate(PAGES.registerPage2);
-    // } else {
-    //   // console.log("ELSE ", error);
-    // }
   }, [error]);
 
   // Handle Input Change
@@ -158,13 +147,6 @@ const RegistrationBasicInfo = () => {
       try {
         const { confirmPassword, ...others } = details;
         createNewUser(dispatch, others);
-        // console.log(error);
-        // if (!error) {
-        //   console.log("here");
-        //   // navigate(PAGES.registerPage2);
-        // } else {
-        //   console.log("In main:", errorType, errorMessage);
-        // }
       } catch (err) {
         console.log(err);
       }

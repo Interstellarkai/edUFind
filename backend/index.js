@@ -11,6 +11,7 @@ import ProgrammesDAO from "./dao/programmesDAO.js"
 import SpecialNeedsDAO from "./dao/specialneedsDAO.js"
 import SubjectsDAO from "./dao/subjectsDAO.js"
 import UserAuthDAO from "./dao/userAuthDAO.js"
+import ShortlistDAO from "./dao/shortlistDAO.js"
 import crypto from 'crypto';
 
 // configure dotenv
@@ -44,7 +45,6 @@ MongoClient.connect(
         process.exit(1)
     })
     .then(async client => {
-        // how to start the web server 
         await SchoolsDAO.injectDB(client) // get initial reference to the school collection in the DB
         await CommentsDAO.injectDB(client)
         await CCADAO.injectDB(client)
@@ -53,6 +53,7 @@ MongoClient.connect(
         await SpecialNeedsDAO.injectDB(client)
         await SubjectsDAO.injectDB(client)
         await UserAuthDAO.injectDB(client)
+        await ShortlistDAO.injectDB(client)
         app.listen(port, () => {
             console.log(`listening on port ${port}`) // ` not '
         }) 

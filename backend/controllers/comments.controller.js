@@ -38,7 +38,7 @@ export default class CommentsController {
 
             var { error } = ReviewResponse
             if (error) {
-                res.status(400).json({ error })
+                return res.status(400).json({ error })
             }
 
             if (ReviewResponse.modifiedCount == 0) {
@@ -49,7 +49,7 @@ export default class CommentsController {
 
             return res.json( { status: "success "})
         } catch(e) {
-            res.status(500).json( { error: e.message })
+            return res.status(500).json( { error: e.message })
         }
     }
 

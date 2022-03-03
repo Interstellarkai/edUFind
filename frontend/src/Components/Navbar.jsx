@@ -107,7 +107,7 @@ const Navbar = () => {
           <StyledLink to={PAGES.homePage} hoverable="true">
             <ItemText>My Shortlist</ItemText>
           </StyledLink>
-          <StyledLink to="/">
+          <StyledLink to="#">
             <ItemText>
               Welcome {currentUser.username}!
               <AccountDropDown />

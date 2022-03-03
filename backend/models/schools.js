@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const SchoolSchema = new Schema({
-	_id: int,
+	_id: Number,
 	fax_no: String,
 	gifted_ind: String,
 	mothertongue3_code: String,

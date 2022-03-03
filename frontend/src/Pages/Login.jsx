@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import PAGES from "../pageRoute";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/apiCalls";
+import { updateUserDetails } from "../redux/apiCalls";
 
 const Container = styled.div`
   height: 100vh;
@@ -103,18 +103,19 @@ const Login = () => {
   // const [loginError, setloginError] = useState(null);
 
   const currentUser = useSelector((state) => state.user.value);
+  const currentUserError = useSelector((state) => state.user.error);
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log(currentUser);
-  }, [loginDetails, currentUser]);
+  }, [loginDetails, currentUser, currentUserError]);
 
   const handleChange = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(dispatch, loginDetails);
+    updateUserDetails(dispatch, loginDetails);
   };
 
   return (
@@ -139,7 +140,7 @@ const Login = () => {
             />
             <ButtonContainer>
               <Button>LOGIN</Button>
-              {currentUser.error && <Span>INVALID EMAIL/PASSWORD</Span>}
+              {currentUserError.error && <Span>INVALID EMAIL/PASSWORD</Span>}
             </ButtonContainer>
           </Form>
           <Subtitle>
