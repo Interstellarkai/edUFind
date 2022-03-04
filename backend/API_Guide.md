@@ -242,6 +242,7 @@ This is a documentation of the various API calls to make or available from the *
 
 ## Shortlist 
 Note that the Ids specified here refers to user Ids 
+
 	Add to Shortlist 
 	Post request : http://localhost:8080/shortlist/
     {
