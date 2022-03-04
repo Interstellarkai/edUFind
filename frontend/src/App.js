@@ -3,8 +3,8 @@ import Login from "./Pages/Login";
 import RegistrationBasicInfo from "./Pages/RegistrationBasicInfo";
 import RegistrationInterests from "./Pages/RegistrationInterests";
 import RegistrationMoreDetails from "./Pages/RegistrationMoreDetails";
-import UserAccountPage from "./Pages/UserAccountPage"
-import ShortlistPage from "./Pages/ShortlistPage"
+import ShortlistPage from "./Pages/ShortlistPage";
+import PrimarySchoolFinder from "./Pages/PrimarySchoolFinder";
 
 import {
   BrowserRouter as Router,
@@ -28,6 +28,10 @@ const App = () => {
           path={PAGES.loginPage}
           element={currentUser.username ? <Navigate to="/" /> : <Login />}
         />
+        <Route
+          path={PAGES.primarySchoolPage}
+          element={<PrimarySchoolFinder />}
+        />
         {/* <Route exact path="register" element={<RegistrationBasicInfo />}> */}
         <Route
           path={PAGES.registerPage1}
@@ -50,39 +54,17 @@ const App = () => {
           }
         />
         <Route
-          path={PAGES.registerPage3}
-          element={
-            currentUser.username ? (
-              <Navigate to="/" />
-            ) : (
-              <RegistrationInterests />
-            )
+          path={
+            currentUser.username ? <Navigate to="/" /> : PAGES.registerPage3
           }
+          element={<RegistrationInterests />}
         />
-
-      <Route
-          path={PAGES.accountPage}
-          element={
-            currentUser.username ? (
-              <UserAccountPage />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
-
         <Route
-          path={PAGES.shortlistPage}
-          element={
-            currentUser.username ? (
-              <ShortlistPage />
-            ) : (
-              <Navigate to="/" />
-            )
+          path={
+            currentUser.username ? <Navigate to="/" /> : PAGES.shortlistPage
           }
+          element={<ShortlistPage />}
         />
-
-        
       </Routes>
     </Router>
   );

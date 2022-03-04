@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import PAGES from "../pageRoute";
 import PrimarySchool from "./Images/PrimarySchool.jpg";
 import SecondarySchool from "./Images/SecondarySchool.jpg";
 import JuniorCollge from "./Images/JuniorCollge.png";
@@ -17,14 +19,18 @@ const MessageContainer = styled.div`
   flex-direction: column;
   padding-left: 30px;
   margin-top: 10%;
+  overflow: auto;
 `;
 
 const Message = styled.div`
   /* border: solid black; */
+  /* display: flex; */
+  /* flex-direction: column; */
   margin-left: 20px;
 `;
 
 const MessageHead = styled.h1`
+  /* flex: 1; */
   font-size: 50px;
   color: darkblue;
   margin-bottom: 20px;
@@ -32,6 +38,7 @@ const MessageHead = styled.h1`
 `;
 
 const MessageBody = styled.div`
+  /* flex: 1; */
   font-size: 30px;
 `;
 
@@ -79,6 +86,16 @@ const EducationLevelItem = styled.div`
   }
 `;
 
+const StyledLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+`;
+
 const EducationLevelItemImage = styled.img`
   /* border: solid black; */
   position: absolute;
@@ -86,6 +103,7 @@ const EducationLevelItemImage = styled.img`
   width: 100%;
   min-height: 200px;
   object-fit: cover;
+  z-index: 1;
 `;
 
 const EducationLevelItemText = styled.div`
@@ -93,7 +111,7 @@ const EducationLevelItemText = styled.div`
   font-size: 20px;
   font-weight: 600;
   color: #ffffff;
-  z-index: 2;
+  z-index: 3;
 `;
 
 const EducationJourney = () => {
@@ -112,10 +130,13 @@ const EducationJourney = () => {
       </MessageContainer>
       <EducationLevelContainer>
         <EducationLevelItem>
-          <EducationLevelItemImage src={PrimarySchool} />
-          <Filter />
-          <EducationLevelItemText>PRIMARY</EducationLevelItemText>
+          <StyledLink to={PAGES.primarySchoolPage}>
+            <EducationLevelItemImage src={PrimarySchool} />
+            <Filter />
+            <EducationLevelItemText>PRIMARY</EducationLevelItemText>
+          </StyledLink>
         </EducationLevelItem>
+
         <EducationLevelItem>
           <EducationLevelItemImage src={SecondarySchool} />
           <Filter />

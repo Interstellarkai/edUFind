@@ -81,7 +81,7 @@ const StyledLink = styled(Link)`
 
 const Navbar = () => {
   const currentUser = useSelector((state) => state.user.value);
-  // console.log(currentUser);
+  console.log(currentUser);
 
   return (
     <Container>
@@ -104,10 +104,10 @@ const Navbar = () => {
           <StyledLink to={PAGES.homePage} hoverable="true">
             <ItemText>Recommendations</ItemText>
           </StyledLink>
-          <StyledLink to={PAGES.homePage} hoverable="true">
+          <StyledLink to={PAGES.shortlistPage} hoverable="true">
             <ItemText>My Shortlist</ItemText>
           </StyledLink>
-          <StyledLink to="#">
+          <StyledLink to="/">
             <ItemText>
               Welcome {currentUser.username}!
               <AccountDropDown />
