@@ -52,7 +52,7 @@ export default class ShortlistController {
             const ShortlistResponse = await ShortlistDAO.deleteShortlisted(userId, shortlistId)
             return res.json({ status: "success" })
         } catch (e) {
-            res.status(500).json({ error: e.message })
+            return res.status(500).json({ error: e.message })
         }
     }
 
@@ -64,6 +64,6 @@ export default class ShortlistController {
         let response = {
             Shortlist: shortlisted
         }
-        res.json(response) // send a json response to whoever made the request
+        return res.json(response) // send a json response to whoever made the request
     }
 }

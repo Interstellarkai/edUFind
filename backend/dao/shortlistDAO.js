@@ -73,7 +73,7 @@ export default class ShortlistDAO {
 	static async getAllShortlisted(userId) {
 		let allShortlist
         try {
-            allShortlist = await shortlist.find({ user_id: userId });
+            allShortlist = await shortlist.find({ user_id: ObjectId(userId) });
         } catch (e) {
             console.error(`Unable to issue find command, ${e}`)
             return { shortlisted: [], totalNumShortlisted: 0 }
