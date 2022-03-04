@@ -238,3 +238,30 @@ This is a documentation of the various API calls to make or available from the *
 		    
 	    [SUCCESS] 
 		    { success: true, message: 'Successfully edited account' }
+
+
+## Shortlist 
+	Add to Shortlist 
+	Post request : http://localhost:8080/shortlist/
+    {
+		"user_id": "6220883d63d0ef7468a500a6"
+		"shortlist_id": "6220deb0526143c33d04471c"
+		"school_name": "ADMIRALTY PRIMARY SCHOOL"
+		"school_notes": "Edited message" 
+    }
+
+	Edit to Shortlist
+	Put request : http://localhost:8080/shortlist/id/6220883d63d0ef7468a500a6/editShortlisted
+    {
+		"shortlist_id": "6220deb0526143c33d04471c"
+		"school_name": "ADMIRALTY PRIMARY SCHOOL"
+		"school_notes": "Edited message" 
+    }
+
+	Remove from Shortlist
+	Delete request: http://localhost:8080/shortlist/id/6220883d63d0ef7468a500a6/deleteShortlisted
+	{
+		"shortlist_id": "6220deb0526143c33d04471c"
+    }
+
+	
