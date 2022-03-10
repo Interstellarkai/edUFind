@@ -5,9 +5,10 @@ const PAGES = {
   registerPage2: "/register/2",
   registerPage3: "/register/3",
   shortlistPage: "/shortlist",
+  accountPage: "/account",
   primarySchoolPage: "/PRIMARY",
   secondarySchoolPage: "/SECONDARY",
-  jcSchoolPage: "/JUNIOR COLLEGE",
+  jcSchoolPage: "/JUNIOR_COLLEGE",
 };
 
 export const {
@@ -16,6 +17,7 @@ export const {
   register1,
   register2,
   register3,
+  accountPage,
   shortlist,
   primarySchool,
 } = PAGES;
