@@ -15,6 +15,7 @@ import {
 import PAGES from "./pageRoute";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import UserAccountPage from "./Pages/UserAccountPage";
 
 const App = () => {
   const currentUser = useSelector((state) => state.user.value);
@@ -22,7 +23,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path={PAGES.homePage} element={<Home />} />
+        <Route exact path={PAGES.homePage} element={<Home />} />
 
         <Route
           path={PAGES.loginPage}
@@ -32,7 +33,7 @@ const App = () => {
           path={PAGES.primarySchoolPage}
           element={<PrimarySchoolFinder />}
         />
-        {/* <Route exact path="register" element={<RegistrationBasicInfo />}> */}
+
         <Route
           path={PAGES.registerPage1}
           element={
@@ -54,16 +55,26 @@ const App = () => {
           }
         />
         <Route
-          path={
-            currentUser.username ? <Navigate to="/" /> : PAGES.registerPage3
+          path={PAGES.registerPage3}
+          element={
+            currentUser.username ? (
+              <Navigate to="/" />
+            ) : (
+              <RegistrationInterests />
+            )
           }
-          element={<RegistrationInterests />}
         />
         <Route
-          path={
-            currentUser.username ? <Navigate to="/" /> : PAGES.shortlistPage
+          path={PAGES.shortlistPage}
+          element={
+            currentUser.username ? <ShortlistPage /> : <Navigate to="/" />
           }
-          element={<ShortlistPage />}
+        />
+        <Route
+          path={PAGES.accountPage}
+          element={
+            currentUser.username ? <UserAccountPage /> : <Navigate to="/" />
+          }
         />
       </Routes>
     </Router>
