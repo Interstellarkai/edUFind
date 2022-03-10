@@ -1,19 +1,19 @@
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
+import Schools from "../Components/Schools";
 
 const Container = styled.div`
-  height: 100vh;
+  /* height: 100vh; */
   width: 100vw;
   background-color: #bcdfff;
 `;
 
 const WrapperContainer = styled.div`
   height: 80%;
-  width: 60%;
+  width: 54%;
   margin: auto;
   display: flex;
   flex-direction: column;
-  /* border: black solid; */
 `;
 
 const Title = styled.h1`
@@ -39,10 +39,20 @@ const Subtitle = styled.p`
   font-size: 15px;
 `;
 
+const WrapperSearch = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  /* border: solid green; */
+  align-items: center;
+  justify-content: center;
+`;
+
 const Select = styled.select`
-  width: 20%;
+  flex: 2;
+  height: 100%;
   border: none;
-  padding: 10px;
+  /* padding: 10px; */
   text-align: center;
   cursor: pointer;
   font-size: 15px;
@@ -51,43 +61,29 @@ const Select = styled.select`
 
 const Option = styled.option``;
 
-const SearchBar = styled.div`
-  flex: 1;
-  width: 100%;
-  /* border: solid black; */
-  margin: 1px;
-`;
-
 const Input = styled.input`
-  width: 80%;
+  flex: 6;
   height: 100%;
-  /* border: 1px solid teal; */
-  border: 1px solid #4383be;
-  padding: 10px;
+  padding-left: 10px;
+  /* border: 1px solid #4383be; */
+  border: solid lightgray 0.5px;
 `;
 
 const Button = styled.button`
+  flex: 1;
+  height: 100%;
   border: none;
   height: 100%;
   background-color: teal;
-  /* border: 1px solid teal; */
+  font-size: 15px;
   border: 1px solid #4383be;
   color: white;
   padding: 10px;
   cursor: pointer;
 `;
 
-const WrapperSearch = styled.div`
-  width: 100%;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-`;
-
 const SubContainer = styled.div`
   display: flex;
-  /* border: black solid; */
 `;
 
 const Sidebar = styled.div`
@@ -128,65 +124,6 @@ const SidebarDropdown = styled.select`
   white-space: normal;
 `;
 
-const Schools = styled.div`
-  padding-top: 25px;
-  display: flex;
-  width: 100%;
-  /* border: black solid; */
-  flex-direction: column;
-  align-items: center;
-`;
-
-const WrapperSchoolAddress = styled.div`
-  margin-top: 5px;
-  margin-left: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-  height: 90%;
-  /* border: solid black; */
-`;
-
-const WrapperSchoolDetails = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 95%;
-  /* border: solid black; */
-`;
-
-const SchoolElement = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  width: 100%;
-  height: 23%;
-  background-color: white;
-`;
-
-const SchoolName = styled.h1`
-  padding-top: 5px;
-  font-size: 25px;
-  font-weight: 700;
-  /* border: 1px solid teal; */
-`;
-
-const SchoolAddress = styled.p`
-  padding-top: 5px;
-  padding-inline: 15px;
-  font-size: 15px;
-`;
-
-const AddSchoolButton = styled.button`
-  margin-inline-start: auto;
-  border: none;
-  background-color: teal;
-  /* border: 1px solid teal; */
-  color: white;
-  padding: 10px;
-  margin-top: 20px;
-  cursor: pointer;
-`;
-
 const PrimarySchoolFinder = () => {
   return (
     <Container>
@@ -203,12 +140,12 @@ const PrimarySchoolFinder = () => {
               <Option>Secondary</Option>
               <Option>Junior College</Option>
             </Select>
-            <SearchBar>
-              <Input placeholder="Search Schools" />
-              <Button>Search</Button>
-            </SearchBar>
+
+            <Input placeholder="Search Schools" />
+            <Button>Search</Button>
           </WrapperSearch>
         </WrapperTitle>
+
         <SubContainer>
           <Sidebar>
             <SidebarHeader>What are your interest?</SidebarHeader>
@@ -266,29 +203,8 @@ const PrimarySchoolFinder = () => {
               <Option>Region 2</Option>
             </SidebarDropdown>
           </Sidebar>
-          <Schools>
-            <SchoolElement>
-              <WrapperSchoolDetails>
-                <WrapperSchoolAddress>
-                  <SchoolName>Primary School #1</SchoolName>
-                  <SchoolAddress>123 Address Street 234</SchoolAddress>
-                </WrapperSchoolAddress>
-                <AddSchoolButton>Add</AddSchoolButton>
-              </WrapperSchoolDetails>
-            </SchoolElement>
-            <br />
-            <SchoolElement>
-              <WrapperSchoolDetails>
-                <WrapperSchoolAddress>
-                  <SchoolName>
-                    Primary School #2313123123123123121312312312
-                  </SchoolName>
-                  <SchoolAddress>123 Address Street 234</SchoolAddress>
-                </WrapperSchoolAddress>
-                <AddSchoolButton>Add</AddSchoolButton>
-              </WrapperSchoolDetails>
-            </SchoolElement>
-          </Schools>
+
+          <Schools />
         </SubContainer>
       </WrapperContainer>
     </Container>

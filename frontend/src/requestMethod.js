@@ -20,3 +20,6 @@ export const LOGIN = "users/login";
 export const EDITACCOUNT = "users/editAccountDetails";
 
 export const GETUID = "users/loginID";
+
+// GET ALL SCHOOLS
+export const GETALLSCHOOLS = "schools/general";

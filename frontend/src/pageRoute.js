@@ -5,7 +5,9 @@ const PAGES = {
   registerPage2: "/register/2",
   registerPage3: "/register/3",
   shortlistPage: "/shortlist",
-  primarySchoolPage: "/primaryschool",
+  primarySchoolPage: "/PRIMARY",
+  secondarySchoolPage: "/SECONDARY",
+  jcSchoolPage: "/JUNIOR COLLEGE",
 };
 
 export const {
