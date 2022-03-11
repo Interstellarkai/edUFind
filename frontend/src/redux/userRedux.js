@@ -11,7 +11,7 @@ const initialStateValue = {
   // region: null,
   // ccaInterests: null,
 
-  userId: 1,
+  userId: "6220883d63d0ef7468a500a6",
   username: "Bobby",
   password: "12345678",
   email: "TestAcc@gmail.com",
