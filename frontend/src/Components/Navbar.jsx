@@ -79,6 +79,15 @@ const StyledLink = styled(Link)`
     props.hoverable ? "&:hover { background-color: teal; color: white;}" : ""}
 `;
 
+const AccountContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  margin: 0 10px;
+  font-weight: 700;
+`;
+
 const Navbar = () => {
   const currentUser = useSelector((state) => state.user.value);
   console.log(currentUser);
@@ -107,12 +116,12 @@ const Navbar = () => {
           <StyledLink to={PAGES.shortlistPage} hoverable="true">
             <ItemText>My Shortlist</ItemText>
           </StyledLink>
-          <StyledLink to="#">
+          <AccountContainer>
             <ItemText>
               Welcome {currentUser.username}!
               <AccountDropDown />
             </ItemText>
-          </StyledLink>
+          </AccountContainer>
         </ItemsContainer>
       ) : (
         <ItemsContainer>
