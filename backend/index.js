@@ -12,6 +12,7 @@ import SpecialNeedsDAO from "./dao/specialneedsDAO.js"
 import SubjectsDAO from "./dao/subjectsDAO.js"
 import UserAuthDAO from "./dao/userAuthDAO.js"
 import ShortlistDAO from "./dao/shortlistDAO.js"
+import refreshTokenRepo from "./dao/refreshTokenRepo.js"
 import crypto from 'crypto';
 
 // configure dotenv
@@ -54,6 +55,7 @@ MongoClient.connect(
         await SubjectsDAO.injectDB(client)
         await UserAuthDAO.injectDB(client)
         await ShortlistDAO.injectDB(client)
+        await refreshTokenRepo.injectDB(client)
         app.listen(port, () => {
             console.log(`listening on port ${port}`) // ` not '
         }) 

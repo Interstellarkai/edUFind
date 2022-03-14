@@ -1,4 +1,5 @@
 import UserAuthDAO from "../dao/userAuthDAO.js";
+import RefreshTokenRepo from "../dao/refreshTokenRepo.js"
 
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
@@ -6,9 +7,7 @@ import bcrypt from "bcryptjs";
 
 dotenv.config();
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || null;
-// const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || null;
-
-// TODO: Token may be needed; Encryption may be added
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || null;
 
 export default class UserSevices {
 	static async GenerateGeneralJWTToken(userID) {
@@ -20,9 +19,7 @@ export default class UserSevices {
 		}
 
 		try {
-			// const token = jwt.sign({ userID }, ACCESS_TOKEN_SECRET, { expiresIn: "1h" });
-			const token = jwt.sign({ userID }, ACCESS_TOKEN_SECRET);
-			console.log(token);
+			const token = jwt.sign({userID}, ACCESS_TOKEN_SECRET, { expiresIn: "24h" });
 			return token;
 		} catch (err) {
 			console.error(
@@ -32,32 +29,32 @@ export default class UserSevices {
 		}
 	}
 
-	// static async GenerateRefreshJWTToken(userID) {
-	// 	if (!REFRESH_TOKEN_SECRET) {
-	// 		console.error(
-	// 			"AuthService: GenerateRefreshJWTToken: No JWT Secret"
-	// 		);
-	// 		throw new Error(
-	// 			"An error occured while trying to generate refresh token"
-	// 		);
-	// 	}
+	static async GenerateRefreshJWTToken(userID) {
+		if (!REFRESH_TOKEN_SECRET) {
+			console.error(
+				"AuthService: GenerateRefreshJWTToken: No JWT Secret"
+			);
+			throw new Error(
+				"An error occured while trying to generate refresh token"
+			);
+		}
 
-	// 	try {
-	// 		const token = jwt.sign(
-	// 			{ userID, generatedAt: Date.now() },
-	// 			ACCESS_TOKEN_SECRET,
-	// 			{ expiresIn: "1h" }
-	// 		);
-	// 		return token;
-	// 	} catch (err) {
-	// 		console.error(
-	// 			"AuthService: GenerateRefreshJWTToken: Failed to sign refresh JWT Token"
-	// 		);
-	// 		throw new Error(
-	// 			"An error occured while trying to generate refresh token"
-	// 		);
-	// 	}
-	// }
+		try {
+			const token = jwt.sign(
+				{ userID, generatedAt: Date.now() },
+				REFRESH_TOKEN_SECRET,
+				{ expiresIn: "24h" }
+			);
+			return token;
+		} catch (err) {
+			console.error(
+				"AuthService: GenerateRefreshJWTToken: Failed to sign refresh JWT Token"
+			);
+			throw new Error(
+				"An error occured while trying to generate refresh token"
+			);
+		}
+	}
 
 	static async Register(
 		username,
@@ -96,7 +93,6 @@ export default class UserSevices {
 
 		let newUser = null;
 		try {
-			// newUser = await UserAuthDAO.CreateUser(email.trim(), username, password, gender, region, mtl, edulevel, interest);
 			newUser = await UserAuthDAO.CreateUser(
 				username,
 				email,
@@ -123,17 +119,20 @@ export default class UserSevices {
 		try {
 			const user = await UserAuthDAO.GetUserByEmail(email)
 			const { _id, ...others } = user;
-			const generalToken = this.GenerateGeneralJWTToken(_id.toString());
-			console.log(generalToken);
-			// const refreshToken = this.GenerateRefreshJWTToken(newUser._id);
+			const generalToken = await this.GenerateGeneralJWTToken(_id.toString());
+			const refreshToken = await this.GenerateRefreshJWTToken(_id.toString());
+			// Sub token for every refresh of token
+			await RefreshTokenRepo.CreateRefreshToken(
+				_id.toString(),
+				generalToken,
+				refreshToken
+			);
 
-			// await RefreshTokenRepo.CreateRefreshToken(
-			// 	newUser._id,
-			// 	refreshToken
-			// );
-
-			// return { token: generalToken, refreshToken };
-			return { token: generalToken};
+			return { 
+				success: true,
+				token: generalToken,
+				refreshToken: refreshToken
+			};
 		} catch (err) {
 			throw new Error(
 				"An error occured while generating authorization tokens"
@@ -166,16 +165,15 @@ export default class UserSevices {
 		}
 
 		try {
-			const generalToken = this.GenerateGeneralJWTToken(user._id);
-			// const refreshToken = this.GenerateRefreshJWTToken(user._id);
-			// await RefreshTokenRepo.CreateRefreshToken(user._id, refreshToken);
+			const generalToken = await this.GenerateGeneralJWTToken(user._id.toString());
+			const refreshToken = await this.GenerateRefreshJWTToken(user._id.toString());
+			await RefreshTokenRepo.CreateRefreshToken(user._id.toString(), generalToken, refreshToken);
 			return {
 				user,
 				success: true,
 				message: "Successfully logged in",
-				// token: generalToken,
-				// refreshToken,
 				token: generalToken,
+				refreshToken : refreshToken,
 			};
 		} catch {
 			console.error(
@@ -223,20 +221,20 @@ export default class UserSevices {
 		}
 	}
 
-	static async SetUserExpoToken(userID, expoToken) {
-		if (!userID) {
-			throw new Error("No user ID");
-		}
+	// static async SetUserExpoToken(userID, expoToken) {
+	// 	if (!userID) {
+	// 		throw new Error("No user ID");
+	// 	}
 
-		const user = await UserAuthDAO.GetUserByID(userID)
-		if (!user) {
-			throw new Error(`User of ID ${userID} not found`);
-		}
+	// 	const user = await UserAuthDAO.GetUserByID(userID)
+	// 	if (!user) {
+	// 		throw new Error(`User of ID ${userID} not found`);
+	// 	}
 
-		user.expoToken = expoToken;
-		await user.save();
-		return { message: "Successfully set expo token for user" };
-	}
+	// 	user.expoToken = expoToken;
+	// 	await user.save();
+	// 	return { message: "Successfully set expo token for user" };
+	// }
 
 	static async Logout(userID) {
 		if (!userID) {
@@ -259,8 +257,8 @@ export default class UserSevices {
 		}
 
 		try {
-			user.expoToken = null;
-			await user.save();
+			// user.expoToken = null;
+			// await user.save();
 			await RefreshTokenRepo.DeleteRefreshTokensForUser(userID);
 		} catch (err) {
 			console.error(`AuthService: Logout: ${err}`);
@@ -272,14 +270,4 @@ export default class UserSevices {
 		}
 		return { success: true, message: "Successfully logged out" };
 	}
-
-	// const AuthService = {
-	// 	Register,
-	// 	Login,
-	// 	RefreshToken,
-	// 	SetUserExpoToken,
-	// 	Logout,
-	// }
-
-	// export { AuthService as default };
 }

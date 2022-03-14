@@ -155,27 +155,37 @@ This is a documentation of the various API calls to make or available from the *
 			"ccaInterests"  :  null
 		}
     	
-    Login
+    Login (Each Login will overwrite the token and refresh token in refresh_token db)
     
-    Post request : http://localhost:8080/users/login
-    {
-		"email": "123@abc.com",
-		"password": "12345678"
-    }
+		Post request : http://localhost:8080/users/login
+		{
+			"email": "123@abc.com",
+			"password": "12345678"
+		}
     
     Edit Account Details
-    Put request : http://localhost:8080/users/editAccountDetails
-    {
-		"userId" : "621c6bc88b3a55851a1005cd",
-		"username": "ly",
-		"password": "987654321",
-		"email": "123@xyt.com",
-		"gender" : "Male",
-		"motherTongueLanguage" : null,
-		"educationLevel" : null,
-		"region" : null,
-		"ccaInterests" : null
-    }
+		Put request : http://localhost:8080/users/editAccountDetails
+		{
+			"userId" : "621c6bc88b3a55851a1005cd",
+			"username": "ly",
+			"password": "987654321",
+			"email": "123@xyt.com",
+			"gender" : "Male",
+			"motherTongueLanguage" : null,
+			"educationLevel" : null,
+			"region" : null,
+			"ccaInterests" : null
+		}
+	
+	Logout
+	Post request : http://localhost:8080/users/logout
+		{
+			Postman: 
+				Authorization: API Key
+				Key: "authorization"
+				Value: "token..."
+				Add to: Header
+		}
 	
 ## Accounts
 
@@ -194,7 +204,7 @@ This is a documentation of the various API calls to make or available from the *
 			{ success: false, errorType: 'RegisterCatchBlock', message: `An error occured while trying to create account ${err}`}
 
 	    [Success]
-		    { success: true, message: "Success"}
+		    { success: true, token: "...", refreshToken: "..." }
 	================================================================================
     Login
 	    [ERROR] Filling email without "@" or "."

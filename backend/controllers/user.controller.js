@@ -209,29 +209,31 @@ export default class UserController {
 		}
 	}
 
-	// static async Refresh(req, res){
-	// 	const userID = req.params.user;
-	// 	try {
-	// 		const result = await UserServices.RefreshToken(userID);
-	// 		res.json(result);
-	// 	} catch (err) {
-	// 		res.status(500).json({ message: err.message });
-	// 	}
-	// }
-	
-	static async SetExpoToken(req, res){
+	static async Refresh(req, res){
 		const userID = req.params.user;
-		const { expoToken } = req.body;
-		if (!expoToken){
-			console.error(`AuthController: Login: Invalid expo token: ${expoToken}`)
-			return res.status(500).json({ message: 'Expo token detaill is null' });
-		}
-		
+
 		try {
-			const result = await UserServices.SetUserExpoToken(userID, expoToken);
+			const result = await UserServices.RefreshToken(userID);
 			res.json(result);
 		} catch (err) {
 			res.status(500).json({ message: err.message });
 		}
 	}
+	
+	// static async SetExpoToken(req, res){
+	// 	const userID = req.params.user;
+	// 	const { expoToken } = req.body;
+		
+	// 	if (!expoToken){
+	// 		console.error(`AuthController: Login: Invalid expo token: ${expoToken}`)
+	// 		return res.status(500).json({ message: 'Expo token detaill is null' });
+	// 	}
+		
+	// 	try {
+	// 		const result = await UserServices.SetUserExpoToken(userID, expoToken);
+	// 		res.json(result);
+	// 	} catch (err) {
+	// 		res.status(500).json({ message: err.message });
+	// 	}
+	// }
 }

@@ -66,7 +66,7 @@ export default class UserAuthDAO {
 
 	static async GetUserByID(userID) {
 		try {
-			const user = await accounts.findById(userID);
+			const user = await accounts.findOne({ "_id" : ObjectId(userID) });
 			return user;
 		} catch (e) {
 			console.error(`Unable to get user by id: ${e}`);
