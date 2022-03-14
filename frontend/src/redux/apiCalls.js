@@ -1,10 +1,17 @@
-import { EDITACCOUNT, publicRequest, SIGNUP, LOGIN } from "../requestMethod";
+import {
+  EDITACCOUNT,
+  publicRequest,
+  SIGNUP,
+  LOGIN,
+  GETALLSCHOOLS,
+} from "../requestMethod";
 
 import {
   createUserFailure,
   createUserStart,
   createUserSuccess,
 } from "./newUserRedux";
+import { setAllSchools } from "./schoolsRedux";
 import {
   loginStart,
   loginSuccess,
@@ -57,6 +64,16 @@ export const updateUserDetails = async (dispatch, userDetails) => {
       const { errorType, message } = res.data;
       dispatch(updateAccFailure({ errorType, message }));
     }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getSchools = async (dispatch) => {
+  console.log("getSchools: ");
+  try {
+    const res = await publicRequest.get(GETALLSCHOOLS);
+    dispatch(setAllSchools(res.data.schools));
   } catch (err) {
     console.log(err);
   }
