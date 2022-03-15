@@ -34,10 +34,7 @@ const App = () => {
           path={PAGES.loginPage}
           element={currentUser.username ? <Navigate to="/" /> : <Login />}
         />
-        <Route
-          path={PAGES.primarySchoolPage}
-          element={<PrimarySchoolFinder />}
-        />
+        <Route path=":mlc" element={<PrimarySchoolFinder />} />
 
         <Route
           path={PAGES.registerPage1}
