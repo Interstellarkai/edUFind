@@ -72,7 +72,7 @@ const ShortlistedSchools = () => {
 
   useEffect(() => {
     console.log("UseEffect Schools: ", schools);
-  }, [schools.length]);
+  }, [schools]);
 
   return (
     <Container>

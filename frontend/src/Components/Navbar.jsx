@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import SchoolIcon from "@mui/icons-material/School";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PAGES from "../pageRoute";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AccountDropDown from "./AccountDropDown";
+import { setSearchQ } from "../redux/searchQueryRedux";
 
 const Container = styled.div`
   height: 60px;
@@ -90,8 +91,14 @@ const AccountContainer = styled.div`
 
 const Navbar = () => {
   const currentUser = useSelector((state) => state.user.value);
-  console.log(currentUser);
+  const searchQ = useSelector((state) => state.searchQ.value);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate(PAGES.searchResultsPage + "/" + searchQ);
+  };
   return (
     <Container>
       <Logo>
@@ -104,8 +111,12 @@ const Navbar = () => {
       </Logo>
 
       <SearchBar>
-        <Input placeholder="Find a School" />
-        <Button>Search</Button>
+        <Input
+          placeholder="Find a School"
+          onChange={(e) => dispatch(setSearchQ(e.target.value))}
+          value={searchQ}
+        />
+        <Button onClick={handleClick}>Search</Button>
       </SearchBar>
 
       {currentUser.username !== false ? (

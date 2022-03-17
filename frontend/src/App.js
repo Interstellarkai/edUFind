@@ -13,12 +13,17 @@ import {
   Navigate,
 } from "react-router-dom";
 import PAGES from "./pageRoute";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import UserAccountPage from "./Pages/UserAccountPage";
+import { getSchools } from "./redux/apiCalls";
+import SearchResultPage from "./Pages/SearchResultPage";
 
 const App = () => {
   const currentUser = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+  getSchools(dispatch);
+
   useEffect(() => {}, [currentUser]);
   return (
     <Router>
@@ -29,10 +34,7 @@ const App = () => {
           path={PAGES.loginPage}
           element={currentUser.username ? <Navigate to="/" /> : <Login />}
         />
-        <Route
-          path={PAGES.primarySchoolPage}
-          element={<PrimarySchoolFinder />}
-        />
+        <Route path=":mlc" element={<PrimarySchoolFinder />} />
 
         <Route
           path={PAGES.registerPage1}
@@ -76,6 +78,10 @@ const App = () => {
             currentUser.username ? <UserAccountPage /> : <Navigate to="/" />
           }
         />
+
+        <Route path={PAGES.searchResultsPage} element={<SearchResultPage />}>
+          <Route path=":q" element={<SearchResultPage />} />
+        </Route>
       </Routes>
     </Router>
   );
