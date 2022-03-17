@@ -4,8 +4,8 @@ import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import { newUserReset } from "../redux/newUserRedux";
 import { useEffect, useState } from "react";
-import { login, updateUserDetails } from "../redux/apiCalls";
-import { publicRequest, GETUID } from "../requestMethod";
+import { createNewUser, login, updateUserDetails } from "../redux/apiCalls";
+import { publicRequest, GETUID, LOGIN } from "../requestMethod";
 
 const Container = styled.div`
   height: 100vh;
@@ -70,12 +70,13 @@ const Button = styled.button`
 `;
 
 const RegistrationInterests = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const newUser = useSelector((state) => state.newUser.value);
   const [details, setDetails] = useState({
     ccaInterests: [],
   });
   const [userId, setUserId] = useState("");
+  const [token, setToken] = useState("");
 
   useEffect(() => {
     console.log("Details: ", details);
@@ -100,19 +101,25 @@ const RegistrationInterests = () => {
     // call update userAccount
     if (userId !== "") {
       console.log("In Effect UID: ", userId);
-      // Get rid of unwanted variables
+      console.log("In Effect Token: ", token);
+      // // Get rid of unwanted variables
       const { error, errorMessage, errorType, isFetching, ...others } = newUser;
-      updateUserDetails(dispatch, {
-        ...others,
-        ...details,
-        userId,
-      });
-      dispatch(newUserReset());
-      // Call login function here
-      login(dispatch, { email: others.email, password: others.password });
-      // navigate(PAGES.homePage);
+      try {
+        updateUserDetails(dispatch, {
+          ...others,
+          ...details,
+          userId,
+          token,
+        });
+        // dispatch(newUserReset());
+        // Call login function here
+        // login(dispatch, { email: others.email, password: others.password });
+        // navigate(PAGES.homePage);
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }, [userId]);
+  }, [token]);
 
   // Submit Action
   const handleSubmit = async (e) => {
@@ -120,15 +127,18 @@ const RegistrationInterests = () => {
     // Log user in to get UID
     const { email, password } = newUser;
     try {
-      const res = await publicRequest.post(GETUID, {
+      const res = await publicRequest.post(LOGIN, {
         email,
         password,
       });
-      setUserId(res.data._id);
+      setUserId(res.data.user._id);
+      setToken(res.data.token);
     } catch (err) {
       console.log(err);
     }
   };
+
+  console.log(newUser);
 
   return (
     <Container>

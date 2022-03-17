@@ -10,6 +10,7 @@ import {
   createUserFailure,
   createUserStart,
   createUserSuccess,
+  newUserReset,
 } from "./newUserRedux";
 import { setAllSchools } from "./schoolsRedux";
 import {
@@ -25,7 +26,7 @@ export const login = async (dispatch, loginDetails) => {
   try {
     const res = await publicRequest.post(LOGIN, loginDetails);
     if (res.data.success === true) {
-      dispatch(loginSuccess(res.data.user));
+      dispatch(loginSuccess({ ...res.data.user, token: res.data.token }));
       //   dispatch(setCurrentUser(res.body.user));
     } else {
       dispatch(loginFailure());
@@ -38,6 +39,7 @@ export const login = async (dispatch, loginDetails) => {
 
 export const createNewUser = async (dispatch, signupDetails) => {
   dispatch(createUserStart());
+  console.log(signupDetails);
   try {
     const res = await publicRequest.post(SIGNUP, signupDetails);
     if (res.data.success === true) {
@@ -55,11 +57,21 @@ export const createNewUser = async (dispatch, signupDetails) => {
 
 export const updateUserDetails = async (dispatch, userDetails) => {
   console.log("Update: ", userDetails);
+  const { token, ...details } = userDetails;
   try {
-    const res = await publicRequest.post(EDITACCOUNT, userDetails);
+    const res = await publicRequest.post(
+      EDITACCOUNT,
+      { ...details },
+      {
+        headers: { authorization: token },
+      }
+    );
     if (res.data.success) {
-      dispatch(setCurrentUser(userDetails));
+      // console.log("Here");
+      dispatch(newUserReset());
+      dispatch(setCurrentUser({ ...userDetails, token }));
     } else {
+      console.log("Error");
       // Error
       const { errorType, message } = res.data;
       dispatch(updateAccFailure({ errorType, message }));
