@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import mongodb from "mongodb";
+import bcrypt from "bcryptjs";
 const ObjectId = mongodb.ObjectId;
 
 let accounts;
@@ -84,6 +85,20 @@ export default class UserAuthDAO {
 		eduLevel,
 		interest
 	) {
+		// Hash password
+		let hashedPassword = null;
+		try {
+			hashedPassword = bcrypt.hashSync(password, 10);
+		} catch (err) {
+			console.log(err);
+			console.error(
+				`AuthService: Register: An error occured while trying to hash password for ${email}`
+			);
+			throw new Error(
+				"An error occured while trying to register account"
+			);
+		}
+
 		try {
 			const editUser = await accounts.updateOne(
 				{ _id: ObjectId(userId) },
@@ -91,7 +106,7 @@ export default class UserAuthDAO {
 					$set: {
 						username: username,
 						email: email,
-						password: password,
+						password: hashedPassword,
 						gender: gender,
 						region: region,
 						motherTongueLanguage: mtl,
