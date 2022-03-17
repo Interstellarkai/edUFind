@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import PAGES from "../pageRoute";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserDetails } from "../redux/apiCalls";
+import { login, updateUserDetails } from "../redux/apiCalls";
 
 const Container = styled.div`
   height: 100vh;
@@ -115,7 +115,7 @@ const Login = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateUserDetails(dispatch, loginDetails);
+    login(dispatch, loginDetails);
   };
 
   return (
