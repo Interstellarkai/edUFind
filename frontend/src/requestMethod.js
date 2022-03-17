@@ -20,3 +20,18 @@ export const LOGIN = "users/login";
 export const EDITACCOUNT = "users/editAccountDetails";
 
 export const GETUID = "users/loginID";
+
+// GET ALL SCHOOLS
+export const GETALLSCHOOLS = "schools/general";
+
+// GET SCHOOL BY NAME
+export const GETSCHOOL = (name) => {
+  return "schools/general?school_name=" + name;
+};
+
+// GET SHORTLISTED
+export const GETSHORTLISTED = (id) => "shortlist/id/" + id + "/viewShortlist";
+
+// DELETE SHORTLISTED
+export const DELETESHORTLISTED = (id) =>
+  "shortlist/id/" + id + "/deleteShortlisted";

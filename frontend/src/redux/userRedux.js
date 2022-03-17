@@ -1,15 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialStateValue = {
-  userId: null,
-  username: false,
-  password: null,
-  email: null,
-  gender: null,
-  motherTongueLanguage: null,
-  educationLevel: null,
-  region: null,
-  ccaInterests: null,
+  // userId: null,
+  // username: false,
+  // password: null,
+  // email: null,
+  // gender: null,
+  // motherTongueLanguage: null,
+  // educationLevel: null,
+  // region: null,
+  // ccaInterests: null,
+
+  userId: "6220883d63d0ef7468a500a6",
+  username: "Bobby",
+  password: "12345678",
+  email: "TestAcc@gmail.com",
+  gender: "Male",
+  motherTongueLanguage: "Chinese",
+  educationLevel: "Secondary",
+  region: "North",
+  ccaInterests: ["Sports"],
 };
 
 const initialStateError = {

@@ -8,7 +8,7 @@ import PAGES from "../pageRoute";
 
 const Container = styled.div`
   position: relative;
-  list-style: none;
+  /* list-style: none; */
   margin: 0;
   padding: 0;
   /* border: 1px black solid; */
@@ -76,6 +76,9 @@ const StyledLink = styled(Link)`
   align-items: center;
   color: inherit;
   cursor: pointer;
+  /* Need transition else it wont change */
+  transition: all;
+  /* border: white solid; */
 `;
 
 const AccountDropDown = () => {
