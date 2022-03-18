@@ -140,6 +140,7 @@ const ShowMore = styled.button`
 
 const ShortlistedSchool = ({ sch, notes, id }) => {
   const currentUserId = useSelector((state) => state.user.value.userId);
+  const currentUserToken = useSelector((state) => state.user.value.token);
   //   const deleteState = useSelector((state) => state.shortlistDelete.value);
   const [expanded, setExpanded] = useState(false);
   //   const [deleted, setDeleted] = useState(false);
@@ -152,6 +153,7 @@ const ShortlistedSchool = ({ sch, notes, id }) => {
         data: {
           shortlist_id: id,
         },
+        headers: { authorization: currentUserToken },
       });
 
       dispatch(setShortlistDelete());
