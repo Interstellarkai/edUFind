@@ -31,16 +31,16 @@ export default class SchoolsController {
         // call the getSchools 
         const { schoolsList, totalNumSchools } = await SchoolsDAO.getSchools({
             filters,
-            page,
-            schoolsPerPage,
+            // page,
+            // schoolsPerPage,
         })
 
         // response when the api url is called 
         let response = {
             schools: schoolsList,
-            page: page,
+            // page: page,
             filters: filters,
-            entries_per_page: schoolsPerPage,
+            // entries_per_page: schoolsPerPage,
             total_results: totalNumSchools,
         }
         return res.json(response) // send a json response to whoever made the request
