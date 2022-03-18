@@ -195,19 +195,19 @@ export default class UserSevices {
       };
     }
 
-    // Hash password
-    let hashedPassword = null;
-    try {
-      hashedPassword = bcrypt.hashSync(password, 10);
-    } catch (err) {
-      console.log(err);
-      console.error(
-        `AuthService: Register: An error occured while trying to hash password for ${email}`
-      );
-      throw new Error("An error occured while trying to register account");
-    }
-    console.log("Hashed: ", hashedPassword);
-    console.log("User Pass: ", user.password);
+		if (!bcrypt.compareSync(password, user.password)) {
+			console.error(`Failed login for account ${email}`);
+			return {
+				success: false,
+				errorType: "LoginWrongPassword",
+				message: "Invalid Login: Wrong password"
+			};
+		}
+
+		// TODO:
+		const { _id, ...others } = user;
+		return { _id, password, success: true, message: "Successfully logged in" };
+	}
 
     if (hashedPassword != user.password) {
       console.error(`Failed login for account ${email}`);
