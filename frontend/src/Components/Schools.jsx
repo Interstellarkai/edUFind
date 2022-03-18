@@ -9,17 +9,13 @@ const Container = styled.div`
   padding-top: 25px;
 `;
 
-const Schools = ({ query, click }) => {
+const Schools = ({ query, click, mlc }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [schools, setSchools] = useState([]);
-  const [mlc, setMlc] = useState(window.location.href.split("/")[3]);
 
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
-    if (window.location.href.split("/")[3] === "JUNIOR_COLLEGE") {
-      setMlc("JUNIOR COLLEGE");
-    }
     const getSchools = async () => {
       setIsLoading(true);
       try {

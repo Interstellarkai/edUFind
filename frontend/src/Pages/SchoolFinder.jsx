@@ -136,20 +136,39 @@ const PrimarySchoolFinder = () => {
     // console.log("clicked");
   };
 
+  const [mlc, setMlc] = useState(window.location.href.split("/")[3]);
+
+  useEffect(() => {
+    if (window.location.href.split("/")[3] === "JUNIOR_COLLEGE") {
+      setMlc("JUNIOR COLLEGE");
+    }
+  }, []);
+
+  console.log(mlc);
   return (
     <Container>
       <Navbar />
       <WrapperContainer>
         <WrapperTitle>
-          <Title>Schools</Title>
+          <Title>
+            {mlc === "JUNIOR COLLEGE"
+              ? "JUNIOR COLLEGE"
+              : mlc === "CENTRALISED INSTITUTE"
+              ? "CENTRALISED INSTITUTE"
+              : mlc + " SCHOOLS"}
+          </Title>
           <Subtitle>
             Find School that match your interest and preferred locations
           </Subtitle>
           <WrapperSearch>
-            <Select>
-              <Option>Primary</Option>
-              <Option>Secondary</Option>
-              <Option>Junior College</Option>
+            <Select value={mlc} onChange={(e) => setMlc(e.target.value)}>
+              <Option value="PRIMARY">Primary</Option>
+              <Option value="SECONDARY">Secondary</Option>
+              <Option value="JUNIOR COLLEGE">Junior College</Option>
+              <Option value="MIXED LEVELS">Mixed Levels</Option>
+              <Option value="CENTRALISED INSTITUTE">
+                Centralised Institute
+              </Option>
             </Select>
 
             <Input
@@ -218,7 +237,7 @@ const PrimarySchoolFinder = () => {
             </SidebarDropdown>
           </Sidebar>
 
-          <Schools query={query} click={click} />
+          <Schools query={query} click={click} mlc={mlc} />
         </SubContainer>
       </WrapperContainer>
     </Container>
