@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import Schools from "../Components/Schools";
@@ -5,6 +6,8 @@ import Schools from "../Components/Schools";
 const Container = styled.div`
   /* height: 100vh; */
   width: 100vw;
+  overflow-y: auto;
+  height: 100vh;
   background-color: #bcdfff;
 `;
 
@@ -125,6 +128,14 @@ const SidebarDropdown = styled.select`
 `;
 
 const PrimarySchoolFinder = () => {
+  const [query, setQuery] = useState("");
+  const [click, setClick] = useState(false);
+
+  const handleClick = () => {
+    setClick(true);
+    // console.log("clicked");
+  };
+
   return (
     <Container>
       <Navbar />
@@ -141,8 +152,11 @@ const PrimarySchoolFinder = () => {
               <Option>Junior College</Option>
             </Select>
 
-            <Input placeholder="Search Schools" />
-            <Button>Search</Button>
+            <Input
+              placeholder="Search Schools"
+              onChange={(event) => setQuery(event.target.value)}
+            />
+            <Button onClick={handleClick}>Search</Button>
           </WrapperSearch>
         </WrapperTitle>
 
@@ -204,7 +218,7 @@ const PrimarySchoolFinder = () => {
             </SidebarDropdown>
           </Sidebar>
 
-          <Schools />
+          <Schools query={query} click={click} />
         </SubContainer>
       </WrapperContainer>
     </Container>
