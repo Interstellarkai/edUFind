@@ -195,21 +195,7 @@ export default class UserSevices {
       };
     }
 
-		if (!bcrypt.compareSync(password, user.password)) {
-			console.error(`Failed login for account ${email}`);
-			return {
-				success: false,
-				errorType: "LoginWrongPassword",
-				message: "Invalid Login: Wrong password"
-			};
-		}
-
-		// TODO:
-		const { _id, ...others } = user;
-		return { _id, password, success: true, message: "Successfully logged in" };
-	}
-
-    if (hashedPassword != user.password) {
+    if (!bcrypt.compareSync(password, user.password)) {
       console.error(`Failed login for account ${email}`);
       return {
         success: false,
@@ -217,6 +203,7 @@ export default class UserSevices {
         message: "Invalid Login: Wrong password",
       };
     }
+
     // TODO:
     const { _id, ...others } = user;
     return { _id, password, success: true, message: "Successfully logged in" };
