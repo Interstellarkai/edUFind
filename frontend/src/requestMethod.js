@@ -30,7 +30,7 @@ export const GETSCHOOL = (name) => {
 };
 
 //ADD SHORTLISTED
-export const ADDSHORTLIST = "shortlist/1";
+export const ADDSHORTLIST = "shortlist/";
 
 // GET SHORTLISTED
 export const GETSHORTLISTED = (id) => "shortlist/" + id + "/viewShortlist";
