@@ -30,7 +30,10 @@ const ShortlistedSchools = () => {
       try {
         const tmpShortlist = [];
         setSchools([]);
-        const res = await publicRequest.get(GETSHORTLISTED(currentUser.userId));
+        const res = await publicRequest.get(
+          GETSHORTLISTED(currentUser.userId),
+          { headers: { authorization: currentUser.token } }
+        );
         const shortlistedArray = res.data.Shortlist.shortlisted;
         console.log("Shortlsited Array:", shortlistedArray);
         // Save each school name on first render

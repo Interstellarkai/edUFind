@@ -29,9 +29,12 @@ export const GETSCHOOL = (name) => {
   return "schools/general?school_name=" + name;
 };
 
+//ADD SHORTLISTED
+export const ADDSHORTLIST = "shortlist/1";
+
 // GET SHORTLISTED
-export const GETSHORTLISTED = (id) => "shortlist/id/" + id + "/viewShortlist";
+export const GETSHORTLISTED = (id) => "shortlist/" + id + "/viewShortlist";
 
 // DELETE SHORTLISTED
 export const DELETESHORTLISTED = (id) =>
-  "shortlist/id/" + id + "/deleteShortlisted";
+  "shortlist/" + id + "/deleteShortlisted";
