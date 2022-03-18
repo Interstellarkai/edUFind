@@ -5,6 +5,7 @@ import { login, updateUserDetails } from "../redux/apiCalls";
 import { useEffect, useState } from "react";
 import { resetError, updateAccFailure } from "../redux/userRedux";
 import { GETUID, publicRequest } from "../requestMethod";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const Container = styled.div`
   /* height: 100vh; */
@@ -45,20 +46,6 @@ const SpanContainer = styled.div`
   /* justify-content: center; */
   align-items: center;
 `;
-const FormFooterContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-const Button = styled.button`
-  width: 20%;
-  margin: 20px;
-  padding: 5px;
-  border: none;
-  color: white;
-  font-weight: 600;
-  background-color: #5a5add;
-  cursor: pointer;
-`;
 
 const Form = styled.form`
   display: flex;
@@ -79,10 +66,31 @@ const Input = styled.input`
   letter-spacing: ${(props) => props.type === "password" && "0.125em"};
 `;
 
+const FormFooterContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const Button = styled.button`
+  width: 20%;
+  margin: 20px 10px 20px 0;
+  padding: 5px;
+  border: none;
+  color: white;
+  font-weight: 600;
+  background-color: #5a5add;
+  cursor: pointer;
+`;
+
 const Span = styled.span`
   color: red;
   font-weight: 600;
   margin-left: 20px;
+`;
+
+const SuccessContainer = styled.div`
+  display: flex;
+  align-items: center;
+  color: #4bb543;
 `;
 
 const UserAccountPage = () => {
@@ -230,7 +238,14 @@ const UserAccountPage = () => {
             {/* If the input in new password and confirm new password match, the new password is updated in the database */}
             <FormFooterContainer>
               <Button>Save Changes</Button>{" "}
-              <Span>{showChangePass && "DONE"}</Span>
+              <Span>
+                {showChangePass && (
+                  <SuccessContainer>
+                    Password Changed{" "}
+                    <CheckCircleIcon sx={{ marginLeft: "10px" }} />
+                  </SuccessContainer>
+                )}
+              </Span>
             </FormFooterContainer>
           </Form>
         </Wrapper>
