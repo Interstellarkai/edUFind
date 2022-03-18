@@ -99,7 +99,7 @@ const Navbar = () => {
     e.preventDefault();
     navigate(PAGES.searchResultsPage + "/" + searchQ);
   };
-  console.log(currentUser);
+  // console.log(currentUser);
   return (
     <Container>
       <Logo>

@@ -45,10 +45,13 @@ const SpanContainer = styled.div`
   /* justify-content: center; */
   align-items: center;
 `;
-
+const FormFooterContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const Button = styled.button`
   width: 20%;
-  margin: 20px 0;
+  margin: 20px;
   padding: 5px;
   border: none;
   color: white;
@@ -92,22 +95,21 @@ const UserAccountPage = () => {
   const currentUserError = useSelector((state) => state.user.error);
   const [passMismatch, setPassMismatch] = useState(null);
   const [changePass, setChangePass] = useState(false);
+  const [showChangePass, setShowChangePass] = useState(false);
   const dispatch = useDispatch();
 
   // newDetails UseEffect
-  useEffect(() => {
-    console.log("New Details ", newDetails);
-    console.log(currentUser);
-  }, [newDetails]);
+  useEffect(() => {}, [newDetails]);
 
   // passwords UseEffect
   useEffect(() => {
     if (passMismatch !== null && !passMismatch && !currentUserError.error) {
       console.log("No errors");
-      // updateUserDetails(dispatch, {
-      //   ...currentUser,
-      //   password: newDetails.newPassword,
-      // });
+      updateUserDetails(dispatch, {
+        ...currentUser,
+        password: newDetails.newPassword,
+      });
+      setChangePass(true);
     } else {
       console.log("ERRORS: ", passMismatch, currentUserError.error);
     }
@@ -115,19 +117,23 @@ const UserAccountPage = () => {
 
   // currentUser UseEffect - Update User Details
   useEffect(() => {
-    if (passMismatch !== null && !passMismatch && !currentUserError.error) {
+    if (changePass) {
       console.log("SUCCESS!");
       login(dispatch, {
         email: currentUser.email,
         password: newDetails.newPassword,
       });
+      setShowChangePass(true);
+      setChangePass(false);
+      setPassMismatch(null);
     }
-  }, [currentUser]);
+  }, [changePass]);
 
   // Check Cfm and New Password
   const checkMismatch = () => {
     if (newDetails.newPassword !== newDetails.confirmNewPassword) {
       setPassMismatch(true);
+      setShowChangePass(false);
     } else {
       setPassMismatch(false);
     }
@@ -135,7 +141,7 @@ const UserAccountPage = () => {
 
   // Check if old password
   const checkPass = async () => {
-    console.log(newDetails.password);
+    // console.log(newDetails.password);
     const res = await publicRequest.post(
       GETUID,
       {
@@ -154,6 +160,7 @@ const UserAccountPage = () => {
           message: "Invalid Password Entered!",
         })
       );
+      setShowChangePass(false);
     }
     checkMismatch();
   };
@@ -221,8 +228,10 @@ const UserAccountPage = () => {
               onChange={handleChange}
             />
             {/* If the input in new password and confirm new password match, the new password is updated in the database */}
-
-            <Button>Save Changes</Button>
+            <FormFooterContainer>
+              <Button>Save Changes</Button>{" "}
+              <Span>{showChangePass && "DONE"}</Span>
+            </FormFooterContainer>
           </Form>
         </Wrapper>
       </WrapperContainer>
