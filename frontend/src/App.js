@@ -4,7 +4,7 @@ import RegistrationBasicInfo from "./Pages/RegistrationBasicInfo";
 import RegistrationInterests from "./Pages/RegistrationInterests";
 import RegistrationMoreDetails from "./Pages/RegistrationMoreDetails";
 import ShortlistPage from "./Pages/ShortlistPage";
-import PrimarySchoolFinder from "./Pages/PrimarySchoolFinder";
+import SchoolFinder from "./Pages/SchoolFinder";
 
 import {
   BrowserRouter as Router,
@@ -34,7 +34,7 @@ const App = () => {
           path={PAGES.loginPage}
           element={currentUser.username ? <Navigate to="/" /> : <Login />}
         />
-        <Route path=":mlc" element={<PrimarySchoolFinder />} />
+        <Route path=":mlc" element={<SchoolFinder />} />
 
         <Route
           path={PAGES.registerPage1}

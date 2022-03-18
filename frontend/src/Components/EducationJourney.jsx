@@ -138,14 +138,18 @@ const EducationJourney = () => {
         </EducationLevelItem>
 
         <EducationLevelItem>
-          <EducationLevelItemImage src={SecondarySchool} />
-          <Filter />
-          <EducationLevelItemText>SECONDARY</EducationLevelItemText>
+          <StyledLink to={PAGES.secondarySchoolPage}>
+            <EducationLevelItemImage src={SecondarySchool} />
+            <Filter />
+            <EducationLevelItemText>SECONDARY</EducationLevelItemText>
+          </StyledLink>
         </EducationLevelItem>
         <EducationLevelItem>
-          <EducationLevelItemImage src={JuniorCollge} />
-          <Filter />
-          <EducationLevelItemText>JUNIOR COLLEGE</EducationLevelItemText>
+          <StyledLink to={PAGES.jcSchoolPage}>
+            <EducationLevelItemImage src={JuniorCollge} />
+            <Filter />
+            <EducationLevelItemText>JUNIOR COLLEGE</EducationLevelItemText>
+          </StyledLink>
         </EducationLevelItem>
       </EducationLevelContainer>
     </Container>
