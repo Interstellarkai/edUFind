@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
+import { useSelector } from "react-redux";
+import { ADDSHORTLIST, publicRequest } from "../requestMethod";
 
 const Container = styled.div`
   /* display: flex; */
@@ -41,9 +43,26 @@ const AddIconWrapper = styled.div`
 `;
 
 const School = ({ sch }) => {
-  const handleClick = () => {
-    console.log(sch.school_name);
+  const currentUser = useSelector((state) => state.user.value);
+
+  const handleClick = async () => {
+    let userComment = prompt(
+      `Enter comments for ${sch.school_name.toUpperCase()} `,
+      "Type your comments here"
+    );
+    console.log(userComment);
+
+    const res = await publicRequest.post(
+      ADDSHORTLIST,
+      {
+        user_id: currentUser.userId,
+        school_name: sch.school_name,
+        school_notes: userComment,
+      },
+      { headers: { authorization: currentUser.token } }
+    );
   };
+
   return (
     <Container>
       <Wrapper>
