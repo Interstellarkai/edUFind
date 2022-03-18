@@ -26,8 +26,8 @@ export default class specialneedsDAO {
     static async getSpecialNeeds({
         // options 
         filters = null,
-        page = 0,
-        SpecialNeedsPerPage = 20,
+        // page = 0,
+        // SpecialNeedsPerPage = 20,
     } = {}) {
         // query
         let query = {}
@@ -68,7 +68,7 @@ export default class specialneedsDAO {
             return { SpecialNeedsList: [], totalNumSpecialNeeds: 0 }
         }
         
-        const displayCursor = cursor.limit(SpecialNeedsPerPage).skip(SpecialNeedsPerPage * page) // get to a specific page
+        // const displayCursor = cursor.limit(SpecialNeedsPerPage).skip(SpecialNeedsPerPage * page) // get to a specific page
 
         try {
             const SpecialNeedsList = await displayCursor.toArray()

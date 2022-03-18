@@ -26,8 +26,8 @@ export default class MOEDAO {
     static async getMOE({
         // options 
         filters = null,
-        page = 0,
-        moePerPage = 20,
+        // page = 0,
+        // moePerPage = 20,
     } = {}) {
         // query
         let query = {}
@@ -53,7 +53,7 @@ export default class MOEDAO {
             return { moeList: [], totalNumMOE: 0 }
         }
 
-        const displayCursor = cursor.limit(moePerPage).skip(moePerPage * page) // get to a specific page
+        // const displayCursor = cursor.limit(moePerPage).skip(moePerPage * page) // get to a specific page
 
         try {
             const moeList = await displayCursor.toArray()

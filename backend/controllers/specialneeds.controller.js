@@ -8,8 +8,8 @@ export default class SpecialNeedsController {
     static async apiGetSpecialNeeds(req, res, next) {
         // api call is called through a url --> query string (specify certain parameters)
         // check if the query in the url exists, then parse it to an integer. Else default is 20
-        const SpecialNeedsPerPage = req.query.SpecialNeedsPerPage ? parseInt(req.query.SpecialNeedsPerPage, 10) : 20
-        const page = req.query.page ? parseInt(req.query.page, 10) : 0
+        // const SpecialNeedsPerPage = req.query.SpecialNeedsPerPage ? parseInt(req.query.SpecialNeedsPerPage, 10) : 20
+        // const page = req.query.page ? parseInt(req.query.page, 10) : 0
 
         let filters = {} // Filter starts empty
         if (req.query.school_name) {
@@ -31,16 +31,16 @@ export default class SpecialNeedsController {
         // call the getSpecialNeeds 
         const { SpecialNeedsList, totalNumSpecialNeeds } = await SpecialNeedsDAO.getSpecialNeeds({
             filters,
-            page,
-            SpecialNeedsPerPage,
+            // page,
+            // SpecialNeedsPerPage,
         })
 
         // response when the api url is called 
         let response = {
             SpecialNeeds: SpecialNeedsList,
-            page: page,
+            // page: page,
             filters: filters,
-            entries_per_page: SpecialNeedsPerPage,
+            // entries_per_page: SpecialNeedsPerPage,
             total_results: totalNumSpecialNeeds,
         }
         return res.json(response) // send a json response to whoever made the request

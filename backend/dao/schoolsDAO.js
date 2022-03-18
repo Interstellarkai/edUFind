@@ -47,6 +47,7 @@ export default class SchoolsDAO {
 			if ("mainlevel_code" in filters) {
 				query["mainlevel_code"] = { $eq: filters["mainlevel_code"] };
 			}
+
 			if ("gifted_ind" in filters) {
 				query["gifted_ind"] = { $eq: filters["gifted_ind"] };
 			}

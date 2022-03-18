@@ -26,8 +26,8 @@ export default class subjectsDAO {
     static async getSubjects({
         // options 
         filters = null,
-        page = 0,
-        SubjectsPerPage = 20,
+        // page = 0,
+        // SubjectsPerPage = 20,
     } = {}) {
         // query
         let query = {}
@@ -53,7 +53,7 @@ export default class subjectsDAO {
             return { SubjectsList: [], totalNumSubjects: 0 }
         }
         
-        const displayCursor = cursor.limit(SubjectsPerPage).skip(SubjectsPerPage * page) // get to a specific page
+        // const displayCursor = cursor.limit(SubjectsPerPage).skip(SubjectsPerPage * page) // get to a specific page
 
         try {
             const SubjectsList = await displayCursor.toArray()

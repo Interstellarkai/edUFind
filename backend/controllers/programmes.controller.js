@@ -8,8 +8,8 @@ export default class programmesController {
     static async apiGetProgrammes(req, res, next) {
         // api call is called through a url --> query string (specify certain parameters)
         // check if the query in the url exists, then parse it to an integer. Else default is 20
-        const programmesPerPage = req.query.programmesPerPage ? parseInt(req.query.programmesPerPage, 10) : 20
-        const page = req.query.page ? parseInt(req.query.page, 10) : 0
+        // const programmesPerPage = req.query.programmesPerPage ? parseInt(req.query.programmesPerPage, 10) : 20
+        // const page = req.query.page ? parseInt(req.query.page, 10) : 0
         
         let filters = {} // Filter starts empty
         // if zone_code is in the query string, then the zone_code is set to the query string
@@ -28,16 +28,16 @@ export default class programmesController {
         // call the getProgrammes
         const { programmesList, totalNumProgrammes } = await ProgrammesDAO.getProgrammes({
             filters,
-            page,
-            programmesPerPage,
+            // page,
+            // programmesPerPage,
         })
         
         // response when the api url is called 
         let response = {
             programmes: programmesList,
-            page: page,
+            //page: page,
             filters: filters,
-            entries_per_page: programmesPerPage,
+            // entries_per_page: programmesPerPage,
             total_results: totalNumProgrammes,
         }
         return res.json(response) // send a json response to whoever made the request

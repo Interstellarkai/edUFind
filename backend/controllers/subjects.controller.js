@@ -8,8 +8,8 @@ export default class SubjectsController {
     static async apiGetSubjects(req, res, next) {
         // api call is called through a url --> query string (specify certain parameters)
         // check if the query in the url exists, then parse it to an integer. Else default is 20
-        const SubjectsPerPage = req.query.SubjectsPerPage ? parseInt(req.query.SubjectsPerPage, 10) : 20
-        const page = req.query.page ? parseInt(req.query.page, 10) : 0
+        // const SubjectsPerPage = req.query.SubjectsPerPage ? parseInt(req.query.SubjectsPerPage, 10) : 20
+        // const page = req.query.page ? parseInt(req.query.page, 10) : 0
 
         let filters = {} // Filter starts empty
         if (req.query.school_name) {
@@ -21,16 +21,16 @@ export default class SubjectsController {
         // call the getSubjects 
         const { SubjectsList, totalNumSubjects } = await SubjectsDAO.getSubjects({
             filters,
-            page,
-            SubjectsPerPage,
+            // page,
+            // SubjectsPerPage,
         })
 
         // response when the api url is called 
         let response = {
             Subjects: SubjectsList,
-            page: page,
+            // page: page,
             filters: filters,
-            entries_per_page: SubjectsPerPage,
+            // entries_per_page: SubjectsPerPage,
             total_results: totalNumSubjects,
         }
         return res.json(response) // send a json response to whoever made the request

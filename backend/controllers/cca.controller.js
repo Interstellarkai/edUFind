@@ -8,8 +8,8 @@ export default class CCAController {
     static async apiGetCCAs(req, res, next) {
         // api call is called through a url --> query string (specify certain parameters)
         // check if the query in the url exists, then parse it to an integer. Else default is 20
-        const CCAsPerPage = req.query.CCAsPerPage ? parseInt(req.query.CCAsPerPage, 10) : 20
-        const page = req.query.page ? parseInt(req.query.page, 10) : 0
+        // const CCAsPerPage = req.query.CCAsPerPage ? parseInt(req.query.CCAsPerPage, 10) : 20
+        // const page = req.query.page ? parseInt(req.query.page, 10) : 0
         
         let filters = {} // Filter starts empty
         // if zone_code is in the query string, then the zone_code is set to the query string
@@ -24,16 +24,16 @@ export default class CCAController {
         // call the getCCAs 
         const { CCAsList, totalNumCCAs } = await CCADAO.getCCAs({
             filters,
-            page,
-            CCAsPerPage,
+            // page,
+            // CCAsPerPage,
         })
 
         // response when the api url is called 
         let response = {
             CCAs: CCAsList,
-            page: page,
+            // page: page,
             filters: filters,
-            entries_per_page: CCAsPerPage,
+            // entries_per_page: CCAsPerPage,
             total_results: totalNumCCAs,
         }
         return res.json(response) // send a json response to whoever made the request

@@ -8,8 +8,8 @@ export default class moeController {
     static async apiGetMOE(req, res, next) {
         // api call is called through a url --> query string (specify certain parameters)
         // check if the query in the url exists, then parse it to an integer. Else default is 20
-        const moePerPage = req.query.moePerPage ? parseInt(req.query.moePerPage, 10) : 20
-        const page = req.query.page ? parseInt(req.query.page, 10) : 0
+        // const moePerPage = req.query.moePerPage ? parseInt(req.query.moePerPage, 10) : 20
+        // const page = req.query.page ? parseInt(req.query.page, 10) : 0
         
         let filters = {} // Filter starts empty
         // if zone_code is in the query string, then the zone_code is set to the query string
@@ -22,16 +22,16 @@ export default class moeController {
         // call the getMOE
         const { moeList, totalNumMOE } = await MOEDAO.getMOE({
             filters,
-            page,
-            moePerPage,
+            // page,
+            // moePerPage,
         })
         
         // response when the api url is called 
         let response = {
             moe: moeList,
-            page: page,
+            // page: page,
             filters: filters,
-            entries_per_page: moePerPage,
+            // entries_per_page: moePerPage,
             total_results: totalNumMOE,
         }
         return res.json(response) // send a json response to whoever made the request
