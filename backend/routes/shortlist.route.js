@@ -4,7 +4,7 @@ import VerifyJWTToken from '../middleware/verifyJWT.js';
 
 const router = express.Router()
 
-router.post('/:id', VerifyJWTToken, ShortlistCtrl.addShortlist)
+router.post('/', VerifyJWTToken, ShortlistCtrl.addShortlist)
 router.get('/:id/viewShortlist', VerifyJWTToken, ShortlistCtrl.getShortlisted)
 router.put('/:id/editShortlist', VerifyJWTToken, ShortlistCtrl.editShortlist)
 router.delete('/:id/deleteShortlisted', VerifyJWTToken, ShortlistCtrl.removeShortlistItem)
