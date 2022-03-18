@@ -5,7 +5,7 @@ import express, { application } from "express";
 import cors from "cors";
 import schools from "./routes/schools.route.js"; // Routes for school related functions
 import users from "./routes/user.route.js"; // Routes for user related functions
-import shortlist from "./routes/shortlist.route.js"
+import shortlist from "./routes/shortlist.route.js";
 import dotenv from "dotenv"; // access env var
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken"; // Token Authentication

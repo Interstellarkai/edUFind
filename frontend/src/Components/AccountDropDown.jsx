@@ -5,6 +5,7 @@ import { logout } from "../redux/userRedux";
 import { Avatar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import PAGES from "../pageRoute";
+import { resetAll } from "../redux/apiCalls";
 
 const Container = styled.div`
   position: relative;
@@ -88,7 +89,8 @@ const AccountDropDown = () => {
   const dispatch = useDispatch();
   const handleClick = (e) => {
     // e.preventDefault();
-    dispatch(logout());
+    // dispatch(logout());
+    resetAll(dispatch);
   };
 
   return (

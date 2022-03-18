@@ -5,6 +5,18 @@ import shortlistDeleteReducer from "./shortlistDeleteRedux";
 import schoolsReducer from "./schoolsRedux";
 import searchQReducer from "./searchQueryRedux";
 
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
 const combinedReducers = combineReducers({
   newUser: newUserReducer,
   user: userReducer,
@@ -13,6 +25,30 @@ const combinedReducers = combineReducers({
   searchQ: searchQReducer,
 });
 
+// Persist Configuration
+
+const persistConfig = {
+  key: "combined",
+  version: 1,
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, combinedReducers);
+
+// export const store = configureStore({
+//   reducer: combinedReducers,
+// });
+
 export const store = configureStore({
-  reducer: combinedReducers,
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
+
+export const persistor = persistStore(store);
+
+// let persistor = persistStore(store);
