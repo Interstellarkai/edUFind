@@ -27,8 +27,8 @@ export default class SchoolsDAO {
 	static async getSchools({
 		// options
 		filters = null,
-		page = 0,
-		schoolsPerPage = 20,
+		// page = 0,
+		// schoolsPerPage = 20,
 	} = {}) {
 		// query
 		let query = {};
@@ -70,8 +70,8 @@ export default class SchoolsDAO {
 		}
 
 		const displayCursor = cursor
-			.limit(schoolsPerPage)
-			.skip(schoolsPerPage * page); // get to a specific page
+			// .limit(schoolsPerPage)
+			// .skip(schoolsPerPage * page); // get to a specific page
 
 		try {
 			const schoolsList = await displayCursor.toArray();
