@@ -8,8 +8,8 @@ export default class SchoolsController {
     static async apiGetSchools(req, res, next) {
         // api call is called through a url --> query string (specify certain parameters)
         // check if the query in the url exists, then parse it to an integer. Else default is 20
-        const schoolsPerPage = req.query.schoolsPerPage ? parseInt(req.query.schoolsPerPage, 10) : 20
-        const page = req.query.page ? parseInt(req.query.page, 10) : 0
+        // const schoolsPerPage = req.query.schoolsPerPage ? parseInt(req.query.schoolsPerPage, 10) : 20
+        // const page = req.query.page ? parseInt(req.query.page, 10) : 0
         
         let filters = {} // Filter starts empty
         if (req.query.school_name) {
@@ -31,16 +31,16 @@ export default class SchoolsController {
         // call the getSchools 
         const { schoolsList, totalNumSchools } = await SchoolsDAO.getSchools({
             filters,
-            page,
-            schoolsPerPage,
+            // page,
+            // schoolsPerPage,
         })
 
         // response when the api url is called 
         let response = {
             schools: schoolsList,
-            page: page,
+            // page: page,
             filters: filters,
-            entries_per_page: schoolsPerPage,
+            // entries_per_page: schoolsPerPage,
             total_results: totalNumSchools,
         }
         return res.json(response) // send a json response to whoever made the request

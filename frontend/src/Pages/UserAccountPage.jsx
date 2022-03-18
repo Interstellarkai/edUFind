@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserDetails } from "../redux/apiCalls";
+import { login, updateUserDetails } from "../redux/apiCalls";
 import { useEffect, useState } from "react";
 import { resetError, updateAccFailure } from "../redux/userRedux";
+import { GETUID, publicRequest } from "../requestMethod";
 
 const Container = styled.div`
   /* height: 100vh; */
@@ -89,7 +90,8 @@ const UserAccountPage = () => {
   });
   const currentUser = useSelector((state) => state.user.value);
   const currentUserError = useSelector((state) => state.user.error);
-  const [passMismatch, setPassMismatch] = useState(false);
+  const [passMismatch, setPassMismatch] = useState(null);
+  const [changePass, setChangePass] = useState(false);
   const dispatch = useDispatch();
 
   // newDetails UseEffect
@@ -100,20 +102,25 @@ const UserAccountPage = () => {
 
   // passwords UseEffect
   useEffect(() => {
-    if (!passMismatch && !currentUserError.error) {
-      updateUserDetails(dispatch, {
-        ...currentUser,
-        password: newDetails.newPassword,
-      });
+    if (passMismatch !== null && !passMismatch && !currentUserError.error) {
+      console.log("No errors");
+      // updateUserDetails(dispatch, {
+      //   ...currentUser,
+      //   password: newDetails.newPassword,
+      // });
     } else {
       console.log("ERRORS: ", passMismatch, currentUserError.error);
     }
   }, [passMismatch, currentUserError]);
 
-  // currentUser UseEffect
+  // currentUser UseEffect - Update User Details
   useEffect(() => {
-    if (!passMismatch && !currentUserError.error) {
+    if (passMismatch !== null && !passMismatch && !currentUserError.error) {
       console.log("SUCCESS!");
+      login(dispatch, {
+        email: currentUser.email,
+        password: newDetails.newPassword,
+      });
     }
   }, [currentUser]);
 
@@ -127,8 +134,18 @@ const UserAccountPage = () => {
   };
 
   // Check if old password
-  const checkPass = () => {
-    if (newDetails.password === currentUser.password) {
+  const checkPass = async () => {
+    console.log(newDetails.password);
+    const res = await publicRequest.post(
+      GETUID,
+      {
+        email: currentUser.email,
+        password: newDetails.password,
+      },
+      { headers: { authorization: currentUser.token } }
+    );
+    const success = res.data.success;
+    if (success) {
       dispatch(resetError());
     } else {
       dispatch(
