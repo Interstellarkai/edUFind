@@ -5,6 +5,7 @@ import { login, updateUserDetails } from "../redux/apiCalls";
 import { useEffect, useState } from "react";
 import { resetError, updateAccFailure } from "../redux/userRedux";
 import { GETUID, publicRequest } from "../requestMethod";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const Container = styled.div`
   /* height: 100vh; */
@@ -46,17 +47,6 @@ const SpanContainer = styled.div`
   align-items: center;
 `;
 
-const Button = styled.button`
-  width: 20%;
-  margin: 20px 0;
-  padding: 5px;
-  border: none;
-  color: white;
-  font-weight: 600;
-  background-color: #5a5add;
-  cursor: pointer;
-`;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -76,10 +66,31 @@ const Input = styled.input`
   letter-spacing: ${(props) => props.type === "password" && "0.125em"};
 `;
 
+const FormFooterContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const Button = styled.button`
+  width: 20%;
+  margin: 20px 10px 20px 0;
+  padding: 5px;
+  border: none;
+  color: white;
+  font-weight: 600;
+  background-color: #5a5add;
+  cursor: pointer;
+`;
+
 const Span = styled.span`
   color: red;
   font-weight: 600;
   margin-left: 20px;
+`;
+
+const SuccessContainer = styled.div`
+  display: flex;
+  align-items: center;
+  color: #4bb543;
 `;
 
 const UserAccountPage = () => {
@@ -92,22 +103,21 @@ const UserAccountPage = () => {
   const currentUserError = useSelector((state) => state.user.error);
   const [passMismatch, setPassMismatch] = useState(null);
   const [changePass, setChangePass] = useState(false);
+  const [showChangePass, setShowChangePass] = useState(false);
   const dispatch = useDispatch();
 
   // newDetails UseEffect
-  useEffect(() => {
-    console.log("New Details ", newDetails);
-    console.log(currentUser);
-  }, [newDetails]);
+  useEffect(() => {}, [newDetails]);
 
   // passwords UseEffect
   useEffect(() => {
     if (passMismatch !== null && !passMismatch && !currentUserError.error) {
       console.log("No errors");
-      // updateUserDetails(dispatch, {
-      //   ...currentUser,
-      //   password: newDetails.newPassword,
-      // });
+      updateUserDetails(dispatch, {
+        ...currentUser,
+        password: newDetails.newPassword,
+      });
+      setChangePass(true);
     } else {
       console.log("ERRORS: ", passMismatch, currentUserError.error);
     }
@@ -115,19 +125,23 @@ const UserAccountPage = () => {
 
   // currentUser UseEffect - Update User Details
   useEffect(() => {
-    if (passMismatch !== null && !passMismatch && !currentUserError.error) {
+    if (changePass) {
       console.log("SUCCESS!");
       login(dispatch, {
         email: currentUser.email,
         password: newDetails.newPassword,
       });
+      setShowChangePass(true);
+      setChangePass(false);
+      setPassMismatch(null);
     }
-  }, [currentUser]);
+  }, [changePass]);
 
   // Check Cfm and New Password
   const checkMismatch = () => {
     if (newDetails.newPassword !== newDetails.confirmNewPassword) {
       setPassMismatch(true);
+      setShowChangePass(false);
     } else {
       setPassMismatch(false);
     }
@@ -135,7 +149,7 @@ const UserAccountPage = () => {
 
   // Check if old password
   const checkPass = async () => {
-    console.log(newDetails.password);
+    // console.log(newDetails.password);
     const res = await publicRequest.post(
       GETUID,
       {
@@ -154,6 +168,7 @@ const UserAccountPage = () => {
           message: "Invalid Password Entered!",
         })
       );
+      setShowChangePass(false);
     }
     checkMismatch();
   };
@@ -221,8 +236,17 @@ const UserAccountPage = () => {
               onChange={handleChange}
             />
             {/* If the input in new password and confirm new password match, the new password is updated in the database */}
-
-            <Button>Save Changes</Button>
+            <FormFooterContainer>
+              <Button>Save Changes</Button>{" "}
+              <Span>
+                {showChangePass && (
+                  <SuccessContainer>
+                    Password Changed{" "}
+                    <CheckCircleIcon sx={{ marginLeft: "10px" }} />
+                  </SuccessContainer>
+                )}
+              </Span>
+            </FormFooterContainer>
           </Form>
         </Wrapper>
       </WrapperContainer>
