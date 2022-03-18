@@ -12,13 +12,16 @@ import {
   createUserSuccess,
   newUserReset,
 } from "./newUserRedux";
-import { setAllSchools } from "./schoolsRedux";
+import { setAllSchools, resetSchools } from "./schoolsRedux";
+import { resetSearchQ } from "./searchQueryRedux";
+import { resetShortlistDelete } from "./shortlistDeleteRedux";
 import {
   loginStart,
   loginSuccess,
   loginFailure,
   setCurrentUser,
   updateAccFailure,
+  logout,
 } from "./userRedux";
 
 export const login = async (dispatch, loginDetails) => {
@@ -89,4 +92,17 @@ export const getSchools = async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+export const resetAll = (dispatch) => {
+  // Reset Current User
+  dispatch(logout());
+  // Reset newUser
+  dispatch(newUserReset());
+  // Reset Schools?
+  // dispatch(resetSchools);
+  // Reset Search Query
+  dispatch(resetSearchQ());
+  //reset shortlistDeleteQ
+  dispatch(resetShortlistDelete());
 };
