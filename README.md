@@ -1,7 +1,7 @@
 # edUFind
 ---
 ## LAB 3 DELIVERABLES
-1. [System Architecture](https://github.com/Interstellarkai/edUFind/blob/main/Lab%204/System%20Architecture.pdf)
+1. [System Architecture](https://github.com/Interstellarkai/edUFind/blob/main/Lab%203/System%20Architecture.pdf)
 ---
 ## LAB 2 DELIVERABLES
 1. [Complete Use Case diagram](https://github.com/Interstellarkai/edUFind/blob/main/Lab%202/Use%20Case%20Diagram.pdf)
