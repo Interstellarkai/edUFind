@@ -4,6 +4,7 @@ import userReducer from "./userRedux";
 import shortlistDeleteReducer from "./shortlistDeleteRedux";
 import schoolsReducer from "./schoolsRedux";
 import searchQReducer from "./searchQueryRedux";
+import searchButtonReducer from "./searchButtonRedux";
 
 import {
   persistStore,
@@ -23,6 +24,7 @@ const combinedReducers = combineReducers({
   shortlistDelete: shortlistDeleteReducer,
   schools: schoolsReducer,
   searchQ: searchQReducer,
+  searchButton: searchButtonReducer,
 });
 
 // Persist Configuration

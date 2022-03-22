@@ -38,3 +38,10 @@ export const GETSHORTLISTED = (id) => "shortlist/" + id + "/viewShortlist";
 // DELETE SHORTLISTED
 export const DELETESHORTLISTED = (id) =>
   "shortlist/" + id + "/deleteShortlisted";
+
+// FILTER - CCA GROUP - http://localhost:8080/schools/cca?cca_grouping_desc=PHYSICAL SPORTS
+export const FilterCcaGrp = (category) =>
+  "schools/cca?cca_grouping_desc=" + category;
+
+// FILTER - SUBJECTS - http://localhost:8080/schools/subjects?subject_desc=ART
+export const FilterSubject = (subj) => "schools/subjects?subject_desc=" + subj;

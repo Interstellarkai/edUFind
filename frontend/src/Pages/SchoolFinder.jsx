@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import Schools from "../Components/Schools";
+import { useDispatch, useSelector } from "react-redux";
+import { setClick } from "../redux/searchButtonRedux";
 
 const Container = styled.div`
   /* height: 100vh; */
@@ -129,11 +131,20 @@ const SidebarDropdown = styled.select`
 
 const PrimarySchoolFinder = () => {
   const [query, setQuery] = useState("");
-  const [click, setClick] = useState(false);
+  const [filters, setFilters] = useState({
+    Category: "PHYSICAL SPORTS",
+    CCA: null,
+    subjectsOffered: "ART",
+    motherTongue: null,
+    ElectiveProgrammes: null,
+    Region: null,
+  });
+  const click = useSelector((state) => state.searchButton.value);
+  const dispatch = useDispatch();
 
   const handleClick = () => {
-    setClick(true);
-    // console.log("clicked");
+    dispatch(setClick());
+    console.log(click);
   };
 
   const [mlc, setMlc] = useState(window.location.href.split("/")[3]);
@@ -144,7 +155,8 @@ const PrimarySchoolFinder = () => {
     }
   }, []);
 
-  console.log(mlc);
+  // console.log(mlc);
+
   return (
     <Container>
       <Navbar />
@@ -191,6 +203,7 @@ const PrimarySchoolFinder = () => {
               </Option>
               <Option>Category 1</Option>
               <Option>Category 2</Option>
+              <Option>Category 3</Option>
             </SidebarDropdown>
             <SidebarElementBr />
             <SidebarDropdown>
@@ -237,7 +250,7 @@ const PrimarySchoolFinder = () => {
             </SidebarDropdown>
           </Sidebar>
 
-          <Schools query={query} click={click} mlc={mlc} />
+          <Schools query={query} click={click} mlc={mlc} filters={filters} />
         </SubContainer>
       </WrapperContainer>
     </Container>
