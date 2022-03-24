@@ -26,8 +26,8 @@ export default class CCADAO {
     static async getCCAs({
         // options 
         filters = null,
-        page = 0,
-        CCAsPerPage = 20,
+        // page = 0,
+        // CCAsPerPage = 20,
     } = {}) {
         // query
         let query = {}
@@ -56,7 +56,7 @@ export default class CCADAO {
             return { CCAsList: [], totalNumCCAs: 0 }
         }
         
-        const displayCursor = cursor.limit(CCAsPerPage).skip(CCAsPerPage * page) // get to a specific page
+        // const displayCursor = cursor.limit(CCAsPerPage).skip(CCAsPerPage * page) // get to a specific page
 
         try {
             const CCAsList = await displayCursor.toArray()

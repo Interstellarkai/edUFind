@@ -26,7 +26,7 @@ export default class SchoolsController {
             filters.nature_code = req.query.nature_code
         } if (req.query.type_code) {
             filters.type_code = req.query.type_code
-        }
+        } 
         
         // call the getSchools 
         const { schoolsList, totalNumSchools } = await SchoolsDAO.getSchools({

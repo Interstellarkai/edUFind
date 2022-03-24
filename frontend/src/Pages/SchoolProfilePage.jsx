@@ -1,3 +1,4 @@
+import Comments from "../Components/CommentsComponents/Comments";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 
@@ -217,6 +218,14 @@ const SchoolProfilePage = () => {
                         <CommentInput>Write a comment</CommentInput>
                         <CommentButton>View More Comments</CommentButton>
                     </CommentsForm>
+                </CommentsWrapper>
+            </CommentsWrapperContainer>
+
+            {/* This block of code below is testing implementation of a comments feature */}
+            <CommentsWrapperContainer>
+                <CommentsWrapper>
+                    <CommentsHeader>Comments TEST</CommentsHeader>
+                    <Comments currentUserID = "1" /> {/* this is static data atm, need to fetch from backend */}
                 </CommentsWrapper>
             </CommentsWrapperContainer>
 

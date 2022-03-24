@@ -57,7 +57,6 @@ export default class ShortlistController {
     }
 
     static async getShortlisted(req, res){
-        // TO DO: Add per page queries 
         const userId = req.params.id
         const shortlisted = await ShortlistDAO.getAllShortlisted(userId)
         // response when the api url is called 
