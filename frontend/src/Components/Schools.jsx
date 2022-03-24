@@ -5,6 +5,8 @@ import {
   publicRequest,
   FilterCcaGrp,
   FilterSubject,
+  FilterZone,
+  FilterEP,
 } from "../requestMethod";
 import School from "./School";
 import ReactPaginate from "react-paginate";
@@ -30,6 +32,11 @@ const Schools = ({ query, click, mlc, filters }) => {
     //Initialise Arrays
     const filterCcaCat = [];
     const filterSubject = [];
+    const filterMTL = [];
+    const filterEP = [];
+    const filterZone = [];
+    console.log("CAT: ", filters.Category);
+    console.log("SUB: ", filters.subjectsOffered);
 
     try {
       // CCA Cat filter
@@ -47,17 +54,71 @@ const Schools = ({ query, click, mlc, filters }) => {
       subjectRes.data.Subjects.map((item) => {
         filterSubject.push(item.school_name);
       });
-      const filteredArray = filterCcaCat.filter((value) =>
+      const filteredArray1 = filterCcaCat.filter((value) =>
         filterSubject.includes(value)
+      );
+
+      console.log("schools", schools);
+
+      // Get schools MTL
+      const Schoolsres = await publicRequest.get(
+        GETALLSCHOOLS + "?mainlevel_code=" + mlc
+      );
+
+      // MTL filter
+      const filterMTLData = Schoolsres.data.schools.filter((item) => {
+        return (
+          item.mothertongue1_code.includes(filters.motherTongue) ||
+          item.mothertongue2_code.includes(filters.motherTongue) ||
+          item.mothertongue3_code.includes(filters.motherTongue)
+        );
+      });
+      //Map Array
+      filterMTLData.map((item) => {
+        filterMTL.push(item.school_name);
+      });
+      const filteredArray2 = filteredArray1.filter((value) =>
+        filterMTL.includes(value)
+      );
+
+      // Elective Program filter
+      const EPRes = await publicRequest.get(
+        FilterEP(filters.ElectiveProgrammes)
+      );
+      console.log(EPRes);
+      //Map Array
+      EPRes.data.programmes.map((item) => {
+        filterEP.push(item.school_name);
+      });
+      const filteredArray3 = filteredArray2.filter((value) =>
+        filterEP.includes(value)
+      );
+
+      // Zone filter
+      const zoneRes = await publicRequest.get(FilterZone(filters.Region));
+      console.log(zoneRes);
+      //Map Array
+      zoneRes.data.schools.map((item) => {
+        filterZone.push(item.school_name);
+      });
+
+      const filteredArray4 = filteredArray3.filter((value) =>
+        filterZone.includes(value)
       );
 
       console.log("CCA: ", filterCcaCat);
       console.log("SUBJECTS: ", filterSubject);
-      console.log("FILTERED: ", filteredArray);
+      console.log("MTL: ", filterMTL);
+      console.log("EP: ", filterEP);
+      console.log("Zone: ", filterZone);
+      console.log("FILTERED1: ", filteredArray1);
+      console.log("FILTERED2: ", filteredArray2);
+      console.log("FILTERED3: ", filteredArray3);
+      console.log("FILTERED4: ", filteredArray4);
 
       //Filter against whole list of schools
-      const tmpArray = schools.filter((item) =>
-        filteredArray.includes(item.school_name)
+      const tmpArray = Schoolsres.data.schools.filter((item) =>
+        filteredArray4.includes(item.school_name)
       );
       console.log("Tmp Array", tmpArray);
       setSchools(tmpArray);
@@ -74,7 +135,7 @@ const Schools = ({ query, click, mlc, filters }) => {
   useEffect(() => {
     getIntersect(filters);
     // console.log(schools);
-  }, []);
+  }, [filters]);
   // useEffect(() => {
   //   // getIntersect(filters);
   //   console.log(schools);

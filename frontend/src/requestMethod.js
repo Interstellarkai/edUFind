@@ -45,3 +45,9 @@ export const FilterCcaGrp = (category) =>
 
 // FILTER - SUBJECTS - http://localhost:8080/schools/subjects?subject_desc=ART
 export const FilterSubject = (subj) => "schools/subjects?subject_desc=" + subj;
+
+// FILTER - ZoneCode - http://localhost:8080/schools/general?zone_code=NORTH
+export const FilterZone = (zone) => "schools/general?zone_code=" + zone;
+
+// FILTER - LLP Domain - http://localhost:8080/schools/programmes?llp_domain1=Community %26 Youth Leadership
+export const FilterEP = (EP) => "schools/programmes?llp_domain1=" + EP;
