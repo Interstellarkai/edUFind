@@ -41,6 +41,7 @@ const Schools = ({ query, click, mlc, filters }) => {
     try {
       // CCA Cat filter
       const ccaCatRes = await publicRequest.get(FilterCcaGrp(filters.Category));
+      console.log("ccaCatRes", ccaCatRes);
       //Map Array
       ccaCatRes.data.CCAs.map((item) => {
         filterCcaCat.push(item.school_name);
