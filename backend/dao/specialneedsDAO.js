@@ -68,7 +68,9 @@ export default class specialneedsDAO {
             return { SpecialNeedsList: [], totalNumSpecialNeeds: 0 }
         }
         
-        // const displayCursor = cursor.limit(SpecialNeedsPerPage).skip(SpecialNeedsPerPage * page) // get to a specific page
+        const displayCursor = cursor
+        // .limit(SpecialNeedsPerPage)
+        // .skip(SpecialNeedsPerPage * page) // get to a specific page
 
         try {
             const SpecialNeedsList = await displayCursor.toArray()

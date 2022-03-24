@@ -62,7 +62,9 @@ export default class ProgrammesDAO {
             return { programmesList: [], totalNumProgrammes: 0 }
         }
 
-        // const displayCursor = cursor.limit(programmesPerPage).skip(programmesPerPage * page) // get to a specific page
+        const displayCursor = cursor
+        // .limit(programmesPerPage)
+        // .skip(programmesPerPage * page) // get to a specific page
 
         try {
             const programmesList = await displayCursor.toArray()

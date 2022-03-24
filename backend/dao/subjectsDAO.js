@@ -53,7 +53,9 @@ export default class subjectsDAO {
             return { SubjectsList: [], totalNumSubjects: 0 }
         }
         
-        // const displayCursor = cursor.limit(SubjectsPerPage).skip(SubjectsPerPage * page) // get to a specific page
+        const displayCursor = cursor
+        // .limit(SubjectsPerPage)
+        // .skip(SubjectsPerPage * page) // get to a specific page
 
         try {
             const SubjectsList = await displayCursor.toArray()
