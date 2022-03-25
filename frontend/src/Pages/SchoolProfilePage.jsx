@@ -1,6 +1,7 @@
 import Comments from "../Components/CommentsComponents/Comments";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
+import { publicRequest } from "../requestMethod";
 
 const Container = styled.div`
     height: 100vh;
@@ -139,6 +140,9 @@ const CommentInput = styled.input`
   letter-spacing: ${(props) => props.type === "password" && "0.125em"};
 `;
 
+//const res = await publicRequest.get(GETSCHOOL(schName)); using the API to get school data
+// res.data.schools[0].postal_code <- getting the data, and storing it into a variable
+
 const SchoolProfilePage = () => {
     return (
         <Container>
@@ -215,7 +219,7 @@ const SchoolProfilePage = () => {
                 <CommentsWrapper>
                     <CommentsHeader>Comments</CommentsHeader>
                     <CommentsForm>
-                        <CommentInput>Write a comment</CommentInput>
+                        {/* <CommentInput>Write a comment</CommentInput> */}
                         <CommentButton>View More Comments</CommentButton>
                     </CommentsForm>
                 </CommentsWrapper>
@@ -232,3 +236,5 @@ const SchoolProfilePage = () => {
         </Container>
     );
 };
+
+export default SchoolProfilePage;
