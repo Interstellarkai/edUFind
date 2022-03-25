@@ -4,6 +4,7 @@ import Navbar from "../Components/Navbar";
 import Schools from "../Components/Schools";
 import { useDispatch, useSelector } from "react-redux";
 import { setClick } from "../redux/searchButtonRedux";
+import { ccaGenericData } from "../ccaGeneric";
 
 const Container = styled.div`
   /* height: 100vh; */
@@ -222,11 +223,17 @@ const PrimarySchoolFinder = () => {
             </SidebarDropdown>
             <SidebarElementBr />
             <SidebarDropdown>
-              <Option value="" disabled selected hidden>
+              <Option value="" selected>
+                CCA
+              </Option>
+              {Object.entries(ccaGenericData).map(([key, item]) => (
+                <Option value={key}>{item}</Option>
+              ))}
+              {/* <Option value="" disabled selected hidden>
                 Specific CCAs
               </Option>
               <Option>CCA 1</Option>
-              <Option>CCA 2</Option>
+              <Option>CCA 2</Option> */}
             </SidebarDropdown>
             <SidebarElement>Academic Interests</SidebarElement>
             <SidebarElementBr />
