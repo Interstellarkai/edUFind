@@ -7,9 +7,14 @@ import {
   FilterSubject,
   FilterZone,
   FilterEP,
+  GETSHORTLISTED,
 } from "../requestMethod";
 import School from "./School";
 import ReactPaginate from "react-paginate";
+import { resetShortlistAdd } from "../redux/shortlistAddRedux";
+import { useSelector, useDispatch } from "react-redux";
+import { resetShortlistDelete } from "../redux/shortlistDeleteRedux";
+
 // import { schools } from "../data";
 
 const Container = styled.div`
@@ -27,6 +32,11 @@ const Schools = ({ query, click, mlc, filters }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [schools, setSchools] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [shortlistedSchools, setShortlistedSchools] = useState([]);
+  const currentUser = useSelector((state) => state.user.value);
+  const addShortlist = useSelector((state) => state.shortlistAdd.value);
+  const deleteShortlist = useSelector((state) => state.shortlistDelete.value);
+  const dispatch = useDispatch();
 
   const getIntersect = async (filters) => {
     //Initialise Arrays
@@ -163,34 +173,36 @@ const Schools = ({ query, click, mlc, filters }) => {
   useEffect(() => {
     getIntersect(filters);
     // console.log(schools);
+    setCurrentPage(0);
   }, [mlc, query, filters]);
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   const getSchools = async () => {
-  //     try {
-  //       const res = await publicRequest.get(
-  //         GETALLSCHOOLS + "?mainlevel_code=" + mlc
-  //       );
-  //       const Data = res.data.schools;
-  //       console.log(Data);
-  //       if (query !== "") {
-  //         const filterSchools = Data.filter((school) => {
-  //           return school.school_name
-  //             .toUpperCase()
-  //             .includes(query.toUpperCase());
-  //         });
-  //         setSchools(filterSchools);
-  //       } else {
-  //         setSchools(Data);
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   setIsLoading(false);
-  //   getSchools();
-  // }, [mlc, query]);
+  useEffect(() => {
+    dispatch(resetShortlistAdd());
+    dispatch(resetShortlistDelete());
+    const getShortlisted = async () => {
+      try {
+        const tmpShortlist = [];
+        const res = await publicRequest.get(
+          GETSHORTLISTED(currentUser.userId),
+          {
+            headers: { authorization: currentUser.token },
+          }
+        );
+        const shortlistedArray = res.data.Shortlist.shortlisted;
+        // Save each school name on first render
+        shortlistedArray.map((item) =>
+          tmpShortlist.push({
+            shortlist_id: item._id,
+            school_name: item.school_name,
+          })
+        );
+        setShortlistedSchools(tmpShortlist);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getShortlisted();
+  }, [addShortlist, deleteShortlist]);
 
   console.log();
 
@@ -200,7 +212,9 @@ const Schools = ({ query, click, mlc, filters }) => {
 
   const currentPageData = schools
     .slice(offset, offset + PER_PAGE)
-    .map((sch) => <School sch={sch} key={sch.id} />);
+    .map((sch) => (
+      <School sch={sch} key={sch.id} shortlistedSchools={shortlistedSchools} />
+    ));
 
   const pageCount = Math.ceil(schools.length / PER_PAGE);
 
@@ -208,7 +222,16 @@ const Schools = ({ query, click, mlc, filters }) => {
     setCurrentPage(selectedPage);
   };
 
-  //Filter Schools
+  const handleAnyClick = ({ selected: selectedPage }) => {
+    if (selectedPage > schools.length / PER_PAGE) {
+      return (selectedPage = 0);
+    }
+    if (selectedPage < 0) {
+      return (selectedPage = 0);
+    }
+  };
+
+  // Filter Schools
 
   return (
     <Container>
@@ -223,8 +246,8 @@ const Schools = ({ query, click, mlc, filters }) => {
             nextLabel={"next"}
             breakLabel={"..."}
             pageCount={pageCount}
-            marginPageDisplayed={3}
-            pageRangeDisplayed={3}
+            marginPagesDisplayed={3}
+            pageRangeDisplayed={1}
             onPageChange={handlePageClick}
             containerClassName={"pagination justify-content-center"}
             pageClassName={"page-item"}
@@ -234,6 +257,7 @@ const Schools = ({ query, click, mlc, filters }) => {
             breakClassName={"page-item"}
             breakLinkClassName={"page-link"}
             activeClassName={"active"}
+            onClick={handleAnyClick}
           />
         </Paginatecontainter>
       )}
