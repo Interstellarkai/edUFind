@@ -132,12 +132,12 @@ const SidebarDropdown = styled.select`
 const PrimarySchoolFinder = () => {
   const [query, setQuery] = useState("");
   const [filters, setFilters] = useState({
-    Category: "PHYSICAL SPORTS",
+    Category: "",
     CCA: "",
-    subjectsOffered: "ART",
-    motherTongue: "Malay",
-    ElectiveProgrammes: "Sports %26 Outdoor Education",
-    Region: "NORTH",
+    subjectsOffered: "",
+    motherTongue: "",
+    ElectiveProgrammes: "",
+    Region: "",
   });
   const click = useSelector((state) => state.searchButton.value);
   const dispatch = useDispatch();
@@ -208,10 +208,10 @@ const PrimarySchoolFinder = () => {
             <SidebarElementBr />
             <SidebarDropdown
               name="Category"
-              value={filters}
+              value={filters.Category}
               onChange={handleFilter}
             >
-              <Option value="null">Category</Option>
+              <Option value="">All Categories</Option>
               <Option value="PHYSICAL SPORTS"> Physical sports</Option>
               <Option value="VISUAL AND PERFORMING ARTS">
                 Visual and performing arts
@@ -232,10 +232,10 @@ const PrimarySchoolFinder = () => {
             <SidebarElementBr />
             <SidebarDropdown
               name="subjectsOffered"
-              value={filters}
+              value={filters.subjectsOffered}
               onChange={handleFilter}
             >
-              <Option value="">Subjects Offered</Option>
+              <Option value="">All Subjects</Option>
               <Option value="ART">Art</Option>
               <Option value="CHINESE">Chinese</Option>
               <Option value="CHINESE B">Chinese B</Option>
@@ -321,10 +321,10 @@ const PrimarySchoolFinder = () => {
             <SidebarElementBr />
             <SidebarDropdown
               name="motherTongue"
-              value={filters}
+              value={filters.motherTongue}
               onChange={handleFilter}
             >
-              <Option value="">Mother Tongue Languages Offered</Option>
+              <Option value="">All Mother Tongue Languages</Option>
               <Option value="Chinese">Chinese</Option>
               <Option value="Malay">Malay</Option>
               <Option value="Tamil">Tamil</Option>
@@ -332,10 +332,10 @@ const PrimarySchoolFinder = () => {
             <SidebarElementBr />
             <SidebarDropdown
               name="ElectiveProgrammes"
-              value={filters}
+              value={filters.ElectiveProgrammes}
               onChange={handleFilter}
             >
-              <Option value="">Elective Programmes</Option>
+              <Option value="">All Elective Programmes</Option>
               <Option value="Community %26 Youth Leadership">
                 Community & Youth Leadership
               </Option>
@@ -369,7 +369,7 @@ const PrimarySchoolFinder = () => {
             <SidebarElementBr />
             <SidebarDropdown
               name="Region"
-              value={filters}
+              value={filters.Region}
               onChange={handleFilter}
             >
               <Option value="">Region/Area</Option>
