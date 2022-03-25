@@ -35,6 +35,7 @@ const Schools = ({ query, click, mlc, filters }) => {
     const filterMTL = [];
     const filterEP = [];
     const filterZone = [];
+    const QueryArray = [];
     console.log("CAT: ", filters.Category);
     console.log("SUB: ", filters.subjectsOffered);
 
@@ -91,9 +92,15 @@ const Schools = ({ query, click, mlc, filters }) => {
       EPRes.data.programmes.map((item) => {
         filterEP.push(item.school_name);
       });
-      const filteredArray3 = filteredArray2.filter((value) =>
-        filterEP.includes(value)
-      );
+      let filteredArray3 = [];
+      if (mlc === "JUNIOR COLLEGE" || mlc === "CENTRALISED INSTITUTE") {
+        filteredArray3 = [...filteredArray2];
+        console.log("FA3:", filteredArray3);
+      } else {
+        filteredArray3 = filteredArray2.filter((value) =>
+          filterEP.includes(value)
+        );
+      }
 
       // Zone filter
       const zoneRes = await publicRequest.get(FilterZone(filters.Region));
@@ -107,15 +114,15 @@ const Schools = ({ query, click, mlc, filters }) => {
         filterZone.includes(value)
       );
 
-      console.log("CCA: ", filterCcaCat);
-      console.log("SUBJECTS: ", filterSubject);
-      console.log("MTL: ", filterMTL);
-      console.log("EP: ", filterEP);
-      console.log("Zone: ", filterZone);
-      console.log("FILTERED1: ", filteredArray1);
-      console.log("FILTERED2: ", filteredArray2);
-      console.log("FILTERED3: ", filteredArray3);
-      console.log("FILTERED4: ", filteredArray4);
+      // console.log("CCA: ", filterCcaCat);
+      // console.log("SUBJECTS: ", filterSubject);
+      // console.log("MTL: ", filterMTL);
+      // console.log("EP: ", filterEP);
+      // console.log("Zone: ", filterZone);
+      // console.log("FILTERED1: ", filteredArray1);
+      // console.log("FILTERED2: ", filteredArray2);
+      // console.log("FILTERED3: ", filteredArray3);
+      // console.log("FILTERED4: ", filteredArray4);
 
       //Filter against whole list of schools
       const tmpArray = Schoolsres.data.schools.filter((item) =>
@@ -123,51 +130,67 @@ const Schools = ({ query, click, mlc, filters }) => {
       );
       console.log("Tmp Array", tmpArray);
       setSchools(tmpArray);
+      // Filter against query
+
+      if (query !== "") {
+        const filterQuery = Schoolsres.data.schools.filter((school) => {
+          return school.school_name.toUpperCase().includes(query.toUpperCase());
+        });
+        //Map Array
+        filterQuery.map((item) => {
+          QueryArray.push(item.school_name);
+        });
+        console.log("Finalfilter:", QueryArray);
+        const filteredArray5 = filteredArray4.filter((value) =>
+          QueryArray.includes(value)
+        );
+        const tmpArray = Schoolsres.data.schools.filter((item) =>
+          filteredArray5.includes(item.school_name)
+        );
+        console.log("Tmp Array", tmpArray);
+        setSchools(tmpArray);
+      } else {
+        const tmpArray = Schoolsres.data.schools.filter((item) =>
+          filteredArray4.includes(item.school_name)
+        );
+        setSchools(tmpArray);
+      }
     } catch (err) {
       console.log(err);
     }
-
-    // const filterSubjectArray = await publicRequest.get(
-    //   FilterSubject(filters.subjectsOffered)
-    // );
-    // filteredArray = filterCcaCatArray.filter(value => filterSubjectArray.includes(value));
   };
 
   useEffect(() => {
     getIntersect(filters);
     // console.log(schools);
-  }, [filters]);
-  // useEffect(() => {
-  //   // getIntersect(filters);
-  //   console.log(schools);
-  // }, [schools]);
+  }, [mlc, query, filters]);
 
-  useEffect(() => {
-    setIsLoading(true);
-    const getSchools = async () => {
-      try {
-        const res = await publicRequest.get(
-          GETALLSCHOOLS + "?mainlevel_code=" + mlc
-        );
-        const Data = res.data.schools;
-        console.log(Data);
-        if (query !== "") {
-          const filterSchools = Data.filter((school) => {
-            return school.school_name
-              .toUpperCase()
-              .includes(query.toUpperCase());
-          });
-          setSchools(filterSchools);
-        } else {
-          setSchools(Data);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    setIsLoading(false);
-    getSchools();
-  }, [mlc, query]);
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   const getSchools = async () => {
+  //     try {
+  //       const res = await publicRequest.get(
+  //         GETALLSCHOOLS + "?mainlevel_code=" + mlc
+  //       );
+  //       const Data = res.data.schools;
+  //       console.log(Data);
+  //       if (query !== "") {
+  //         const filterSchools = Data.filter((school) => {
+  //           return school.school_name
+  //             .toUpperCase()
+  //             .includes(query.toUpperCase());
+  //         });
+  //         setSchools(filterSchools);
+  //       } else {
+  //         setSchools(Data);
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   setIsLoading(false);
+  //   getSchools();
+  // }, [mlc, query]);
 
   console.log();
 

@@ -331,6 +331,10 @@ const PrimarySchoolFinder = () => {
             </SidebarDropdown>
             <SidebarElementBr />
             <SidebarDropdown
+              disabled={
+                (mlc === "JUNIOR COLLEGE" || mlc === "CENTRALISED INSTITUTE") &&
+                true
+              }
               name="ElectiveProgrammes"
               value={filters.ElectiveProgrammes}
               onChange={handleFilter}
