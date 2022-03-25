@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import { publicRequest } from "../requestMethod";
 
-import CommentSection from "../Components/CommentSection";
+import CommentSection from "../Components/CommentComponents/CommentSection";
 
 const Container = styled.div`
     height: 100vh;
