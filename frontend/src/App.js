@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import UserAccountPage from "./Pages/UserAccountPage";
 import { getSchools } from "./redux/apiCalls";
 import SearchResultPage from "./Pages/SearchResultPage";
+import SchoolProfilePage from "./Pages/SchoolProfilePage";
 
 const App = () => {
   const currentUser = useSelector((state) => state.user.value);
@@ -82,6 +83,8 @@ const App = () => {
         <Route path={PAGES.searchResultsPage} element={<SearchResultPage />}>
           <Route path=":q" element={<SearchResultPage />} />
         </Route>
+
+        <Route path="school/:lol" element={<SchoolProfilePage />} />
       </Routes>
     </Router>
   );

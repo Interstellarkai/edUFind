@@ -1,7 +1,8 @@
-import Comments from "../Components/CommentsComponents/Comments";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import { publicRequest } from "../requestMethod";
+
+import CommentSection from "../Components/CommentSection";
 
 const Container = styled.div`
     height: 100vh;
@@ -229,7 +230,7 @@ const SchoolProfilePage = () => {
             <CommentsWrapperContainer>
                 <CommentsWrapper>
                     <CommentsHeader>Comments TEST</CommentsHeader>
-                    <Comments currentUserID = "1" /> {/* this is static data atm, need to fetch from backend */}
+                    <CommentSection />
                 </CommentsWrapper>
             </CommentsWrapperContainer>
 
