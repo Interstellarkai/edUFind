@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
-import School from "../Components/School";
+import ResultantSchools from "../Components/ResultantSchools";
+import { GETALLSCHOOLS, publicRequest } from "../requestMethod";
 
 const Container = styled.div`
   background-color: #bcdfff;
@@ -23,29 +25,34 @@ const ResultsTitle = styled.h1`
 `;
 
 const ResultsContainer = styled.div`
-  width: 40%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
 `;
 
 const SearchResultPage = () => {
-  const allSchools = useSelector((state) => state.schools.value);
+  const [allSchools, setAllSchools] = useState([]);
   const searchQ = useSelector((state) => state.searchQ.value);
 
   useEffect(() => {}, [searchQ]);
-  console.log(searchQ);
+
+  useEffect(async () => {
+    try {
+      const res = await publicRequest.get(GETALLSCHOOLS);
+      console.log(res.data.schools);
+      setAllSchools(res.data.schools);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [searchQ]);
+  // console.log(searchQ);
   return (
     <Container>
       <Navbar />
       <Wrapper>
         <ResultsTitle>Results</ResultsTitle>
         <ResultsContainer>
-          {" "}
-          {allSchools
-            .filter((school) =>
-              school.school_name.includes(searchQ.toUpperCase())
-            )
-            .map((school) => (
-              <School sch={school} key={school._id} />
-            ))}
+          <ResultantSchools query={searchQ} allSchools={allSchools} />
         </ResultsContainer>
       </Wrapper>
     </Container>

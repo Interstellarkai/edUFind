@@ -258,6 +258,7 @@ const Schools = ({ query, click, mlc, filters }) => {
             breakLinkClassName={"page-link"}
             activeClassName={"active"}
             onClick={handleAnyClick}
+            forcePage={currentPage}
           />
         </Paginatecontainter>
       )}
