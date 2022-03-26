@@ -150,14 +150,14 @@ const RegistrationInterests = () => {
             <FormItemContainer>
               <FormControlLabel
                 control={<Checkbox />}
-                label="Performing Arts"
-                value="Performing Arts"
+                label="Visual and Performing Arts"
+                value="Visual and Performing Arts"
                 onChange={handleChange}
               />
               <FormControlLabel
                 control={<Checkbox />}
-                label="Sports"
-                value="Sports"
+                label="Physical Sports"
+                value="Physical Sports"
                 onChange={handleChange}
               />
               <FormControlLabel
