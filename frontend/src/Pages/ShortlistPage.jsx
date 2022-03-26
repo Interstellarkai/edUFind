@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
@@ -47,6 +48,9 @@ const ViewMoreButton = styled(Link)`
 `;
 
 const ShortlistPage = () => {
+  let eduLevel = useSelector((state) => state.user.value.educationLevel);
+  eduLevel = eduLevel.replace(/ /gi, "_").toUpperCase();
+  console.log(eduLevel);
   return (
     <Container>
       <Navbar />
@@ -56,9 +60,7 @@ const ShortlistPage = () => {
           These are the schools that you have shortlisted while browsing
         </Subtitle>
         <ShortlistedSchools />
-        <ViewMoreButton to={PAGES.primarySchoolPage}>
-          View More Schools
-        </ViewMoreButton>
+        <ViewMoreButton to={"/" + eduLevel}>View More Schools</ViewMoreButton>
       </WrapperContainer>
     </Container>
   );
