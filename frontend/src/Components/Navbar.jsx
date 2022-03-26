@@ -122,7 +122,7 @@ const Navbar = () => {
 
       {currentUser.username !== false ? (
         <ItemsContainer>
-          <StyledLink to={PAGES.homePage} hoverable="true">
+          <StyledLink to={PAGES.recommendationsPage} hoverable="true">
             <ItemText>Recommendations</ItemText>
           </StyledLink>
           <StyledLink to={PAGES.shortlistPage} hoverable="true">

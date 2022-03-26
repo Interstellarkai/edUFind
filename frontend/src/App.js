@@ -5,6 +5,7 @@ import RegistrationInterests from "./Pages/RegistrationInterests";
 import RegistrationMoreDetails from "./Pages/RegistrationMoreDetails";
 import ShortlistPage from "./Pages/ShortlistPage";
 import SchoolFinder from "./Pages/SchoolFinder";
+import RecommendationsPage from "./Pages/RecommendationsPage";
 
 import {
   BrowserRouter as Router,
@@ -85,6 +86,13 @@ const App = () => {
         </Route>
 
         <Route path="school/:lol" element={<SchoolProfilePage />} />
+
+        <Route
+          path={PAGES.recommendationsPage}
+          element={
+            currentUser.username ? <RecommendationsPage /> : <Navigate to="/" />
+          }
+        />
       </Routes>
     </Router>
   );
