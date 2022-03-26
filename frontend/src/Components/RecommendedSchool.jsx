@@ -44,6 +44,12 @@ const SchoolName = styled(Link)`
   text-decoration: none;
 `;
 
+const SchoolAddress = styled.p`
+  padding-top: 10px;
+  font-size: 15px;
+  font-weight: 700;
+`;
+
 const WrapperShowMore = styled.div`
   /* text-align: center; */
   /* border: solid black; */

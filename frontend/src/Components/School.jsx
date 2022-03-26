@@ -12,6 +12,8 @@ import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
 import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
 import { setShortlistDelete } from "../redux/shortlistDeleteRedux";
+import { Link, useNavigate } from "react-router-dom";
+import PAGES from "../pageRoute";
 
 const Container = styled.div`
   /* display: flex; */
@@ -30,7 +32,9 @@ const Wrapper = styled.div`
   /* border: solid black 0.2px; */
 `;
 
-const WrapperSchoolDetails = styled.div``;
+const WrapperSchoolDetails = styled.div`
+  cursor: pointer;
+`;
 
 const SchoolName = styled.h1`
   padding-top: 5px;
@@ -56,6 +60,13 @@ const AddIconWrapper = styled.div`
 const School = ({ sch, shortlistedSchools }) => {
   const currentUser = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const linkClick = () => {
+    console.log(sch.school_name);
+    navigate(`${PAGES.schoolPage}/${sch.school_name.replace(/ /gi, "_")}`);
+  };
+
   const handleClick = async () => {
     if (currentUser.username === false) {
       alert("Account needed to shortlist schools");
@@ -114,7 +125,7 @@ const School = ({ sch, shortlistedSchools }) => {
   return (
     <Container>
       <Wrapper>
-        <WrapperSchoolDetails>
+        <WrapperSchoolDetails onClick={linkClick}>
           <SchoolName>{sch.school_name}</SchoolName>
           <SchoolAddress>{sch.address}</SchoolAddress>
         </WrapperSchoolDetails>
