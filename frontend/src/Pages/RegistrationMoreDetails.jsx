@@ -100,8 +100,9 @@ const RegistrationMoreDetails = () => {
   const handleSubmit = (e) => {
     // Send again?
     e.preventDefault();
+    console.log("HERE");
     dispatch(updateNewUserInfo(details));
-    navigate(PAGES.registerPage3);
+    // navigate(PAGES.registerPage3);
   };
 
   return (
@@ -114,11 +115,14 @@ const RegistrationMoreDetails = () => {
           <Form onSubmit={handleSubmit}>
             <SelectContainer>
               <Select
-                defaultValue="Region"
+                defaultValue=""
                 onChange={handleChange}
                 name="region"
+                required
               >
-                <Option disabled>Region</Option>
+                <Option value="" disabled>
+                  Region
+                </Option>
                 <Option>North</Option>
                 <Option>East</Option>
                 <Option>South</Option>
@@ -128,11 +132,15 @@ const RegistrationMoreDetails = () => {
 
             <SelectContainer>
               <Select
-                defaultValue="Level Of Education"
+                // defaultValue="Level Of Education"
+                defaultValue=""
                 onChange={handleChange}
                 name="educationLevel"
+                required
               >
-                <Option disabled>Level Of Education</Option>
+                <Option value="" disabled>
+                  Level Of Education
+                </Option>
                 <Option>Primary</Option>
                 <Option>Secondary</Option>
                 <Option>Junior College</Option>
@@ -141,15 +149,17 @@ const RegistrationMoreDetails = () => {
 
             <SelectContainer>
               <Select
-                defaultValue="Mother Tongue Language"
+                defaultValue=""
                 onChange={handleChange}
                 name="motherTongueLanguage"
+                required
               >
-                <Option disabled>Mother Tongue Language</Option>
+                <Option value="" disabled>
+                  Mother Tongue Language
+                </Option>
                 <Option>Chinese</Option>
                 <Option>Malay</Option>
                 <Option>Tamil</Option>
-                <Option>Others</Option>
               </Select>
             </SelectContainer>
             <ButtonContainer>
