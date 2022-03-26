@@ -50,7 +50,7 @@ const ViewMoreButton = styled(Link)`
 const ShortlistPage = () => {
   let eduLevel = useSelector((state) => state.user.value.educationLevel);
   eduLevel = eduLevel.replace(/ /gi, "_").toUpperCase();
-  console.log(eduLevel);
+  // console.log(eduLevel);
   return (
     <Container>
       <Navbar />
