@@ -5,14 +5,11 @@ import { resetShortlistAdd } from "../redux/shortlistAddRedux";
 import { resetShortlistDelete } from "../redux/shortlistDeleteRedux";
 import {
   FilterCcaGrp,
-  FilterZone,
   GETALLSCHOOLS,
-  GETSCHOOL,
   GETSHORTLISTED,
   publicRequest,
 } from "../requestMethod";
 import RecommendedSchool from "./RecommendedSchool";
-import ShortlistedSchool from "./ShortlistedSchool";
 
 const Container = styled.div`
   width: 100%;
@@ -31,12 +28,26 @@ const RecommendedSchools = () => {
   const addShortlist = useSelector((state) => state.shortlistAdd.value);
   const deleteShortlist = useSelector((state) => state.shortlistDelete.value);
   const [shortlistedSchools, setShortlistedSchools] = useState([]);
-  const [schools, setSchools] = useState([]);
   const [recommendedSchools, setRecommendedSchools] = useState([]);
   const dispatch = useDispatch();
 
   // mlc
   const mlc = currentUser.educationLevel.replace(/ /gi, "_").toUpperCase();
+
+  // Random Selection
+  function getRandom(arr, n) {
+    var result = new Array(n),
+      len = arr.length,
+      taken = new Array(len);
+    if (n > len)
+      throw new RangeError("getRandom: more elements taken than available");
+    while (n--) {
+      var x = Math.floor(Math.random() * len);
+      result[n] = arr[x in taken ? taken[x] : x];
+      taken[x] = --len in taken ? taken[len] : len;
+    }
+    return result;
+  }
 
   // Get Recommended Schools
   const getIntersect = async () => {
@@ -119,7 +130,7 @@ const RecommendedSchools = () => {
         filteredArray2.includes(item.school_name)
       );
       console.log("Tmp Array", tmpArray);
-      setRecommendedSchools(tmpArray);
+      setRecommendedSchools(getRandom(tmpArray, 9));
     } catch (err) {
       console.log("ERROR GETTING ALL SCHOOLS: ", err);
     }

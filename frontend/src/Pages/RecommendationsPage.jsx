@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import RecommendedSchools from "../Components/RecommendedSchools";
-import ShortlistedSchools from "../Components/ShortlistedSchools";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 const Container = styled.div`
   height: 100vh;
@@ -22,9 +22,20 @@ const WrapperContainer = styled.div`
   flex-direction: column;
 `;
 
+const Header = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Title = styled.h1`
   font-weight: 700;
   font-size: 40px;
+`;
+
+const RefreshContainer = styled.div`
+  margin-left: 10px;
+  cursor: pointer;
 `;
 
 const Subtitle = styled.p`
@@ -50,11 +61,21 @@ const ViewMoreButton = styled(Link)`
 const RecommendationsPage = () => {
   let eduLevel = useSelector((state) => state.user.value.educationLevel);
   eduLevel = eduLevel.replace(/ /gi, "_").toUpperCase();
+  function reloadPage() {
+    window.location.reload();
+  }
   return (
     <Container>
       <Navbar />
       <WrapperContainer>
-        <Title>Our Recommendations</Title>
+        <Header>
+          {" "}
+          <Title>Our Recommendations</Title>
+          <RefreshContainer onClick={reloadPage}>
+            <RefreshIcon sx={{ fontSize: "25px" }} />
+          </RefreshContainer>
+        </Header>
+
         <Subtitle>These are some schools we think you might like! </Subtitle>
         <RecommendedSchools />
         <ViewMoreButton to={"/" + eduLevel}>View More Schools</ViewMoreButton>
