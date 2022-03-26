@@ -11,6 +11,7 @@ const PAGES = {
   jcSchoolPage: "/JUNIOR_COLLEGE",
   searchResultsPage: "/search",
   recommendationsPage: "/recommendations",
+  schoolPage: "/school",
 };
 
 export const {
@@ -24,5 +25,6 @@ export const {
   primarySchool,
   searchResultsPage,
   recommendationsPage,
+  schoolPage,
 } = PAGES;
 export default PAGES;

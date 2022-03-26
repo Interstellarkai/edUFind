@@ -6,7 +6,7 @@ import { IconButton } from "@mui/material";
 import { DELETESHORTLISTED, publicRequest } from "../requestMethod";
 import { useDispatch, useSelector } from "react-redux";
 import PAGES from "../pageRoute";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { setShortlistDelete } from "../redux/shortlistDeleteRedux";
 const Container = styled.div`
   width: 25%;
@@ -27,10 +27,12 @@ const Top = styled.div`
   align-items: center;
 `;
 
-const SchoolName = styled.h1`
+const SchoolName = styled(Link)`
   padding-top: 5px;
   font-size: 23px;
   font-weight: 700;
+  color: black;
+  text-decoration: none;
 `;
 
 const RemoveIconContainer = styled.div`
@@ -142,6 +144,9 @@ const ShortlistedSchool = ({ sch, notes, id }) => {
   const currentUserId = useSelector((state) => state.user.value.userId);
   const currentUserToken = useSelector((state) => state.user.value.token);
   //   const deleteState = useSelector((state) => state.shortlistDelete.value);
+  const [schoolLink, setSchoolLink] = useState(
+    PAGES.schoolPage + `/${sch.school_name.replace(/ /gi, "_")}`
+  );
   const [expanded, setExpanded] = useState(false);
   //   const [deleted, setDeleted] = useState(false);
   const dispatch = useDispatch();
@@ -171,7 +176,7 @@ const ShortlistedSchool = ({ sch, notes, id }) => {
     <Container expanded={expanded}>
       <SchoolNameWrapper>
         <Top>
-          <SchoolName>{sch.school_name}</SchoolName>
+          <SchoolName to={schoolLink}>{sch.school_name}</SchoolName>
 
           <IconButton onClick={handleClick}>
             <RemoveIconContainer>

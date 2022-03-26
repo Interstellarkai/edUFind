@@ -12,10 +12,11 @@ import {
   publicRequest,
 } from "../requestMethod";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Link } from "react-router-dom";
 import { setShortlistDelete } from "../redux/shortlistDeleteRedux";
 import { setShortlistAdd } from "../redux/shortlistAddRedux";
 import { pink, yellow } from "@mui/material/colors";
+import PAGES from "../pageRoute";
 const Container = styled.div`
   width: 25%;
   /* min-height: 300px; */
@@ -35,10 +36,12 @@ const Top = styled.div`
   align-items: center;
 `;
 
-const SchoolName = styled.h1`
+const SchoolName = styled(Link)`
   padding-top: 5px;
   font-size: 23px;
   font-weight: 700;
+  color: black;
+  text-decoration: none;
 `;
 
 const AddIconContainer = styled.div`
@@ -148,7 +151,9 @@ const ShowMore = styled.button`
 
 const RecommendedSchool = ({ sch, shortlistedSchools, currentUser }) => {
   const [expanded, setExpanded] = useState(false);
-
+  const [schoolLink, setSchoolLink] = useState(
+    PAGES.schoolPage + `/${sch.school_name.replace(/ /gi, "_")}`
+  );
   const dispatch = useDispatch();
   const handleClick = async () => {
     let userComment = prompt(
@@ -204,7 +209,7 @@ const RecommendedSchool = ({ sch, shortlistedSchools, currentUser }) => {
     <Container expanded={expanded}>
       <SchoolNameWrapper>
         <Top>
-          <SchoolName>{sch.school_name}</SchoolName>
+          <SchoolName to={schoolLink}>{sch.school_name}</SchoolName>
 
           {checkIn() ? (
             <IconButton>
