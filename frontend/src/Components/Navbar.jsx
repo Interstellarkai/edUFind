@@ -15,44 +15,52 @@ const Container = styled.div`
 `;
 
 const Logo = styled.div`
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 20px;
+  /* padding: 0 20px; */
+  padding-left: 20px;
   cursor: pointer;
   color: #3838d1;
 `;
 const LogoText = styled.h1`
-  /* margin-left: 10px; */
+  margin-left: 10px;
 `;
 
 const SearchBar = styled.div`
-  flex: 1;
-  width: 60%;
+  /* flex: 1; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  min-width: 30%;
   /* border: solid black; */
+  /* padding: 10px; */
   margin: 10px;
 `;
 const Input = styled.input`
-  width: 60%;
-  height: 100%;
+  flex: 5;
+  height: inherit;
   /* border: 1px solid teal; */
   border: none;
-  padding: 10px 5px;
+  /* padding-right: 100px;*/
+  padding-left: 10px;
 `;
 const Button = styled.button`
+  flex: 1;
   border: none;
-  height: 100%;
+  height: inherit;
   background-color: teal;
   /* border: 1px solid teal; */
   color: white;
-  padding: 10px;
+  padding: 0 10px;
   cursor: pointer;
 `;
 
 const ItemsContainer = styled.div`
-  /* border: 1px solid black; */
-  flex: 1;
+  /* border: 1px solid blue; */
+  /* flex: 1; */
   height: 100%;
   display: flex;
   justify-content: flex-end;
@@ -62,9 +70,12 @@ const ItemText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  /* min-width: 100px; */
+  /* border: black solid; */
 `;
 
 const StyledLink = styled(Link)`
+  /* flex: 1; */
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -82,6 +93,7 @@ const StyledLink = styled(Link)`
 
 const AccountContainer = styled.div`
   display: flex;
+  /* flex: 8; */
   align-items: center;
   justify-content: center;
   padding: 0 10px;
@@ -103,9 +115,7 @@ const Navbar = () => {
   return (
     <Container>
       <Logo>
-        <SchoolIcon
-          sx={{ fontSize: 30, color: "primary", padding: "0 10px" }}
-        />
+        <SchoolIcon />
         <StyledLink to="/">
           <LogoText>edUFind</LogoText>
         </StyledLink>
