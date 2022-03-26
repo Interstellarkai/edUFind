@@ -100,9 +100,9 @@ const RegistrationMoreDetails = () => {
   const handleSubmit = (e) => {
     // Send again?
     e.preventDefault();
-    console.log("HERE");
+    // console.log("HERE");
     dispatch(updateNewUserInfo(details));
-    // navigate(PAGES.registerPage3);
+    navigate(PAGES.registerPage3);
   };
 
   return (
