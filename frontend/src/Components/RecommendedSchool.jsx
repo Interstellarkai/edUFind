@@ -11,11 +11,11 @@ import {
   DELETESHORTLISTED,
   publicRequest,
 } from "../requestMethod";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setShortlistDelete } from "../redux/shortlistDeleteRedux";
 import { setShortlistAdd } from "../redux/shortlistAddRedux";
-import { pink, yellow } from "@mui/material/colors";
+import { yellow } from "@mui/material/colors";
 import PAGES from "../pageRoute";
 const Container = styled.div`
   width: 25%;
@@ -42,40 +42,6 @@ const SchoolName = styled(Link)`
   font-weight: 700;
   color: black;
   text-decoration: none;
-`;
-
-const AddIconContainer = styled.div`
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const SchoolAddress = styled.p`
-  padding-top: 10px;
-  font-size: 15px;
-  font-weight: 700;
-`;
-
-const PersonalNotesWrapper = styled.div`
-  display: flex;
-`;
-
-const Empty = styled.div`
-  flex: 1;
-`;
-const PersonalNotesTitle = styled.p`
-  flex: 1;
-  text-align: end;
-  padding-right: 10px;
-  border-radius: 10px;
-  /* border: solid black; */
-  border-radius: 100px 0 0 10px;
-  /* padding: 5px; */
-  background-color: lightgreen;
-  font-weight: 700;
-  font-size: 15px;
-  margin-bottom: 10px;
 `;
 
 const WrapperShowMore = styled.div`
@@ -226,12 +192,6 @@ const RecommendedSchool = ({ sch, shortlistedSchools, currentUser }) => {
               />
             </IconButton>
           )}
-
-          {/* <IconButton onClick={handleClick}>
-            <AddIconContainer>
-              <BookmarkBorderRoundedIcon sx={{ fontSize: "25px" }} />
-            </AddIconContainer>
-          </IconButton> */}
         </Top>
         <SchoolAddress>{sch.address}</SchoolAddress>
       </SchoolNameWrapper>

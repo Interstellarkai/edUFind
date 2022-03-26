@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import styled from "styled-components";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -143,14 +143,12 @@ const ShowMore = styled.button`
 const ShortlistedSchool = ({ sch, notes, id }) => {
   const currentUserId = useSelector((state) => state.user.value.userId);
   const currentUserToken = useSelector((state) => state.user.value.token);
-  //   const deleteState = useSelector((state) => state.shortlistDelete.value);
+
   const [schoolLink, setSchoolLink] = useState(
     PAGES.schoolPage + `/${sch.school_name.replace(/ /gi, "_")}`
   );
   const [expanded, setExpanded] = useState(false);
-  //   const [deleted, setDeleted] = useState(false);
   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
   const handleClick = async () => {
     // Delete
     try {
@@ -168,9 +166,6 @@ const ShortlistedSchool = ({ sch, notes, id }) => {
     }
   };
 
-  //   useEffect(() => {
-  //     navigate(PAGES.shortlistPage);
-  //   }, [deleted]);
   console.log(expanded);
   return (
     <Container expanded={expanded}>
