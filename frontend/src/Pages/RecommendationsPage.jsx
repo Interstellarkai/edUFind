@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
+import RecommendedSchools from "../Components/RecommendedSchools";
 import ShortlistedSchools from "../Components/ShortlistedSchools";
 
 const Container = styled.div`
@@ -55,7 +56,7 @@ const RecommendationsPage = () => {
       <WrapperContainer>
         <Title>Our Recommendations</Title>
         <Subtitle>These are some schools we think you might like! </Subtitle>
-        <ShortlistedSchools />
+        <RecommendedSchools />
         <ViewMoreButton to={"/" + eduLevel}>View More Schools</ViewMoreButton>
       </WrapperContainer>
     </Container>
