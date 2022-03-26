@@ -59,24 +59,28 @@ const RecommendedSchools = () => {
     // CCA Cat filter. For each CCA Grp interest
     // currentUser.ccaInterests.map(async (ccaGrp) => {
     //   Uppercase and get response
+    if (currentUser.ccaInterests.length) {
+      for (let i = 0; i < currentUser.ccaInterests.length; i++) {
+        try {
+          console.log(currentUser.ccaInterests[i]);
+          let ccaCatRes = await publicRequest.get(
+            FilterCcaGrp(currentUser.ccaInterests[i].toUpperCase())
+          );
 
-    for (let i = 0; i < currentUser.ccaInterests.length; i++) {
-      try {
-        console.log(currentUser.ccaInterests[i]);
-        let ccaCatRes = await publicRequest.get(
-          FilterCcaGrp(currentUser.ccaInterests[i].toUpperCase())
-        );
-
-        ccaCatRes.data.CCAs.map((item) => {
-          // Push if not included
-          if (!filterCcaCat.includes(item.school_name)) {
-            filterCcaCat.push(item.school_name);
-          }
-        });
-      } catch (err) {
-        console.log("ERROR");
+          ccaCatRes.data.CCAs.map((item) => {
+            // Push if not included
+            if (!filterCcaCat.includes(item.school_name)) {
+              filterCcaCat.push(item.school_name);
+            }
+          });
+        } catch (err) {
+          console.log("ERROR");
+        }
       }
+    } else {
+      filterCcaCat = null;
     }
+
     // });
 
     console.log("Filter CCA cat Array: ", filterCcaCat);
@@ -88,18 +92,31 @@ const RecommendedSchools = () => {
       );
 
       // MTL Filter Array
-      const filterMTLData = Schoolsres.data.schools.filter((item) => {
-        return (
-          item.mothertongue1_code.includes(currentUser.motherTongueLanguage) ||
-          item.mothertongue2_code.includes(currentUser.motherTongueLanguage) ||
-          item.mothertongue3_code.includes(currentUser.motherTongueLanguage)
-        );
-      });
+      let filterMTLData = Schoolsres.data.schools;
+      if (
+        currentUser.motherTongueLanguage !== "" &&
+        currentUser.motherTongueLanguage !== null
+      ) {
+        filterMTLData = Schoolsres.data.schools.filter((item) => {
+          return (
+            item.mothertongue1_code.includes(
+              currentUser.motherTongueLanguage
+            ) ||
+            item.mothertongue2_code.includes(
+              currentUser.motherTongueLanguage
+            ) ||
+            item.mothertongue3_code.includes(currentUser.motherTongueLanguage)
+          );
+        });
+      }
 
       // Zone Filter Array
-      const filterZoneData = Schoolsres.data.schools.filter(
-        (item) => item.zone_code === currentUser.region.toUpperCase()
-      );
+      let filterZoneData = Schoolsres.data.schools;
+      if (currentUser.region !== null && currentUser.region !== "") {
+        filterZoneData = Schoolsres.data.schools.filter(
+          (item) => item.zone_code === currentUser.region.toUpperCase()
+        );
+      }
 
       // CCA Filter Array
 
@@ -120,9 +137,12 @@ const RecommendedSchools = () => {
       );
       console.log("Filter Array 1: ", filteredArray1);
 
-      const filteredArray2 = filteredArray1.filter((value) =>
-        filterCcaCat.includes(value)
-      );
+      let filteredArray2 = [...filteredArray1];
+      if (filterCcaCat !== null) {
+        filteredArray2 = filteredArray1.filter((value) =>
+          filterCcaCat.includes(value)
+        );
+      }
       console.log("Filter Array 2: ", filteredArray2);
 
       //Filter against whole list of schools
