@@ -12,7 +12,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   // background-color: #f5cb82;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 `;
 
 const Logo = styled.div`
@@ -39,6 +39,7 @@ const SearchBar = styled.div`
   min-width: 30%;
   /* border: solid black; */
   /* padding: 10px; */
+  box-shadow: 1px 1px 3px #888888;
   margin: 10px;
 `;
 const Input = styled.input`
@@ -91,7 +92,9 @@ const StyledLink = styled(Link)`
   cursor: pointer;
 
   ${(props) =>
-    props.hoverable ? "&:hover { background-color: #004175; color: white;}" : ""}
+    props.hoverable
+      ? "&:hover { background-color: #004175; color: white;}"
+      : ""}
 `;
 
 const AccountContainer = styled.div`
