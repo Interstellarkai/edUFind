@@ -4,6 +4,7 @@ import {
   GETALLSCHOOLS,
   publicRequest,
   FilterCcaGrp,
+  FilterCcaName,
   FilterSubject,
   FilterZone,
   FilterEP,
@@ -41,6 +42,7 @@ const Schools = ({ query, click, mlc, filters }) => {
   const getIntersect = async (filters) => {
     //Initialise Arrays
     const filterCcaCat = [];
+    const filterCcaName = [];
     const filterSubject = [];
     const filterMTL = [];
     const filterEP = [];
@@ -58,6 +60,19 @@ const Schools = ({ query, click, mlc, filters }) => {
         filterCcaCat.push(item.school_name);
       });
 
+      //CCA Name filter
+      const ccaNameRes = await publicRequest.get(FilterCcaName(filters.CCA));
+      console.log("ccaNameRes", ccaNameRes);
+      //Map Array
+      ccaNameRes.data.CCAs.map((item) => {
+        filterCcaName.push(item.school_name);
+      });
+      console.log(filterCcaName);
+
+      const filteredArray1 = filterCcaCat.filter((value) =>
+        filterCcaName.includes(value)
+      );
+
       // Subjects filter
       const subjectRes = await publicRequest.get(
         FilterSubject(filters.subjectsOffered)
@@ -66,7 +81,7 @@ const Schools = ({ query, click, mlc, filters }) => {
       subjectRes.data.Subjects.map((item) => {
         filterSubject.push(item.school_name);
       });
-      const filteredArray1 = filterCcaCat.filter((value) =>
+      const filteredArray2 = filteredArray1.filter((value) =>
         filterSubject.includes(value)
       );
 
@@ -89,7 +104,7 @@ const Schools = ({ query, click, mlc, filters }) => {
       filterMTLData.map((item) => {
         filterMTL.push(item.school_name);
       });
-      const filteredArray2 = filteredArray1.filter((value) =>
+      const filteredArray3 = filteredArray2.filter((value) =>
         filterMTL.includes(value)
       );
 
@@ -102,12 +117,12 @@ const Schools = ({ query, click, mlc, filters }) => {
       EPRes.data.programmes.map((item) => {
         filterEP.push(item.school_name);
       });
-      let filteredArray3 = [];
+      let filteredArray4 = [];
       if (mlc === "JUNIOR COLLEGE" || mlc === "CENTRALISED INSTITUTE") {
-        filteredArray3 = [...filteredArray2];
-        console.log("FA3:", filteredArray3);
+        filteredArray4 = [...filteredArray3];
+        console.log("FA4:", filteredArray4);
       } else {
-        filteredArray3 = filteredArray2.filter((value) =>
+        filteredArray4 = filteredArray3.filter((value) =>
           filterEP.includes(value)
         );
       }
@@ -120,7 +135,7 @@ const Schools = ({ query, click, mlc, filters }) => {
         filterZone.push(item.school_name);
       });
 
-      const filteredArray4 = filteredArray3.filter((value) =>
+      const filteredArray5 = filteredArray4.filter((value) =>
         filterZone.includes(value)
       );
 
@@ -136,7 +151,7 @@ const Schools = ({ query, click, mlc, filters }) => {
 
       //Filter against whole list of schools
       const tmpArray = Schoolsres.data.schools.filter((item) =>
-        filteredArray4.includes(item.school_name)
+        filteredArray5.includes(item.school_name)
       );
       console.log("Tmp Array", tmpArray);
       setSchools(tmpArray);
@@ -151,17 +166,17 @@ const Schools = ({ query, click, mlc, filters }) => {
           QueryArray.push(item.school_name);
         });
         console.log("Finalfilter:", QueryArray);
-        const filteredArray5 = filteredArray4.filter((value) =>
+        const filteredArray6 = filteredArray5.filter((value) =>
           QueryArray.includes(value)
         );
         const tmpArray = Schoolsres.data.schools.filter((item) =>
-          filteredArray5.includes(item.school_name)
+          filteredArray6.includes(item.school_name)
         );
         console.log("Tmp Array", tmpArray);
         setSchools(tmpArray);
       } else {
         const tmpArray = Schoolsres.data.schools.filter((item) =>
-          filteredArray4.includes(item.school_name)
+          filteredArray5.includes(item.school_name)
         );
         setSchools(tmpArray);
       }
