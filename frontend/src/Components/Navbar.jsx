@@ -11,7 +11,8 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #f5cb82;
+  // background-color: #f5cb82;
+  background-color: #FFFFFF;
 `;
 
 const Logo = styled.div`
@@ -22,7 +23,8 @@ const Logo = styled.div`
   /* padding: 0 20px; */
   padding-left: 20px;
   cursor: pointer;
-  color: #3838d1;
+  // color: #3838d1;
+  color: #004175;
 `;
 const LogoText = styled.h1`
   margin-left: 10px;
@@ -51,7 +53,8 @@ const Button = styled.button`
   flex: 1;
   border: none;
   height: inherit;
-  background-color: teal;
+  // background-color: teal;
+  background-color: #004175;
   /* border: 1px solid teal; */
   color: white;
   padding: 0 10px;
@@ -88,7 +91,7 @@ const StyledLink = styled(Link)`
   cursor: pointer;
 
   ${(props) =>
-    props.hoverable ? "&:hover { background-color: teal; color: white;}" : ""}
+    props.hoverable ? "&:hover { background-color: #004175; color: white;}" : ""}
 `;
 
 const AccountContainer = styled.div`

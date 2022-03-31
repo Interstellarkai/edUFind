@@ -10,7 +10,8 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 const Container = styled.div`
   /* height: 100vh; */
   width: 100vw;
-  background-color: #ffe7c3;
+  // background-color: #ffe7c3;
+  background-color: #004175;
 `;
 
 const WrapperContainer = styled.div`
@@ -32,12 +33,14 @@ const Wrapper = styled.div`
 
 const Header1 = styled.h1`
   font-size: 48px;
-  color: #264e70;
+  // color: #264e70;
+  color: #FFFFFF;
 `;
 
 const Header2 = styled.h2`
   font-size: 18px;
-  color: #000000;
+  // color: #000000;
+  color: #FFFFFF;
 `;
 const CcaItem = styled.li``;
 
