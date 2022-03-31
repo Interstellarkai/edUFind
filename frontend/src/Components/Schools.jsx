@@ -290,29 +290,29 @@ const Schools = ({ query, click, mlc, filters }) => {
     <Container>
       {isLoading && <div>Loading Schools...</div>}
       {!isLoading && currentPageData}
-      {schools.length === 0 ? (
-        <h3>No schools Found</h3>
-      ) : (
-        <ReactPaginate
-          previousLabel={"previous"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={1}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination justify-content-center"}
-          pageClassName={"page-item"}
-          pageLinkClassName={"page-link"}
-          previousClassName={"page-link"}
-          nextClassName={"page-link"}
-          breakClassName={"page-item"}
-          breakLinkClassName={"page-link"}
-          activeClassName={"active"}
-          onClick={handleAnyClick}
-          forcePage={currentPage}
-        />
-      )}
+      {schools.length === 0
+        ? !isLoading && <h3>No schools Found</h3>
+        : !isLoading && (
+            <ReactPaginate
+              previousLabel={"previous"}
+              nextLabel={"next"}
+              breakLabel={"..."}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={1}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination justify-content-center"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-link"}
+              nextClassName={"page-link"}
+              breakClassName={"page-item"}
+              breakLinkClassName={"page-link"}
+              activeClassName={"active"}
+              onClick={handleAnyClick}
+              forcePage={currentPage}
+            />
+          )}
     </Container>
   );
 };
