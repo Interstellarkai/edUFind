@@ -22,13 +22,20 @@ const WrapperContainer = styled.div`
   flex-direction: column;
 `;
 
-const Header = styled.div`
+const HeaderContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 5px;
   margin-bottom: 20px;
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Title = styled.h1`
@@ -71,15 +78,17 @@ const RecommendationsPage = () => {
     <Container>
       <Navbar />
       <WrapperContainer>
-        <Header>
-          {" "}
-          <Title>Our Recommendations</Title>
-          <RefreshContainer onClick={reloadPage}>
-            <RefreshIcon sx={{ fontSize: "25px" }} />
-          </RefreshContainer>
-        </Header>
+        <HeaderContainer>
+          <Header>
+            {" "}
+            <Title>Our Recommendations</Title>
+            <RefreshContainer onClick={reloadPage}>
+              <RefreshIcon sx={{ fontSize: "25px" }} />
+            </RefreshContainer>
+          </Header>
 
-        <Subtitle>These are some schools we think you might like! </Subtitle>
+          <Subtitle>These are some schools we think you might like! </Subtitle>
+        </HeaderContainer>
         <RecommendedSchools />
         <ViewMoreButton to={"/" + eduLevel}>View More Schools</ViewMoreButton>
       </WrapperContainer>
