@@ -25,6 +25,7 @@ const Top = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 100px;
 `;
 
 const SchoolName = styled(Link)`
@@ -82,7 +83,7 @@ const Expandable = styled.div`
   display: flex;
   /* position: relative; */
   width: 100%;
-  height: ${(props) => (props.expanded ? 350 : 0)}px;
+  height: ${(props) => (props.expanded ? 460 : 0)}px;
   /* height: fit-content; */
   transition: height 0.5s ease-in-out;
   overflow: hidden;
@@ -92,20 +93,26 @@ const Expandable = styled.div`
 const UlContainer = styled.div`
   overflow: ${(props) => !props.expanded && "hidden"};
   transition: height 0.5s ease-in-out;
+
   /* border: solid black; */
 `;
 
 const Ul = styled.ul`
   /* z-index: 1; */
-  margin-left: 20px;
+  /* border: solid black; */
+  /* margin: 0; */
+  padding: 0;
+  margin-left: 3px;
   margin-bottom: 20px;
   font-size: 18px;
   font-weight: 500;
   list-style: none;
+  align-items: left;
 `;
 const Li = styled.li`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   word-break: break-all;
+  /* border: black solid; */
 `;
 
 const A = styled.a`

@@ -13,8 +13,12 @@ const Container = styled.div`
   justify-content: space-between;
   // background-color: #f5cb82;
   background-color: #ffffff;
+<<<<<<< HEAD
   /* border-bottom: 1px solid black; */
   position: sticky;
+=======
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+>>>>>>> fb3f1321fa52f2619aefe6ef74552e7d6872c4b0
 `;
 
 const Logo = styled.div`
@@ -41,6 +45,7 @@ const SearchBar = styled.div`
   min-width: 30%;
   /* border: solid black; */
   /* padding: 10px; */
+  box-shadow: 1px 1px 3px #888888;
   margin: 10px;
 `;
 const Input = styled.input`

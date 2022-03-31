@@ -8,7 +8,7 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 const Container = styled.div`
   height: 100vh;
   width: 100vw;
-  background-color: #bcdfff;
+  background-color: #d5eafd;
   overflow-y: auto;
   /* overflow-x: hidden; */
 `;
