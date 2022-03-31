@@ -11,12 +11,19 @@ const Container = styled.div`
   width: 100vw;
   overflow-y: auto;
   height: 100vh;
-  background-color: #bcdfff;
+  background-color: #fff;
+  /* background-color: #bcdfff; */
+  /* background-color: #${(props) =>
+    props.mlc === "PRIMARY"
+      ? "b7d7e8"
+      : props.mlc === "SECONDARY"
+      ? "fff222"
+      : "f0f0f0"}; */
 `;
 
 const WrapperContainer = styled.div`
   height: 80%;
-  width: 54%;
+  width: 70%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -28,6 +35,7 @@ const Title = styled.h1`
   font-weight: 700;
   text-align: center;
   color: #000000;
+  /* text-shadow: 1px 1px 1px; */
 `;
 
 const WrapperTitle = styled.div`
@@ -35,6 +43,7 @@ const WrapperTitle = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  /* border: solid green; */
 `;
 
 const Subtitle = styled.p`
@@ -42,16 +51,18 @@ const Subtitle = styled.p`
   padding-bottom: 25px;
   font-weight: 700;
   text-align: center;
-  font-size: 15px;
+  font-size: 20px;
+  color: #909090;
 `;
 
 const WrapperSearch = styled.div`
-  width: 100%;
+  width: 90%;
   height: 50px;
   display: flex;
   /* border: solid green; */
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px;
 `;
 
 const Select = styled.select`
@@ -63,16 +74,33 @@ const Select = styled.select`
   cursor: pointer;
   font-size: 15px;
   font-weight: 700;
+  margin-right: -20px;
+  border: solid lightgray;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  border: solid black 2px;
+  border-right: none;
+  -webkit-mask-image: radial-gradient(circle at right, black 41px);
+  box-shadow: rgba(0, 0, 0.2, 0.2) 2px 3px 3px;
+  &:hover {
+    border: solid 0.5px;
+    box-shadow: 0 0 10px #9ecaed;
+    background-color: #f8faff;
+  }
 `;
 
-const Option = styled.option``;
+const Option = styled.option`
+  background-color: white;
+`;
 
 const Input = styled.input`
   flex: 6;
   height: 100%;
   padding-left: 10px;
   /* border: 1px solid #4383be; */
-  border: solid lightgray 0.5px;
+  border: solid black 2px;
+  border-radius: 45px;
+  box-shadow: rgba(0, 0, 0.2, 0.2) 2px 3px 3px;
 `;
 
 const Button = styled.button`
@@ -90,6 +118,8 @@ const Button = styled.button`
 
 const SubContainer = styled.div`
   display: flex;
+  justify-content: center;
+  /* border: solid green; */
 `;
 
 const Sidebar = styled.div`
@@ -104,6 +134,7 @@ const Sidebar = styled.div`
 const SidebarHeader = styled.h3`
   font-weight: 700;
   font-size: 20px;
+  text-shadow: 0.5px 0.5px 0.5px;
 `;
 
 const SidebarElement = styled.p`
@@ -128,6 +159,13 @@ const SidebarDropdown = styled.select`
   word-wrap: break-word;
   text-overflow: ellipsis;
   white-space: normal;
+  border: 0.5px solid grey;
+  border-radius: 10px;
+  box-shadow: 0.5px 0.5px 4px;
+  &:hover {
+    border: solid 0.5px;
+    box-shadow: 0 0 10px #9ecaed;
+  }
 `;
 
 const PrimarySchoolFinder = () => {
@@ -168,7 +206,7 @@ const PrimarySchoolFinder = () => {
   // console.log(mlc);
 
   return (
-    <Container>
+    <Container mlc={mlc}>
       <Navbar />
       <WrapperContainer>
         <WrapperTitle>
@@ -192,12 +230,10 @@ const PrimarySchoolFinder = () => {
                 Centralised Institute
               </Option>
             </Select>
-
             <Input
               placeholder="Search Schools"
               onChange={(event) => setQuery(event.target.value)}
             />
-            <Button onClick={handleClick}>Search</Button>
           </WrapperSearch>
         </WrapperTitle>
 
@@ -206,7 +242,6 @@ const PrimarySchoolFinder = () => {
             <SidebarHeader>What are your interest?</SidebarHeader>
             <SidebarElement>Co-Curricular Activities</SidebarElement>
             {/* Spacing between elements */}
-            <SidebarElementBr />
             <SidebarDropdown
               name="Category"
               value={filters.Category}
@@ -221,6 +256,7 @@ const PrimarySchoolFinder = () => {
               <Option value="UNIFORMED GROUPS">Uniformed groups</Option>
               <Option value="OTHERS"> Others</Option>
             </SidebarDropdown>
+            <SidebarElementBr />
             <SidebarElementBr />
             <SidebarDropdown
               name="CCA"
@@ -239,8 +275,8 @@ const PrimarySchoolFinder = () => {
               <Option>CCA 1</Option>
               <Option>CCA 2</Option> */}
             </SidebarDropdown>
-            <SidebarElement>Academic Interests</SidebarElement>
             <SidebarElementBr />
+            <SidebarElement>Academic Interests</SidebarElement>
             <SidebarDropdown
               name="subjectsOffered"
               value={filters.subjectsOffered}
@@ -330,6 +366,7 @@ const PrimarySchoolFinder = () => {
               <Option value="TAMIL B">Tamil B</Option>
             </SidebarDropdown>
             <SidebarElementBr />
+            <SidebarElementBr />
             <SidebarDropdown
               name="motherTongue"
               value={filters.motherTongue}
@@ -340,6 +377,7 @@ const PrimarySchoolFinder = () => {
               <Option value="Malay">Malay</Option>
               <Option value="Tamil">Tamil</Option>
             </SidebarDropdown>
+            <SidebarElementBr />
             <SidebarElementBr />
             <SidebarDropdown
               disabled={
@@ -381,7 +419,6 @@ const PrimarySchoolFinder = () => {
             </SidebarDropdown>
             <SidebarElementBr />
             <SidebarElement>Location</SidebarElement>
-            <SidebarElementBr />
             <SidebarDropdown
               name="Region"
               value={filters.Region}

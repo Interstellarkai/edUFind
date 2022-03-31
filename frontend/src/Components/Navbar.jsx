@@ -12,7 +12,9 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   // background-color: #f5cb82;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
+  /* border-bottom: 1px solid black; */
+  position: sticky;
 `;
 
 const Logo = styled.div`
@@ -91,7 +93,9 @@ const StyledLink = styled(Link)`
   cursor: pointer;
 
   ${(props) =>
-    props.hoverable ? "&:hover { background-color: #004175; color: white;}" : ""}
+    props.hoverable
+      ? "&:hover { background-color: #004175; color: white;}"
+      : ""}
 `;
 
 const AccountContainer = styled.div`

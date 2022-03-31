@@ -26,7 +26,8 @@ const Container = styled.div`
 const Paginatecontainter = styled.div`
   display: flex;
   align-items: center;
-  width: 60%;
+  width: 200px;
+  border: solid;
 `;
 
 const Schools = ({ query, click, mlc, filters }) => {
