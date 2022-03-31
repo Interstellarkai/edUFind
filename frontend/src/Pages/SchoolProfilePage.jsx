@@ -276,9 +276,11 @@ const SchoolProfilePage = () => {
     try {
       const epRes = await publicRequest.get(getSchoolEP(school.school_name));
       console.log(epRes);
-      const ep = epRes.data.programmes[0];
-      console.log("EP: ", ep);
-      setEpList(ep);
+      if (epRes.data.total_results !== 0) {
+        const ep = epRes.data.programmes[0];
+        console.log("EP: ", ep);
+        setEpList(ep);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -391,7 +393,7 @@ const SchoolProfilePage = () => {
 
           <OfferingText>Elective Programmes offered:</OfferingText>
           <ul>
-            <li>Title: {epList.alp_title}</li>
+            <li>Title: {epList.llp_title1}</li>
             <li>Domain: {epList.llp_domain1}</li>
           </ul>
 
