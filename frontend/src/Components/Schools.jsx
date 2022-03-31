@@ -217,6 +217,7 @@ const Schools = ({ query, click, mlc, filters }) => {
             setSchools(Data);
           }
         } catch (err) {
+          setIsLoading(false);
           console.log(err);
         }
       };
