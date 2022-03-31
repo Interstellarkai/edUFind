@@ -222,7 +222,11 @@ const PrimarySchoolFinder = () => {
               <Option value="OTHERS"> Others</Option>
             </SidebarDropdown>
             <SidebarElementBr />
-            <SidebarDropdown>
+            <SidebarDropdown
+              name="CCA"
+              value={filters.CCA}
+              onChange={handleFilter}
+            >
               <Option value="" selected>
                 CCA
               </Option>

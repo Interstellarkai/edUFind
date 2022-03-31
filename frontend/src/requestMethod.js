@@ -45,6 +45,8 @@ export const FilterCcaGrp = (category) =>
 
 export const FilterCcaSchool = (schoolName) =>
   "schools/cca?school_name=" + schoolName;
+// FILTER - CCA NAME - http://localhost:8080/schools/cca?cca_generic_name=BASKETBALL
+export const FilterCcaName = (name) => "schools/cca?cca_generic_name=" + name;
 
 // FILTER - SUBJECTS - http://localhost:8080/schools/subjects?subject_desc=ART
 export const FilterSubject = (subj) => "schools/subjects?subject_desc=" + subj;
