@@ -43,11 +43,23 @@ export const DELETESHORTLISTED = (id) =>
 export const FilterCcaGrp = (category) =>
   "schools/cca?cca_grouping_desc=" + category;
 
+export const FilterCcaSchool = (schoolName) =>
+  "schools/cca?school_name=" + schoolName;
+
 // FILTER - SUBJECTS - http://localhost:8080/schools/subjects?subject_desc=ART
 export const FilterSubject = (subj) => "schools/subjects?subject_desc=" + subj;
+
+export const getSchoolSubject = (schoolName) =>
+  "schools/subjects?school_name=" + schoolName;
 
 // FILTER - ZoneCode - http://localhost:8080/schools/general?zone_code=NORTH
 export const FilterZone = (zone) => "schools/general?zone_code=" + zone;
 
 // FILTER - LLP Domain - http://localhost:8080/schools/programmes?llp_domain1=Community %26 Youth Leadership
 export const FilterEP = (EP) => "schools/programmes?llp_domain1=" + EP;
+export const getSchoolEP = (schoolName) =>
+  "/schools/programmes?school_name=" + schoolName;
+
+// SPECIAL NEEDS
+export const getSpecialNeedsSchool = (schoolName) =>
+  "schools/specialneeds?school_name=" + schoolName;
