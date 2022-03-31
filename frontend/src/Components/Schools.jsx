@@ -15,6 +15,7 @@ import ReactPaginate from "react-paginate";
 import { resetShortlistAdd } from "../redux/shortlistAddRedux";
 import { useSelector, useDispatch } from "react-redux";
 import { resetShortlistDelete } from "../redux/shortlistDeleteRedux";
+import { style } from "@mui/system";
 
 // import { schools } from "../data";
 
@@ -23,11 +24,11 @@ const Container = styled.div`
   width: 60%;
 `;
 
-const Paginatecontainter = styled.div`
+const Paginatecontainer = styled.div`
   display: flex;
-  align-items: center;
-  width: 200px;
+  align-items: stretch;
   border: solid;
+  width: 200px;
 `;
 
 const Schools = ({ query, click, mlc, filters }) => {
@@ -184,10 +185,46 @@ const Schools = ({ query, click, mlc, filters }) => {
     } catch (err) {
       console.log(err);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    getIntersect(filters);
+    //If no filters, simply return based on query
+    setIsLoading(true);
+    if (
+      filters.Category === "" &&
+      filters.CCA === "" &&
+      filters.subjectsOffered == "" &&
+      filters.motherTongue === "" &&
+      filters.ElectiveProgrammes === "" &&
+      filters.Region === ""
+    ) {
+      const getSchools = async () => {
+        try {
+          const res = await publicRequest.get(
+            GETALLSCHOOLS + "?mainlevel_code=" + mlc
+          );
+          const Data = res.data.schools;
+          console.log(Data);
+          if (query !== "") {
+            const filterSchools = Data.filter((school) => {
+              return school.school_name
+                .toUpperCase()
+                .includes(query.toUpperCase());
+            });
+            setSchools(filterSchools);
+          } else {
+            setSchools(Data);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      setIsLoading(false);
+      getSchools();
+    } else {
+      getIntersect(filters);
+    }
     // console.log(schools);
     setCurrentPage(0);
   }, [mlc, query, filters]);
@@ -252,31 +289,29 @@ const Schools = ({ query, click, mlc, filters }) => {
   return (
     <Container>
       {isLoading && <div>Loading Schools...</div>}
-      {currentPageData}
+      {!isLoading && currentPageData}
       {schools.length === 0 ? (
         <h3>No schools Found</h3>
       ) : (
-        <Paginatecontainter>
-          <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            pageCount={pageCount}
-            marginPagesDisplayed={3}
-            pageRangeDisplayed={1}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination justify-content-center"}
-            pageClassName={"page-item"}
-            pageLinkClassName={"page-link"}
-            previousClassName={"page-link"}
-            nextClassName={"page-link"}
-            breakClassName={"page-item"}
-            breakLinkClassName={"page-link"}
-            activeClassName={"active"}
-            onClick={handleAnyClick}
-            forcePage={currentPage}
-          />
-        </Paginatecontainter>
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={1}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-link"}
+          nextClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+          onClick={handleAnyClick}
+          forcePage={currentPage}
+        />
       )}
     </Container>
   );

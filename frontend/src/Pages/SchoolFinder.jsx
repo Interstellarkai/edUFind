@@ -133,13 +133,13 @@ const Sidebar = styled.div`
 
 const SidebarHeader = styled.h3`
   font-weight: 700;
-  font-size: 20px;
-  text-shadow: 0.5px 0.5px 0.5px;
+  font-size: 22px;
+  text-shadow: 0.2px 0.2px 0.2px;
 `;
 
 const SidebarElement = styled.p`
   padding-top: 10px;
-  font-size: 18px;
+  font-size: 19px;
 `;
 
 const SidebarElementBr = styled.br`
@@ -150,12 +150,12 @@ const SidebarElementBr = styled.br`
 
 const SidebarDropdown = styled.select`
   border: none;
-  padding: 5px;
+  padding: 10px;
   display: flex;
   height: fit-content;
   width: 85%;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 16px;
   word-wrap: break-word;
   text-overflow: ellipsis;
   white-space: normal;

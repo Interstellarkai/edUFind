@@ -20,7 +20,7 @@ const Container = styled.div`
   /* width: 100%; */
   /* border: black solid; */
   /* background-color: white; */
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: all ease 0.3s;
   &:hover {
@@ -52,7 +52,8 @@ const SchoolName = styled.h1`
 
 const SchoolAddress = styled.p`
   padding-top: 5px;
-  font-size: 15px;
+  font-size: 16px;
+  color: #656565;
 `;
 
 const AddIconWrapper = styled.div`

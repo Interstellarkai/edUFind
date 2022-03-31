@@ -13,12 +13,7 @@ const Container = styled.div`
   justify-content: space-between;
   // background-color: #f5cb82;
   background-color: #ffffff;
-<<<<<<< HEAD
-  /* border-bottom: 1px solid black; */
-  position: sticky;
-=======
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
->>>>>>> fb3f1321fa52f2619aefe6ef74552e7d6872c4b0
 `;
 
 const Logo = styled.div`
