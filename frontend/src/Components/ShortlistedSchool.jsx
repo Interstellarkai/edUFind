@@ -16,6 +16,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 200px;
+  border-radius: 10px;
 `;
 
 const SchoolNameWrapper = styled.div`

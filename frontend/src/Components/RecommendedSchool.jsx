@@ -25,6 +25,7 @@ const Container = styled.div`
   flex-direction: column;
   min-height: 200px;
   box-shadow: rgba(81, 83, 85, 0.2) 0px 8px 24px;
+  border-radius: 10px;
 `;
 
 const SchoolNameWrapper = styled.div`
