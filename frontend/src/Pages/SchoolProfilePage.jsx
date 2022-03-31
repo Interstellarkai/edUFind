@@ -5,16 +5,18 @@ import {
   GETSCHOOL,
   getSchoolEP,
   getSchoolSubject,
+  getSpecialNeedsSchool,
   publicRequest,
 } from "../requestMethod";
 import locationLogo from "../Logos/location.png";
 import wwwLogo from "../Logos/www.png";
 import phoneLogo from "../Logos/phone.png";
 import emailLogo from "../Logos/email.png";
-//import { GETSCHOOL } from "../requestMethod"
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import CommentSection from "../Components/CommentComponents/CommentSection";
-import { logout } from "../redux/userRedux";
+import CancelIcon from "@mui/icons-material/Cancel";
+
 import { useEffect, useState } from "react";
 
 const Container = styled.div`
@@ -227,7 +229,8 @@ const SchoolProfilePage = () => {
   const [school, setSchool] = useState("");
   const [ccaList, setCcaList] = useState([]);
   const [subjList, setSubjList] = useState([]);
-  const [epList, setEpList] = useState([]);
+  const [epList, setEpList] = useState({});
+  const [specialneeds, setSpecialneeds] = useState({});
   const [mtlList, setMtlList] = useState([]);
 
   // Get school
@@ -273,29 +276,45 @@ const SchoolProfilePage = () => {
     try {
       const epRes = await publicRequest.get(getSchoolEP(school.school_name));
       console.log(epRes);
-      const ep = epRes.data;
+      const ep = epRes.data.programmes[0];
       console.log("EP: ", ep);
-      //   epRes.data.CCAs.map((item) => ccas.push(item.cca_generic_name));
-
-      //   setCcaList(ccas);
+      setEpList(ep);
     } catch (err) {
       console.log(err);
     }
 
     // Support For Education Needs
-    // try {
-    //   const ccaRes = await publicRequest.get(
-    //     FilterCcaSchool(school.school_name)
-    //   );
-    //   const ccas = [];
-    //   ccaRes.data.CCAs.map((item) => ccas.push(item.cca_generic_name));
+    try {
+      const specialNeedsRes = await publicRequest.get(
+        getSpecialNeedsSchool(school.school_name)
+      );
 
-    //   setCcaList(ccas);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+      if (specialNeedsRes.data.total_results !== 0) {
+        // console.log(specialNeedsRes.data.SpecialNeeds);
+        setSpecialneeds(specialNeedsRes.data.SpecialNeeds[0]);
+      }
+    } catch (err) {
+      console.log(err);
+    }
 
     try {
+      var mtlArray = [];
+      const fetchedMTL1 = school.mothertongue1_code;
+      const fetchedMTL2 = school.mothertongue2_code;
+      const fetchedMTL3 = school.mothertongue3_code;
+      if (fetchedMTL1 != "na") {
+        mtlArray.push(fetchedMTL1);
+      }
+
+      if (fetchedMTL2 != "na") {
+        mtlArray.push(fetchedMTL2);
+      }
+
+      if (fetchedMTL3 != "na") {
+        mtlArray.push(fetchedMTL3);
+      }
+
+      setMtlList(mtlArray);
     } catch (err) {
       console.log(err);
     }
@@ -365,23 +384,59 @@ const SchoolProfilePage = () => {
 
           <OfferingText>MTLs offered:</OfferingText>
           <ul>
-            <li>MTL 1</li>
-            <li>MTL 2</li>
-            <li>MTL 3</li>
+            {mtlList.map((item) => (
+              <li>{item}</li>
+            ))}
           </ul>
 
           <OfferingText>Elective Programmes offered:</OfferingText>
           <ul>
-            <li>Elective 1</li>
-            <li>Elective 2</li>
-            <li>Elective 3</li>
+            <li>Title: {epList.alp_title}</li>
+            <li>Domain: {epList.llp_domain1}</li>
           </ul>
 
           <OfferingText>Support for Special Education Needs:</OfferingText>
+
           <ul>
-            <li>Support Feature 1</li>
-            <li>Support Feature 2</li>
-            <li>Support Feature 3</li>
+            <li>
+              Learning and Behaviour Support:{" "}
+              {specialneeds["aed-learningnbehavl_suppt"] === "Yes" ? (
+                <CheckCircleIcon color="success" />
+              ) : (
+                <CancelIcon />
+              )}
+            </li>
+            <li>
+              Barrier Free Facilities:{" "}
+              {specialneeds.barrier_free_facilities === "Yes" ? (
+                <CheckCircleIcon color="success" />
+              ) : (
+                <CancelIcon />
+              )}
+            </li>
+
+            <li>
+              Visual Impairment:{" "}
+              {specialneeds.visual_impairment === "Yes" ? (
+                <CheckCircleIcon color="success" />
+              ) : (
+                <CancelIcon />
+              )}
+            </li>
+            <li>
+              Hearing Loss:{" "}
+              {specialneeds.hearing_loss === "Yes" ? (
+                <CheckCircleIcon color="success" />
+              ) : (
+                <CancelIcon />
+              )}
+            </li>
+
+            {/* {Object.entries(specialneeds).map(([key, value]) => (
+              <li>
+                {key}:{value}
+              </li>
+            ))} */}
           </ul>
         </SchoolWrapper>
       </SchoolWrapperContainer>
