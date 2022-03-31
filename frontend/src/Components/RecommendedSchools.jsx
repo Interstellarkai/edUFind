@@ -29,7 +29,13 @@ const RecommendedSchools = () => {
   const deleteShortlist = useSelector((state) => state.shortlistDelete.value);
   const [shortlistedSchools, setShortlistedSchools] = useState([]);
   const [recommendedSchools, setRecommendedSchools] = useState([]);
+  const [oppUserGender, setOppUserGender] = useState("");
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (currentUser.gender === "Male") setOppUserGender("GIRLS");
+    else if (currentUser.gender === "Female") setOppUserGender("BOYS");
+    else setOppUserGender(null);
+  }, [currentUser]);
 
   // mlc
   const mlc = currentUser.educationLevel.replace(/ /gi, "_").toUpperCase();
@@ -88,7 +94,11 @@ const RecommendedSchools = () => {
     // Get all schools
     try {
       const Schoolsres = await publicRequest.get(
-        GETALLSCHOOLS + "?mainlevel_code=" + mlc
+        GETALLSCHOOLS +
+          "?mainlevel_code=" +
+          mlc +
+          "&nature_code!=" +
+          oppUserGender
       );
 
       // MTL Filter Array

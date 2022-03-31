@@ -19,12 +19,12 @@ import { yellow } from "@mui/material/colors";
 import PAGES from "../pageRoute";
 const Container = styled.div`
   width: 25%;
-  /* min-height: 300px; */
   background-color: white;
   margin: 20px;
   display: flex;
   flex-direction: column;
   min-height: 200px;
+  box-shadow: rgba(81, 83, 85, 0.2) 0px 8px 24px;
 `;
 
 const SchoolNameWrapper = styled.div`
@@ -34,6 +34,7 @@ const Top = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 100px;
 `;
 
 const SchoolName = styled(Link)`
@@ -63,7 +64,7 @@ const Expandable = styled.div`
   display: flex;
   /* position: relative; */
   width: 100%;
-  height: ${(props) => (props.expanded ? 350 : 0)}px;
+  height: ${(props) => (props.expanded ? 460 : 0)}px;
   /* height: fit-content; */
   transition: height 0.5s ease-in-out;
   overflow: hidden;
@@ -78,7 +79,8 @@ const UlContainer = styled.div`
 
 const Ul = styled.ul`
   /* z-index: 1; */
-  margin-left: 20px;
+  padding: 0;
+  margin-left: 3px;
   margin-bottom: 20px;
   font-size: 18px;
   font-weight: 500;
