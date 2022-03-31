@@ -15,7 +15,8 @@ const Container = styled.div`
   margin: 20px;
   display: flex;
   flex-direction: column;
-  min-height: 200px;
+  box-shadow: rgba(60, 60, 61, 0.2) 8px 8px 24px;
+  border-radius: 10px;
 `;
 
 const SchoolNameWrapper = styled.div`
@@ -68,6 +69,13 @@ const PersonalNotesTitle = styled.p`
   font-weight: 700;
   font-size: 15px;
   margin-bottom: 10px;
+  padding-left: 6px;
+  cursor: pointer;
+
+  white-space: ${(props) => !props.textExpand && "nowrap"};
+  transition: white-space 0.5s ease-in-out;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const WrapperShowMore = styled.div`
@@ -83,7 +91,7 @@ const Expandable = styled.div`
   display: flex;
   /* position: relative; */
   width: 100%;
-  height: ${(props) => (props.expanded ? 460 : 0)}px;
+  height: ${(props) => (props.expanded ? 350 : 0)}px;
   /* height: fit-content; */
   transition: height 0.5s ease-in-out;
   overflow: hidden;
@@ -104,7 +112,7 @@ const Ul = styled.ul`
   padding: 0;
   margin-left: 3px;
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 500;
   list-style: none;
   align-items: left;
@@ -150,7 +158,7 @@ const ShowMore = styled.button`
 const ShortlistedSchool = ({ sch, notes, id }) => {
   const currentUserId = useSelector((state) => state.user.value.userId);
   const currentUserToken = useSelector((state) => state.user.value.token);
-
+  const [textExpand, setTextExpand] = useState(false);
   const [schoolLink, setSchoolLink] = useState(
     PAGES.schoolPage + `/${sch.school_name.replace(/ /gi, "_")}`
   );
@@ -190,7 +198,12 @@ const ShortlistedSchool = ({ sch, notes, id }) => {
       </SchoolNameWrapper>
       <PersonalNotesWrapper>
         <Empty></Empty>
-        <PersonalNotesTitle>Remarks: {notes}</PersonalNotesTitle>
+        <PersonalNotesTitle
+          textExpand={textExpand}
+          onClick={() => setTextExpand(!textExpand)}
+        >
+          Remarks: {notes}
+        </PersonalNotesTitle>
       </PersonalNotesWrapper>
       <WrapperShowMore>
         <Expandable expanded={expanded}>

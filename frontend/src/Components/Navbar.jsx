@@ -7,13 +7,22 @@ import AccountDropDown from "./AccountDropDown";
 import { setSearchQ } from "../redux/searchQueryRedux";
 
 const Container = styled.div`
+  z-index: 2000;
   height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   // background-color: #f5cb82;
   background-color: #ffffff;
+
+  /* border-bottom: 1px solid black; */
+  position: sticky;
+
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  position: sticky;
+  left: 0;
+  top: 0;
 `;
 
 const Logo = styled.div`

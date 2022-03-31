@@ -21,7 +21,15 @@ const WrapperContainer = styled.div`
   align-items: center;
   flex-direction: column;
 `;
-
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 5px;
+  margin-bottom: 20px;
+`;
 const Title = styled.h1`
   font-weight: 700;
   font-size: 40px;
@@ -55,10 +63,12 @@ const ShortlistPage = () => {
     <Container>
       <Navbar />
       <WrapperContainer>
-        <Title>Your Shortlisted Schools</Title>
-        <Subtitle>
-          These are the schools that you have shortlisted while browsing
-        </Subtitle>
+        <HeaderContainer>
+          <Title>Your Shortlisted Schools</Title>
+          <Subtitle>
+            These are the schools that you have shortlisted while browsing
+          </Subtitle>
+        </HeaderContainer>
         <ShortlistedSchools />
         <ViewMoreButton to={"/" + eduLevel}>View More Schools</ViewMoreButton>
       </WrapperContainer>
