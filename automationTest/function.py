@@ -1,15 +1,9 @@
 from time import sleep
-from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-from webdriver_manager.chrome import ChromeDriverManager
-##################### HOUSE KEEPING ############################
-import warnings
-warnings.filterwarnings("ignore")
-################################################################
 
-def halt(message):
-    print(message)
-    input("Press enter to continue: ")
+def home(driver):
+    driver.get("http://localhost:3000/")
+    sleep(2)
 
 # Register
 def register(driver, name, email, pw, cpw):
@@ -49,19 +43,30 @@ def register(driver, name, email, pw, cpw):
     checkbox_field.click() # Select [0]
     next_button = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/form/div[2]/button') # Next Button
     next_button.click()
-    print("Check: Registered " +  +  u'\u2713')
-    sleep(5)
+    sleep(3)
 
 def logout(driver):
     # Logout
-    profile_button = driver.find_element_by_xpath('//*[@id="root"]/div/div[1]/div[3]/div/div/div/button/div/img')
-    profile_button.click()
-    sleep(3)
-    logout_button = driver.find_element_by_xpath('//*[@id="root"]/div/div[1]/div[3]/div/div/div/div/ul/li[2]')
-    logout_button.click()
-    print("Check: Logged out " +  u'\u2713')
+    try:
+        profile_button = driver.find_element_by_xpath('//*[@id="root"]/div/div[1]/div[3]/div/div/div/button/div/img')
+        profile_button.click()
+        sleep(3)
+        logout_button = driver.find_element_by_xpath('//*[@id="root"]/div/div[1]/div[3]/div/div/div/div/ul/li[2]')
+        logout_button.click()
+    except:
+        print("LOGOUT EXCEPT TRIGGERED /HTML")
+        profile_button = driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div[3]/div/div/div/button/div/img')
+        profile_button.click()
+        sleep(3)
+        logout_button = driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div[3]/div/div/div/div/ul/li[2]')
+        logout_button.click()
 
     sleep(2)
+
+# Login helper function
+def loginfailed(driver):
+    if driver.current_url == 'http://localhost:3000/login':
+        raise Exception
 
 # Login
 def login(driver, email, pw):
@@ -72,34 +77,40 @@ def login(driver, email, pw):
     email_field = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/form/input[1]') # Email
     password_field = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/form/input[2]') # Password
     next_button = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/form/div/button') # Next Button
-    email_field .send_keys(email)
+    email_field.send_keys(email)
     password_field.send_keys(pw)
     next_button.click()
-    print("Check: Logged in " +  u'\u2713')
 
     sleep(2)
+    loginfailed(driver) # Check if login is successful
 
-if __name__ == '__main__':
-    driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.maximize_window()
-    
-    # Main Page
-    driver.get("http://localhost:3000/")
-    print("main")
+def addShortList(driver):
+    driver.get("http://localhost:3000/PRIMARY")
+    sleep(3)
+
+    # Shortlist 3 schools
+    for i in range (3):
+        add_school = driver.find_element_by_xpath("(//*[local-name()='svg'])[{}]".format(2+i))
+        add_school.click()
+        post_textbox = driver.switch_to.alert
+        post_textbox.send_keys("Good School")
+        post_textbox.accept()
+        sleep(2)
+
+def removeShortList(driver):
+    driver.get("http://localhost:3000/shortlist")
+    sleep(3)
+
+    # Remove 3 shortlisted schools
+    for i in range (3):
+        rmv_school = driver.find_element_by_xpath("(//*[local-name()='svg'])[{}]".format(2))
+        rmv_school.click()
+        sleep(2)
+
+def checkEmptyShortlist(driver):
+    driver.get("http://localhost:3000/shortlist")
     sleep(2)
-
-    # # Register
-    # try: 
-        # print("*" * 50)
-    #     halt("Test: Register")
-    #     register(driver, 'tester1', 'tester1@gmail.com', '123456', '123456')
-    # except:
-    #     print("Test: Register -> Error")
-
-    # Login
-    try:
-        print("*" * 50)
-        halt("Test: Login")
-        login(driver, 'tester1@gmail.com', '123456')
-    except:
-        print("Test: Login -> Error")
+    # Raise an exception if there's a shortlisted school
+    count  = driver.find_elements_by_xpath("(//*[local-name()='svg'])")
+    if len(count) > 1: # greater than 1 because edufind logo has the same xpath with thrashbin/bookmark button
+        raise Exception
