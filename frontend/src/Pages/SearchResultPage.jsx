@@ -8,7 +8,7 @@ import { GETALLSCHOOLS, publicRequest } from "../requestMethod";
 
 const Container = styled.div`
   /* background-color: #bcdfff; */
-  background-color: #f3f3f3;
+  background-color: #bcdfff;
   overflow-y: auto;
   height: 100vh;
 `;
@@ -22,6 +22,7 @@ const Wrapper = styled.div`
 `;
 
 const ResultsTitle = styled.h1`
+  font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;

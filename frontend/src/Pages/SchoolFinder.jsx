@@ -11,7 +11,7 @@ const Container = styled.div`
   width: 100vw;
   overflow-y: auto;
   height: 100vh;
-  background-color: #fff;
+  background-color: #bcdfff;
   /* background-color: #bcdfff; */
   /* background-color: #${(props) =>
     props.mlc === "PRIMARY"
@@ -52,7 +52,7 @@ const Subtitle = styled.p`
   font-weight: 700;
   text-align: center;
   font-size: 20px;
-  color: #909090;
+  color: #1b1b1b;
 `;
 
 const WrapperSearch = styled.div`

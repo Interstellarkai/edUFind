@@ -20,7 +20,8 @@ const Container = styled.div`
 `;
 
 const SchoolNameWrapper = styled.div`
-  margin: 10px;
+  /* border: solid black; */
+  margin: 10px; 
 `;
 const Top = styled.div`
   display: flex;
@@ -110,7 +111,7 @@ const Ul = styled.ul`
   /* border: solid black; */
   /* margin: 0; */
   padding: 0;
-  margin-left: 3px;
+  margin-left: 10px;
   margin-bottom: 20px;
   font-size: 15px;
   font-weight: 500;

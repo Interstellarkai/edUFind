@@ -81,7 +81,7 @@ const UlContainer = styled.div`
 const Ul = styled.ul`
   /* z-index: 1; */
   padding: 0;
-  margin-left: 3px;
+  margin-left: 10px;
   margin-bottom: 20px;
   font-size: 18px;
   font-weight: 500;

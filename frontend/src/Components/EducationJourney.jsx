@@ -8,7 +8,7 @@ import JuniorCollge from "./Images/JuniorCollge.png";
 const Container = styled.div`
   display: flex;
   height: 100vh;
-  background-color: #fff0d6;
+  background-color: #004175; 
   /* border: solid black; */
 `;
 
@@ -32,14 +32,16 @@ const Message = styled.div`
 const MessageHead = styled.h1`
   /* flex: 1; */
   font-size: 50px;
-  color: darkblue;
-  margin-bottom: 20px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 50px;
   /* padding: 20px; */
 `;
 
 const MessageBody = styled.div`
   /* flex: 1; */
-  font-size: 30px;
+  font-size: 20px;
+  color: white;
 `;
 
 const EducationLevelContainer = styled.div`
@@ -66,8 +68,8 @@ const Filter = styled.div`
 const EducationLevelItem = styled.div`
   /* border: solid black; */
   position: relative;
-  width: 50%;
-  height: 10%;
+  width: 60%;
+  height: 15%;
   display: flex;
   align-items: center;
   justify-content: center;

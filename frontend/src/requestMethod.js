@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = "http://54.151.182.183:8080/";
+// const BASE_URL = "http://localhost:8080/";
 
 // BASE URL
 export const publicRequest = axios.create({
