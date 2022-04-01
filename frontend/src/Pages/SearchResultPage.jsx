@@ -22,7 +22,13 @@ const Wrapper = styled.div`
 `;
 
 const ResultsTitle = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
   margin: 20px 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 5px;
+  width: 100%;
 `;
 
 const ResultsContainer = styled.div`
