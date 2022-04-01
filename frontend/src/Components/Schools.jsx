@@ -15,10 +15,20 @@ import ReactPaginate from "react-paginate";
 import { resetShortlistAdd } from "../redux/shortlistAddRedux";
 import { useSelector, useDispatch } from "react-redux";
 import { resetShortlistDelete } from "../redux/shortlistDeleteRedux";
-import { style } from "@mui/system";
+import ClipLoader from "react-spinners/ClipLoader";
+import FadeLoader from "react-spinners/FadeLoader";
+import HashLoader from "react-spinners/HashLoader";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import MoonLoader from "react-spinners/MoonLoader";
+import PulseLoader from "react-spinners/PulseLoader";
 
+import { css } from "@emotion/react";
 // import { schools } from "../data";
-
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: #8abaf1;
+`;
 const Container = styled.div`
   padding-top: 25px;
   width: 60%;
@@ -285,11 +295,19 @@ const Schools = ({ query, click, mlc, filters }) => {
     }
   };
 
-  // Filter Schools
+  let [color, setColor] = useState("#17587d");
 
   return (
     <Container>
-      {isLoading && <div>Loading Schools...</div>}
+      {isLoading && (
+        <MoonLoader
+          loading={isLoading}
+          color={color}
+          css={override}
+          size={50}
+          speedMultiplier={1}
+        />
+      )}
       {!isLoading && currentPageData}
       {schools.length === 0
         ? !isLoading && <h3>No schools Found</h3>
