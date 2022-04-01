@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/edUFind/static/js/main.1a8c8bfc.js",
+    "static/media/JuniorCollge.png": "/edUFind/static/media/JuniorCollge.d4d270a881ee610955c6.png",
+    "static/media/PrimarySchool.jpg": "/edUFind/static/media/PrimarySchool.894e0236fd1d021b4229.jpg",
+    "static/media/SecondarySchool.jpg": "/edUFind/static/media/SecondarySchool.885ac864e39f34d3b459.jpg",
+    "index.html": "/edUFind/index.html",
+    "main.1a8c8bfc.js.map": "/edUFind/static/js/main.1a8c8bfc.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.1a8c8bfc.js"
+  ]
+}

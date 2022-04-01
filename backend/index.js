@@ -1,6 +1,7 @@
 // connect the db and start the server 
 
 import app from "./server.js" 
+import express from "express";
 import mongodb from "mongodb" // access mongodb
 import dotenv from "dotenv" // access env var
 import SchoolsDAO from "./dao/schoolsDAO.js"
@@ -22,7 +23,7 @@ dotenv.config()
 const MongoClient = mongodb.MongoClient 
 
 // if the port we specified cannot be accessed, we use port 8000
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 8080
 
 // Random string generated using 'crypto'. Used to encrypt user's token later on
 // https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
@@ -38,10 +39,12 @@ MongoClient.connect(
     process.env.SCHOOLREVIEWS_DB_URI, {
         maxPoolSize: 50, // make it so only 50 people can connect at a time
         wtimeoutMS: 2500, // request will time out after 2500ms
-        useNewUrlParser: true 
+        useNewUrlParser: true,
+        useUnifiedTopology: true
     })
     // catch errors
     .catch(err => {
+        console.log("Index.js: Cannot connect to DB")
         console.error(err.stack)
         process.exit(1)
     })
@@ -60,3 +63,4 @@ MongoClient.connect(
             console.log(`listening on port ${port}`) // ` not '
         }) 
     })
+
