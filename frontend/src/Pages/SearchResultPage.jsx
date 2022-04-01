@@ -7,7 +7,8 @@ import ResultantSchools from "../Components/ResultantSchools";
 import { GETALLSCHOOLS, publicRequest } from "../requestMethod";
 
 const Container = styled.div`
-  background-color: #bcdfff;
+  /* background-color: #bcdfff; */
+  background-color: #f3f3f3;
   overflow-y: auto;
   height: 100vh;
 `;
