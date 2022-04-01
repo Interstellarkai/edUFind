@@ -1,21 +1,30 @@
 import React, { useState } from "react";
 
+import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
+import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
+
 import styled from "styled-components";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+
 import { IconButton } from "@mui/material";
-import { DELETESHORTLISTED, publicRequest } from "../requestMethod";
-import { useDispatch, useSelector } from "react-redux";
-import PAGES from "../pageRoute";
+import {
+  ADDSHORTLIST,
+  DELETESHORTLISTED,
+  publicRequest,
+} from "../requestMethod";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setShortlistDelete } from "../redux/shortlistDeleteRedux";
+import { setShortlistAdd } from "../redux/shortlistAddRedux";
+import { yellow } from "@mui/material/colors";
+import PAGES from "../pageRoute";
 const Container = styled.div`
   width: 25%;
-  /* min-height: 300px; */
   background-color: white;
   margin: 20px;
   display: flex;
   flex-direction: column;
-  box-shadow: rgba(60, 60, 61, 0.2) 8px 8px 24px;
+  min-height: 200px;
+  box-shadow: rgba(60, 60, 61, 0.2) 0px 8px 24px;
   border-radius: 10px;
 `;
 
@@ -37,45 +46,10 @@ const SchoolName = styled(Link)`
   text-decoration: none;
 `;
 
-const RemoveIconContainer = styled.div`
-  color: red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const SchoolAddress = styled.p`
   padding-top: 10px;
   font-size: 15px;
   font-weight: 700;
-`;
-
-const PersonalNotesWrapper = styled.div`
-  display: flex;
-`;
-
-const Empty = styled.div`
-  flex: 1;
-`;
-const PersonalNotesTitle = styled.p`
-  flex: 1;
-  text-align: end;
-  padding-right: 10px;
-  border-radius: 10px;
-  /* border: solid black; */
-  border-radius: 100px 0 0 10px;
-  /* padding: 5px; */
-  background-color: lightgreen;
-  font-weight: 700;
-  font-size: 15px;
-  margin-bottom: 10px;
-  padding-left: 6px;
-  cursor: pointer;
-
-  white-space: ${(props) => !props.textExpand && "nowrap"};
-  transition: white-space 0.5s ease-in-out;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 const WrapperShowMore = styled.div`
@@ -91,7 +65,7 @@ const Expandable = styled.div`
   display: flex;
   /* position: relative; */
   width: 100%;
-  height: ${(props) => (props.expanded ? 350 : 0)}px;
+  height: ${(props) => (props.expanded ? 460 : 0)}px;
   /* height: fit-content; */
   transition: height 0.5s ease-in-out;
   overflow: hidden;
@@ -101,26 +75,21 @@ const Expandable = styled.div`
 const UlContainer = styled.div`
   overflow: ${(props) => !props.expanded && "hidden"};
   transition: height 0.5s ease-in-out;
-
   /* border: solid black; */
 `;
 
 const Ul = styled.ul`
   /* z-index: 1; */
-  /* border: solid black; */
-  /* margin: 0; */
   padding: 0;
   margin-left: 3px;
   margin-bottom: 20px;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 500;
   list-style: none;
-  align-items: left;
 `;
 const Li = styled.li`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   word-break: break-all;
-  /* border: black solid; */
 `;
 
 const A = styled.a`
@@ -155,24 +124,47 @@ const ShowMore = styled.button`
   }
 `;
 
-const ShortlistedSchool = ({ sch, notes, id }) => {
-  const currentUserId = useSelector((state) => state.user.value.userId);
-  const currentUserToken = useSelector((state) => state.user.value.token);
-  const [textExpand, setTextExpand] = useState(false);
+const RecommendedSchool = ({ sch, shortlistedSchools, currentUser }) => {
+  const [expanded, setExpanded] = useState(false);
   const [schoolLink, setSchoolLink] = useState(
     PAGES.schoolPage + `/${sch.school_name.replace(/ /gi, "_")}`
   );
-  const [expanded, setExpanded] = useState(false);
   const dispatch = useDispatch();
   const handleClick = async () => {
-    // Delete
+    let userComment = prompt(
+      `Enter comments for ${sch.school_name.toUpperCase()} `,
+      "Type your comments here"
+    );
+    console.log(userComment);
+    if (userComment === null) return;
+    const res = await publicRequest.post(
+      ADDSHORTLIST,
+      {
+        user_id: currentUser.userId,
+        school_name: sch.school_name,
+        school_notes: userComment,
+      },
+      { headers: { authorization: currentUser.token } }
+    );
+    dispatch(setShortlistAdd());
+  };
+
+  const handleClickDelete = async () => {
+    const id = shortlistedSchools.filter(
+      (item) => item.school_name === sch.school_name
+    )[0].shortlist_id;
+    // console.log(id);
+
     try {
-      const res = await publicRequest.delete(DELETESHORTLISTED(currentUserId), {
-        data: {
-          shortlist_id: id,
-        },
-        headers: { authorization: currentUserToken },
-      });
+      const res = await publicRequest.delete(
+        DELETESHORTLISTED(currentUser.userId),
+        {
+          data: {
+            shortlist_id: id,
+          },
+          headers: { authorization: currentUser.token },
+        }
+      );
 
       dispatch(setShortlistDelete());
       //   navigate(PAGES.shortlistPage);
@@ -181,30 +173,38 @@ const ShortlistedSchool = ({ sch, notes, id }) => {
     }
   };
 
-  console.log(expanded);
+  const checkIn = () => {
+    return shortlistedSchools.some(
+      (item) => item.school_name === sch.school_name
+    );
+
+    // return false;
+  };
   return (
     <Container expanded={expanded}>
       <SchoolNameWrapper>
         <Top>
           <SchoolName to={schoolLink}>{sch.school_name}</SchoolName>
 
-          <IconButton onClick={handleClick}>
-            <RemoveIconContainer>
-              <DeleteOutlineIcon sx={{ fontSize: "25px" }} />
-            </RemoveIconContainer>
-          </IconButton>
+          {checkIn() ? (
+            <IconButton>
+              <BookmarkRoundedIcon
+                sx={{ fontSize: "30px", color: yellow[700] }}
+                onClick={handleClickDelete}
+              />
+            </IconButton>
+          ) : (
+            <IconButton>
+              <BookmarkBorderRoundedIcon
+                onClick={handleClick}
+                sx={{ fontSize: "30px" }}
+              />
+            </IconButton>
+          )}
         </Top>
         <SchoolAddress>{sch.address}</SchoolAddress>
       </SchoolNameWrapper>
-      <PersonalNotesWrapper>
-        <Empty></Empty>
-        <PersonalNotesTitle
-          textExpand={textExpand}
-          onClick={() => setTextExpand(!textExpand)}
-        >
-          Remarks: {notes}
-        </PersonalNotesTitle>
-      </PersonalNotesWrapper>
+
       <WrapperShowMore>
         <Expandable expanded={expanded}>
           <UlContainer expanded={expanded}>
@@ -230,4 +230,4 @@ const ShortlistedSchool = ({ sch, notes, id }) => {
   );
 };
 
-export default ShortlistedSchool;
+export default RecommendedSchool;

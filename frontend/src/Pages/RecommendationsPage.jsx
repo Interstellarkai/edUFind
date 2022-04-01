@@ -2,13 +2,13 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
-import ShortlistedSchools from "../Components/ShortlistedSchools";
-import PAGES from "../pageRoute";
+import RecommendedSchools from "../Components/RecommendedSchools";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 const Container = styled.div`
   height: 100vh;
   width: 100vw;
-  background-color: #bcdfff;
+  background-color: #d5eafd;
   overflow-y: auto;
   /* overflow-x: hidden; */
 `;
@@ -21,18 +21,31 @@ const WrapperContainer = styled.div`
   align-items: center;
   flex-direction: column;
 `;
+
 const HeaderContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 5px;
   margin-bottom: 20px;
 `;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Title = styled.h1`
   font-weight: 700;
   font-size: 40px;
+`;
+
+const RefreshContainer = styled.div`
+  margin-left: 10px;
+  cursor: pointer;
 `;
 
 const Subtitle = styled.p`
@@ -55,25 +68,32 @@ const ViewMoreButton = styled(Link)`
   cursor: pointer;
 `;
 
-const ShortlistPage = () => {
+const RecommendationsPage = () => {
   let eduLevel = useSelector((state) => state.user.value.educationLevel);
   eduLevel = eduLevel.replace(/ /gi, "_").toUpperCase();
-  // console.log(eduLevel);
+  function reloadPage() {
+    window.location.reload();
+  }
   return (
     <Container>
       <Navbar />
       <WrapperContainer>
         <HeaderContainer>
-          <Title>Your Shortlisted Schools</Title>
-          <Subtitle>
-            These are the schools that you have shortlisted while browsing
-          </Subtitle>
+          <Header>
+            {" "}
+            <Title>Our Recommendations</Title>
+            <RefreshContainer onClick={reloadPage}>
+              <RefreshIcon sx={{ fontSize: "25px" }} />
+            </RefreshContainer>
+          </Header>
+
+          <Subtitle>These are some schools we think you might like! </Subtitle>
         </HeaderContainer>
-        <ShortlistedSchools />
+        <RecommendedSchools />
         <ViewMoreButton to={"/" + eduLevel}>View More Schools</ViewMoreButton>
       </WrapperContainer>
     </Container>
   );
 };
 
-export default ShortlistPage;
+export default RecommendationsPage;

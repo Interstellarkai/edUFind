@@ -5,6 +5,7 @@ import RegistrationInterests from "./Pages/RegistrationInterests";
 import RegistrationMoreDetails from "./Pages/RegistrationMoreDetails";
 import ShortlistPage from "./Pages/ShortlistPage";
 import SchoolFinder from "./Pages/SchoolFinder";
+import RecommendationsPage from "./Pages/RecommendationsPage";
 
 import {
   BrowserRouter as Router,
@@ -18,6 +19,7 @@ import { useEffect } from "react";
 import UserAccountPage from "./Pages/UserAccountPage";
 import { getSchools } from "./redux/apiCalls";
 import SearchResultPage from "./Pages/SearchResultPage";
+import SchoolProfilePage from "./Pages/SchoolProfilePage";
 
 const App = () => {
   const currentUser = useSelector((state) => state.user.value);
@@ -82,6 +84,15 @@ const App = () => {
         <Route path={PAGES.searchResultsPage} element={<SearchResultPage />}>
           <Route path=":q" element={<SearchResultPage />} />
         </Route>
+
+        <Route path="school/:lol" element={<SchoolProfilePage />} />
+
+        <Route
+          path={PAGES.recommendationsPage}
+          element={
+            currentUser.username ? <RecommendationsPage /> : <Navigate to="/" />
+          }
+        />
       </Routes>
     </Router>
   );

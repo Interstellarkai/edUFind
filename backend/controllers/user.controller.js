@@ -44,7 +44,7 @@ export default class UserController {
     }
 
     // Check length of password
-    if (password.length < 6 || password.lenth > 50) {
+    if (password.length < 6 || password.length > 50) {
       console.error(`Invalid password length: ${password}`);
       return res.json({
         success: false,

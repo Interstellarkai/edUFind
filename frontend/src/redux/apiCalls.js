@@ -14,6 +14,7 @@ import {
 } from "./newUserRedux";
 import { setAllSchools, resetSchools } from "./schoolsRedux";
 import { resetSearchQ } from "./searchQueryRedux";
+import { resetShortlistAdd } from "./shortlistAddRedux";
 import { resetShortlistDelete } from "./shortlistDeleteRedux";
 import {
   loginStart,
@@ -85,7 +86,7 @@ export const updateUserDetails = async (dispatch, userDetails) => {
 };
 
 export const getSchools = async (dispatch) => {
-  console.log("getSchools: ");
+  // console.log("getSchools: ");
   try {
     const res = await publicRequest.get(GETALLSCHOOLS);
     dispatch(setAllSchools(res.data.schools));
@@ -105,4 +106,6 @@ export const resetAll = (dispatch) => {
   dispatch(resetSearchQ());
   //reset shortlistDeleteQ
   dispatch(resetShortlistDelete());
+  //reset shortlistAddQ
+  dispatch(resetShortlistAdd());
 };

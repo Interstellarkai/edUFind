@@ -2,10 +2,9 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
-import { newUserReset } from "../redux/newUserRedux";
 import { useEffect, useState } from "react";
-import { createNewUser, login, updateUserDetails } from "../redux/apiCalls";
-import { publicRequest, GETUID, LOGIN } from "../requestMethod";
+import { updateUserDetails } from "../redux/apiCalls";
+import { publicRequest, LOGIN } from "../requestMethod";
 
 const Container = styled.div`
   height: 100vh;
@@ -150,14 +149,14 @@ const RegistrationInterests = () => {
             <FormItemContainer>
               <FormControlLabel
                 control={<Checkbox />}
-                label="Performing Arts"
-                value="Performing Arts"
+                label="Visual and Performing Arts"
+                value="Visual and Performing Arts"
                 onChange={handleChange}
               />
               <FormControlLabel
                 control={<Checkbox />}
-                label="Sports"
-                value="Sports"
+                label="Physical Sports"
+                value="Physical Sports"
                 onChange={handleChange}
               />
               <FormControlLabel

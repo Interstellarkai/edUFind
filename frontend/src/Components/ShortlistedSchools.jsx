@@ -35,7 +35,7 @@ const ShortlistedSchools = () => {
           { headers: { authorization: currentUser.token } }
         );
         const shortlistedArray = res.data.Shortlist.shortlisted;
-        console.log("Shortlsited Array:", shortlistedArray);
+        // console.log("Shortlsited Array:", shortlistedArray);
         // Save each school name on first render
         shortlistedArray.map((item) =>
           tmpShortlist.push({
@@ -55,7 +55,7 @@ const ShortlistedSchools = () => {
 
   //   Get schools based on shortlisted data
   useEffect(() => {
-    console.log("Shortlisted: ", shortlisted);
+    // console.log("Shortlisted: ", shortlisted);
     shortlisted.map(async (item) => {
       const res = await publicRequest.get(GETSCHOOL(item.school_name));
       setSchools((pre) => [
@@ -74,7 +74,7 @@ const ShortlistedSchools = () => {
   }, [shortlisted]);
 
   useEffect(() => {
-    console.log("UseEffect Schools: ", schools);
+    // console.log("UseEffect Schools: ", schools);
   }, [schools]);
 
   return (
