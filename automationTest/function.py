@@ -10,13 +10,39 @@ def register(driver, name, email, pw, cpw):
     driver.get("http://localhost:3000/register")
     sleep(2)
 
+    # # Page 1
+    # name_field = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/input[1]') # Name
+    # email_field = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/input[2]') # Email
+    # password_field = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/input[3]') # Password
+    # confirm_password_field = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/input[4]') # Confirm Password
+    # select = Select(driver.find_element_by_name('gender')) # Region
+    # next_button = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/div/button') # Next Button
+    # name_field.send_keys(name)
+    # email_field .send_keys(email)
+    # password_field.send_keys(pw)
+    # confirm_password_field.send_keys(cpw)
+    # select.select_by_visible_text('Male') # Select [0]
+    # next_button.click()
+
     # Page 1
-    name_field = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/form/input[1]') # Name
-    email_field = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/form/input[2]') # Email
-    password_field = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/form/input[3]') # Password
-    confirm_password_field = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/form/input[4]') # Confirm Password
+    name_field = driver.find_element_by_name('username') # Name
+    if not name_field:
+        name_field = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/input[1]') # Name
+
+    email_field = driver.find_element_by_name('email') # Email
+    if not email_field:
+        email_field = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/input[2]') # Email
+
+    password_field = driver.find_element_by_name('password') # Password
+    if not password_field:
+        password_field = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/input[3]') # Password
+
+    confirm_password_field = driver.find_element_by_name('confirmPassword') # Confirm Password
+    if not confirm_password_field:
+        confirm_password_field = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/input[4]') # Confirm Password
+
     select = Select(driver.find_element_by_name('gender')) # Region
-    next_button = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/form/div/button') # Next Button
+    next_button = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/div/button') # Next Button
     name_field.send_keys(name)
     email_field .send_keys(email)
     password_field.send_keys(pw)
@@ -46,7 +72,6 @@ def register(driver, name, email, pw, cpw):
     sleep(3)
 
 def logout(driver):
-    # Logout
     try:
         profile_button = driver.find_element_by_xpath('//*[@id="root"]/div/div[1]/div[3]/div/div/div/button/div/img')
         profile_button.click()
@@ -54,14 +79,11 @@ def logout(driver):
         logout_button = driver.find_element_by_xpath('//*[@id="root"]/div/div[1]/div[3]/div/div/div/div/ul/li[2]')
         logout_button.click()
     except:
-        print("LOGOUT EXCEPT TRIGGERED /HTML")
         profile_button = driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div[3]/div/div/div/button/div/img')
         profile_button.click()
         sleep(3)
         logout_button = driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div[3]/div/div/div/div/ul/li[2]')
         logout_button.click()
-
-    sleep(2)
 
 # Login helper function
 def loginfailed(driver):
@@ -74,9 +96,18 @@ def login(driver, email, pw):
     sleep(2)
 
     # Page 1
-    email_field = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/form/input[1]') # Email
-    password_field = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/form/input[2]') # Password
-    next_button = driver.find_element_by_xpath('//*[@id="root"]/div/div[2]/div/form/div/button') # Next Button
+    # email_field = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/input[1]') # Email
+    # password_field = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/input[2]') # Password
+    email_field = driver.find_element_by_name('email') # Email
+    if not email_field:
+        email_field = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/input[1]') # Email
+
+    password_field = driver.find_element_by_name('password') # Password
+    if not password_field:
+        password_field = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/input[2]') # Password
+
+    next_button = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/form/div/button') # Next Button
+    
     email_field.send_keys(email)
     password_field.send_keys(pw)
     next_button.click()

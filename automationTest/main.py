@@ -102,8 +102,9 @@ if __name__ == '__main__':
             register(driver, 'testuser', 'test@gmail.com', 'testpass', 'testpass')
             print("{:<70}  {:>20}".format("Check : Register : " + "Successful login" , u'\u2714')) # Tick
             sleep(5)
-        except: 
+        except Exception as e: 
             print("{:<70}  {:>20}".format("Check : Register : " + "Successful login" , u'\u274C')) # Cross
+            print(e)
     except:
         print("Error while testing -> Register")
     
@@ -183,8 +184,9 @@ if __name__ == '__main__':
         try: 
             login(driver, 'test@gmail.com', 'testpass') # Successful login
             print("{:<70}  {:>20}".format("Check : Login : " + "Successful login" , u'\u2714')) # Tick
-        except: 
+        except Exception as e: 
             print("{:<70}  {:>20}".format("Check : Login : " + "Successful login" , u'\u274C')) # Cross
+            print(e)
     except:
         print("Error while testing -> Login")
 
