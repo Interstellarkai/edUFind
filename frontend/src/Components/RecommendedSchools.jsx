@@ -38,7 +38,7 @@ const RecommendedSchools = () => {
   }, [currentUser]);
 
   // mlc
-  const mlc = currentUser.educationLevel.replace(/ /gi, "_").toUpperCase();
+  const mlc = currentUser.educationLevel.toUpperCase();
 
   // Random Selection
   function getRandom(arr, n) {
@@ -89,7 +89,7 @@ const RecommendedSchools = () => {
 
     // });
 
-    console.log("Filter CCA cat Array: ", filterCcaCat);
+    // console.log("Filter CCA cat Array: ", filterCcaCat);
 
     // Get all schools
     try {
@@ -100,6 +100,8 @@ const RecommendedSchools = () => {
           "&nature_code!=" +
           oppUserGender
       );
+
+      console.log(Schoolsres);
 
       // MTL Filter Array
       let filterMTLData = Schoolsres.data.schools;
@@ -129,7 +131,7 @@ const RecommendedSchools = () => {
       }
 
       // CCA Filter Array
-
+      console.log();
       // Map Array
       filterMTLData.map((item) => {
         filterMTL.push(item.school_name);
@@ -160,7 +162,10 @@ const RecommendedSchools = () => {
         filteredArray2.includes(item.school_name)
       );
       console.log("Tmp Array", tmpArray);
-      setRecommendedSchools(getRandom(tmpArray, 9));
+      console.log("HELLO");
+      setRecommendedSchools(
+        getRandom(tmpArray, tmpArray.length > 9 ? 9 : tmpArray.length)
+      );
     } catch (err) {
       console.log("ERROR GETTING ALL SCHOOLS: ", err);
     }
@@ -198,6 +203,8 @@ const RecommendedSchools = () => {
   useEffect(() => {
     getIntersect();
   }, []);
+
+  // console.log("CURRENT USER EDU LEVEL", currentUser.educationLevel);
 
   return (
     <Container>
