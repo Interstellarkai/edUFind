@@ -10,7 +10,8 @@ import { createNewUser } from "../redux/apiCalls";
 const Container = styled.div`
   height: 100vh;
   /* width: 100vw; */
-  background-color: #ffe7c3;
+  // background-color: #ffe7c3;
+  background-color: #004175;
 `;
 
 const WrapperContainer = styled.div`
@@ -33,7 +34,7 @@ const Wrapper = styled.div`
 
 const Title = styled.h1`
   font-size: 50px;
-  color: #3838d1;
+  color: #FFFFFF;
 `;
 const Form = styled.form`
   display: flex;
@@ -42,6 +43,7 @@ const Form = styled.form`
 `;
 const Label = styled.label`
   margin: 10px 0;
+  color: #FFFFFF;
 `;
 
 const Span = styled.span`
@@ -73,7 +75,8 @@ const Button = styled.button`
   border: none;
   color: white;
   font-weight: 600;
-  background-color: #5a5add;
+  // background-color: #5a5add;
+  background-color: #19D1FF;
   cursor: pointer;
 `;
 

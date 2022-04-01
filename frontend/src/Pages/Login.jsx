@@ -9,7 +9,8 @@ import { login, updateUserDetails } from "../redux/apiCalls";
 const Container = styled.div`
   height: 100vh;
   /* width: 100vw; */
-  background-color: #ffe7c3;
+  // background-color: #ffe7c3;
+  background-color: #004175;
 `;
 
 const WrapperContainer = styled.div`
@@ -32,7 +33,8 @@ const Wrapper = styled.div`
 
 const Title = styled.h1`
   font-size: 50px;
-  color: #3838d1;
+  // color: #3838d1;
+  color: #FFFFFF;
 `;
 const Form = styled.form`
   display: flex;
@@ -40,6 +42,7 @@ const Form = styled.form`
 `;
 const Label = styled.label`
   margin: 20px 0;
+  color: #FFFFFF;
 `;
 const Input = styled.input`
   padding: 10px;
@@ -63,7 +66,8 @@ const Button = styled.button`
   border: none;
   color: white;
   font-weight: 600;
-  background-color: #5a5add;
+  // background-color: #5a5add;
+  background-color: #19D1FF;
   cursor: pointer;
 `;
 
@@ -73,7 +77,9 @@ const Span = styled.span`
   font-weight: 600;
 `;
 
-const Subtitle = styled.div``;
+const Subtitle = styled.div`
+    color: #FFFFFF;
+`;
 // const  = styled.a`
 //   color: #5a5add;
 //   /* text-decoration: underline; */
@@ -83,7 +89,7 @@ const Subtitle = styled.div``;
 // `;
 
 const StyledLink = styled(Link)`
-  color: #5a5add;
+  color: #19D1FF;
   text-decoration: none;
   cursor: pointer;
   padding-left: 5px;
@@ -125,13 +131,13 @@ const Login = () => {
         <Wrapper>
           <Title>Login to edUFind</Title>
           <Form onSubmit={handleSubmit}>
-            <Label>EMAIL</Label>
+            <Label>Email</Label>
             <Input
               name="email"
               placeholder="Xyz@gmail.com"
               onChange={handleChange}
             />
-            <Label>PASSWORD</Label>
+            <Label>Password</Label>
             <Input
               name="password"
               type="password"
