@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {
-  GETALLSCHOOLS,
-  publicRequest,
-  FilterCcaGrp,
-  FilterSubject,
-  FilterZone,
-  FilterEP,
-  GETSHORTLISTED,
-} from "../requestMethod";
+import { publicRequest, GETSHORTLISTED } from "../requestMethod";
 import School from "./School";
 import ReactPaginate from "react-paginate";
 import { resetShortlistAdd } from "../redux/shortlistAddRedux";
@@ -22,15 +14,8 @@ const Container = styled.div`
   width: 60%;
 `;
 
-const Paginatecontainter = styled.div`
-  display: flex;
-  align-items: center;
-  width: 60%;
-`;
-
 const ResultantSchools = ({ allSchools, query }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [schools, setSchools] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [initialPage, setInitialPage] = useState(0);
   const [shortlistedSchools, setShortlistedSchools] = useState([]);
@@ -106,32 +91,30 @@ const ResultantSchools = ({ allSchools, query }) => {
   return (
     <Container>
       {isLoading && <div>Loading Schools...</div>}
-      {currentPageData}
-      {allSchools.length === 0 ? (
-        <h3>No schools Found</h3>
-      ) : (
-        <Paginatecontainter>
-          <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            pageCount={pageCount}
-            marginPagesDisplayed={3}
-            pageRangeDisplayed={1}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination justify-content-center"}
-            pageClassName={"page-item"}
-            pageLinkClassName={"page-link"}
-            previousClassName={"page-link"}
-            nextClassName={"page-link"}
-            breakClassName={"page-item"}
-            breakLinkClassName={"page-link"}
-            activeClassName={"active"}
-            onClick={handleAnyClick}
-            forcePage={currentPage}
-          />
-        </Paginatecontainter>
-      )}
+      {!isLoading && currentPageData}
+      {allSchools.length === 0
+        ? !isLoading && <h3>No schools Found</h3>
+        : !isLoading && (
+            <ReactPaginate
+              previousLabel={"previous"}
+              nextLabel={"next"}
+              breakLabel={"..."}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={1}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination justify-content-center"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-link"}
+              nextClassName={"page-link"}
+              breakClassName={"page-item"}
+              breakLinkClassName={"page-link"}
+              activeClassName={"active"}
+              onClick={handleAnyClick}
+              forcePage={currentPage}
+            />
+          )}
     </Container>
   );
 };
