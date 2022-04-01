@@ -106,6 +106,8 @@ export default class UserController {
       });
     }
 
+    console.log("Before Login");
+
     try {
       const result = await UserServices.Login(email, password);
       return res.json(result);

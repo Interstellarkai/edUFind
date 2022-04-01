@@ -6,12 +6,16 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 dotenv.config();
-const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || null;
-const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || null;
+const ACCESS_TOKEN_SECRET = "68c516925ef13e71ecba036898746967a13fb696ca9f3c28091228f77f52415f7d81f806ca0c12035c87654929047d9a7e1cfa5cd73d2153fae89689f8048be0";
+const REFRESH_TOKEN_SECRET = "adaec7413eaf758df29092053806d0c711de358c96d7d0e05489c8b3457954ff9071f6c6bd2013ee7d55ce822ad44530f3a63343228b97989f23a9108868a575";
 
 export default class UserSevices {
 	static async GenerateGeneralJWTToken(userID) {
+		console.log("USERID:",userID);
+		// console.log(ACCESS_TOKEN_SECRET);
 		if (!ACCESS_TOKEN_SECRET) {
+			// console.log("GG")
+			// console.log(ACCESS_TOKEN_SECRET);
 			console.error(
 				"AuthService: GenerateGeneralJWTToken: No JWT Secret"
 			);
@@ -147,6 +151,7 @@ export default class UserSevices {
 	}
 
 	static async Login(email, password) {
+		console.log("Login entered")
 		const user = await UserAuthDAO.GetUserByEmail(email);
 		// If user does not exist
 		if (!user) {

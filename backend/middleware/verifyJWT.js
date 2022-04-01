@@ -5,7 +5,7 @@ const ObjectId = mongodb.ObjectId;
 
 dotenv.config();
 
-const JWT_SECRET = process.env.ACCESS_TOKEN_SECRET || null;
+const JWT_SECRET = "68c516925ef13e71ecba036898746967a13fb696ca9f3c28091228f77f52415f7d81f806ca0c12035c87654929047d9a7e1cfa5cd73d2153fae89689f8048be0";
 
 // export default class verifyJWT {
 	function authenticateToken(req, res, next) {
