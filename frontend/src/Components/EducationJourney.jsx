@@ -10,6 +10,7 @@ const Container = styled.div`
   height: 100vh;
   background-color: #004175; 
   /* border: solid black; */
+  overflow-y: auto;
 `;
 
 const MessageContainer = styled.div`
@@ -125,8 +126,8 @@ const EducationJourney = () => {
           <MessageBody>
             What's the next step in your studies?
             <br /> <br /> Making the decision on where to go next in your
-            educational path is not easy.
-            <br /> <br /> Allows us to help with that decision process
+            educational path is difficult.
+            <br /> <br /> <span style={{ fontWeight: "bold" }}><i>At edUFind, we're here to help.</i></span>
           </MessageBody>
         </Message>
       </MessageContainer>

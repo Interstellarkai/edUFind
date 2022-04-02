@@ -31,12 +31,14 @@ console.log(`Backend Secret Key Token:\n${crypto.randomBytes(64).toString('hex')
 console.log(`Backend Refresh SK Token:\n${crypto.randomBytes(64).toString('hex')}`);
 console.log("\n<Please store this secret key into .env file>\n");
 
+console.log(process.env.SCHOOLREVIEWS_DB_URI);
+
 // connect to db
 MongoClient.connect(
     // passing in the options to access the database
     // https://stackoverflow.com/questions/68416009/mongoparseerror-options-poolsize-usenewurlparse-are-not-supported 
     
-    process.env.SCHOOLREVIEWS_DB_URI, {
+    "mongodb+srv://kaisheng:NTUYear2Semester2@cluster0.a03rj.mongodb.net/edUFind?retryWrites=true&w=majority", {
         maxPoolSize: 50, // make it so only 50 people can connect at a time
         wtimeoutMS: 2500, // request will time out after 2500ms
         useNewUrlParser: true,

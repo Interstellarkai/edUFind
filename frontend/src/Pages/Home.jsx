@@ -11,7 +11,7 @@ const Home = () => {
     <Container>
       <Navbar />
       <EducationJourney />
-      <About />
+      {/* <About /> */}
     </Container>
   );
 };
