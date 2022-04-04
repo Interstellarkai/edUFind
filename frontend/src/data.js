@@ -59,3 +59,47 @@ export const schools = [
     address: "111 Street",
   },
 ];
+
+export const Comments = {
+  "ADMIRALTY PRIMARY SCHOOL": [
+    {
+      user_id: "1",
+      name: "ElonMusk",
+      school_name: "ADMIRALTY PRIMARY SCHOOL",
+      text: "Good school!",
+    },
+    {
+      user_id: "2",
+      name: "Jane Doe",
+      school_name: "ADMIRALTY PRIMARY SCHOOL",
+      text: "Caring teachers",
+    },
+    {
+      user_id: "3",
+      name: "Jun Rong",
+      school_name: "ADMIRALTY PRIMARY SCHOOL",
+      text: "Average",
+    },
+  ],
+
+  "BUKIT PANJANG GOVT. HIGH SCHOOL": [
+    {
+      user_id: "4",
+      name: "Zhi Ming",
+      school_name: "BUKIT PANJANG GOVT. HIGH SCHOOL",
+      text: "Great CCAs",
+    },
+    {
+      user_id: "5",
+      name: "Alton",
+      school_name: "BUKIT PANJANG GOVT. HIGH SCHOOL",
+      text: "Small",
+    },
+    {
+      user_id: "6",
+      name: "ElonMusk",
+      school_name: "BUKIT PANJANG GOVT. HIGH SCHOOL",
+      text: "Great food and view",
+    },
+  ],
+};

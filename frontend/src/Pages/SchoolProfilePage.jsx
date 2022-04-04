@@ -21,34 +21,32 @@ import { useEffect, useState } from "react";
 
 // everything below is from https://mui.com/components/lists/
 
-import * as React from 'react';
-import ListSubheader from '@mui/material/ListSubheader';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import SendIcon from '@mui/icons-material/Send';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarBorder from '@mui/icons-material/StarBorder';
-import SportsHandballIcon from '@mui/icons-material/SportsHandball';
-import CalculateIcon from '@mui/icons-material/Calculate';
-import LanguageIcon from '@mui/icons-material/Language';
-import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import LinkIcon from '@mui/icons-material/Link';
-import PhoneIcon from '@mui/icons-material/Phone';
-import EmailIcon from '@mui/icons-material/Email';
-import InfoIcon from '@mui/icons-material/Info';
-import DirectionsIcon from '@mui/icons-material/Directions';
-import CommentIcon from '@mui/icons-material/Comment';
-import TrainIcon from '@mui/icons-material/Train';
-import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
-
-
+import * as React from "react";
+import ListSubheader from "@mui/material/ListSubheader";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import DraftsIcon from "@mui/icons-material/Drafts";
+import SendIcon from "@mui/icons-material/Send";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import StarBorder from "@mui/icons-material/StarBorder";
+import SportsHandballIcon from "@mui/icons-material/SportsHandball";
+import CalculateIcon from "@mui/icons-material/Calculate";
+import LanguageIcon from "@mui/icons-material/Language";
+import TheaterComedyIcon from "@mui/icons-material/TheaterComedy";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import LinkIcon from "@mui/icons-material/Link";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
+import InfoIcon from "@mui/icons-material/Info";
+import DirectionsIcon from "@mui/icons-material/Directions";
+import CommentIcon from "@mui/icons-material/Comment";
+import TrainIcon from "@mui/icons-material/Train";
+import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -107,7 +105,7 @@ const SchoolHeader = styled.h1`
   // font-size: 72px;
   font-size: 50px;
   // color: #000000;
-  color: #FFFFFF;
+  color: #ffffff;
   // font-weight: bold;
   font-weight: normal;
   margin-left: 10px;
@@ -210,6 +208,19 @@ const CommentInput = styled.input`
   letter-spacing: ${(props) => props.type === "password" && "0.125em"};
 `;
 
+const Li = styled.li`
+  width: 80%;
+  display: flex;
+  list-style-type: disc;
+  /* border: solid black; */
+`;
+
+const LeftLi = styled.div`
+  flex: 1;
+`;
+const RightLi = styled.div`
+  flex: 1;
+`;
 // const res = await publicRequest.get(GETSCHOOL(schName)); //using the API to get school data
 // res.data.schools[0].postal_code <- getting the data, and storing it into a variable
 
@@ -287,40 +298,40 @@ const SchoolProfilePage = () => {
   const [epList, setEpList] = useState({});
   const [specialneeds, setSpecialneeds] = useState({});
   const [mtlList, setMtlList] = useState([]);
-  const [googleMapAddress, setGoogleMapAddress] = useState('')
+  const [googleMapAddress, setGoogleMapAddress] = useState("");
 
   // testing using MUI
-  const [openCCA, setOpenCCA] = React.useState(true);
+  const [openCCA, setOpenCCA] = React.useState(false);
 
-  const googleMapBase = 'https://google.com/maps/place/';
+  const googleMapBase = "https://google.com/maps/place/";
 
   const handleClickCCA = () => {
     setOpenCCA(!openCCA);
   };
 
-  const [openSubject, setOpenSubject] = React.useState(true);
-  
+  const [openSubject, setOpenSubject] = React.useState(false);
+
   const handleClickSubject = () => {
     setOpenSubject(!openSubject);
-  }
+  };
 
-  const [openMTL, setOpenMTL] = React.useState(true);
+  const [openMTL, setOpenMTL] = React.useState(false);
 
   const handleClickMTL = () => {
     setOpenMTL(!openMTL);
-  }
+  };
 
-  const [openElectives, setOpenElectives] = React.useState(true);
+  const [openElectives, setOpenElectives] = React.useState(false);
 
   const handleClickElectives = () => {
     setOpenElectives(!openElectives);
-  }
+  };
 
-  const [openSpecEdSupp, setOpenSpecEdSupp] = React.useState(true);
+  const [openSpecEdSupp, setOpenSpecEdSupp] = React.useState(false);
 
   const handleClickSpecEdSupp = () => {
     setOpenSpecEdSupp(!openSpecEdSupp);
-  }
+  };
 
   // Get school
   useEffect(async () => {
@@ -409,9 +420,15 @@ const SchoolProfilePage = () => {
     } catch (err) {
       console.log(err);
     }
-    setGoogleMapAddress(googleMapBase + school.school_name.replace(/ /gi, '+') + '/');
-    // console.log("MAP ADDR: ", googleMapAddress);
 
+    try {
+      setGoogleMapAddress(
+        googleMapBase + school.school_name.replace(/ /gi, "+") + "/"
+      );
+    } catch (err) {
+      console.log(err);
+    }
+    // console.log("MAP ADDR: ", googleMapAddress);
   }, [school]);
 
   // console.log("googleMapAddress", googleMapAddress);
@@ -425,34 +442,114 @@ const SchoolProfilePage = () => {
           <SchoolHeader>{school.school_name}</SchoolHeader>{" "}
           {/* insert schoolName here */}
           {/* <ShortlistButton></ShortlistButton> */}
-          <div style={{ backgroundColor: "white", width: "50%", margin: "0 auto", borderRadius: "25px", boxShadow: '5px 5px lightgrey' }}>
-            <AboutHeader><span><InfoIcon sx={{ height: "45px", width: "45px", marginBottom: "5px", marginRight: "5px" }}/></span>About</AboutHeader>
-            <div style={{ display: "flex", marginLeft: "10px", marginRight: "10px", alignItems: "center" }}>
+          <div
+            style={{
+              backgroundColor: "white",
+              width: "50%",
+              margin: "0 auto",
+              borderRadius: "25px",
+              boxShadow: "5px 5px lightgrey",
+            }}
+          >
+            <AboutHeader>
+              <span>
+                <InfoIcon
+                  sx={{
+                    height: "45px",
+                    width: "45px",
+                    marginBottom: "5px",
+                    marginRight: "5px",
+                  }}
+                />
+              </span>
+              About
+            </AboutHeader>
+            <div
+              style={{
+                display: "flex",
+                marginLeft: "10px",
+                marginRight: "10px",
+                alignItems: "center",
+              }}
+            >
               {/* <img src={locationLogo} style={{ height: "30px", width: "30px", margin: "10px 10px" }} /> */}
-              <LocationOnIcon sx={{ color: "red", height: "30px", width: "30px", marginLeft: "10px", marginRight: "10px"}}/>
+              <LocationOnIcon
+                sx={{
+                  color: "red",
+                  height: "30px",
+                  width: "30px",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              />
               <a href={googleMapAddress} target="_blank">
-              <BasicInfoText>
-                {school.address} <span>,</span> {school.postal_code}
-              </BasicInfoText>{" "}
+                <BasicInfoText>
+                  {school.address} <span>,</span> {school.postal_code}
+                </BasicInfoText>{" "}
               </a>
               {/* insert schoolAddress and schoolPostalCode here and find a way to hyperlink this to google maps! */}
             </div>
-            <div style={{ display: "flex", marginLeft: "10px", marginRight: "10px", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                marginLeft: "10px",
+                marginRight: "10px",
+                alignItems: "center",
+              }}
+            >
               {/* <img src={wwwLogo} style={{ height: "30px", width: "30px", margin: "10px 10px" }} /> */}
-              <LinkIcon sx={{ color: "grey", height: "30px", width: "30px", marginLeft: "10px", marginRight: "10px"}}/>
+              <LinkIcon
+                sx={{
+                  color: "grey",
+                  height: "30px",
+                  width: "30px",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              />
               <a href={school.url_address} target="_blank">
-              <BasicInfoText>{school.url_address}</BasicInfoText>{" "}
+                <BasicInfoText>{school.url_address}</BasicInfoText>{" "}
               </a>
               {/* insert schoolWebsite here */}
             </div>
-            <div style={{ display: "flex", marginLeft: "10px", marginRight: "10px", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                marginLeft: "10px",
+                marginRight: "10px",
+                alignItems: "center",
+              }}
+            >
               {/* <img src={phoneLogo} style={{ height: "30px", width: "30px", margin: "10px 10px" }} /> */}
-              <PhoneIcon sx={{ color: "lime", height: "30px", width: "30px", marginLeft: "10px", marginRight: "10px"}}/>
+              <PhoneIcon
+                sx={{
+                  color: "lime",
+                  height: "30px",
+                  width: "30px",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              />
               <BasicInfoText>{school.telephone_no}</BasicInfoText>
             </div>
-            <div style={{ display: "flex", marginLeft: "10px", marginRight: "10px", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                marginLeft: "10px",
+                marginRight: "10px",
+                alignItems: "center",
+              }}
+            >
               {/* <img src={emailLogo} style={{ height: "30px", width: "30px", margin: "10px 10px" }} /> */}
-              <EmailIcon sx={{ color: "black", height: "30px", width: "30px", marginLeft: "10px", marginRight: "10px"}}/>
+              <EmailIcon
+                sx={{
+                  color: "black",
+                  height: "30px",
+                  width: "30px",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              />
               <BasicInfoText>{school.email_address}</BasicInfoText>
             </div>
           </div>
@@ -477,16 +574,21 @@ const SchoolProfilePage = () => {
           {/* trying to use MUI for cca's offered */}
 
           <List
-      sx={{ width: '50%', bgcolor: 'background.paper', margin: '50px auto 10px auto', borderRadius: "25px" }}
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      // subheader={
-      //   <ListSubheader component="div" id="nested-list-subheader">
-      //     Co-Curricular Activities offered:
-      //   </ListSubheader>
-      // }
-    >
-      {/* <ListItemButton>
+            sx={{
+              width: "50%",
+              bgcolor: "background.paper",
+              margin: "50px auto 10px auto",
+              borderRadius: "25px",
+            }}
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+            // subheader={
+            //   <ListSubheader component="div" id="nested-list-subheader">
+            //     Co-Curricular Activities offered:
+            //   </ListSubheader>
+            // }
+          >
+            {/* <ListItemButton>
         <ListItemIcon>
           <SendIcon />
         </ListItemIcon>
@@ -498,32 +600,30 @@ const SchoolProfilePage = () => {
         </ListItemIcon>
         <ListItemText primary="Drafts" />
       </ListItemButton> */}
-      <ListItemButton onClick={handleClickCCA}>
-        <ListItemIcon>
-          <SportsHandballIcon />
-        </ListItemIcon>
-        <ListItemText primary="CCAs" />
-        {openCCA ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={openCCA} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          {/* <ListItemButton sx={{ pl: 4 }}> */}
-            <ListItemIcon>
-              {/* <StarBorder /> */}
-              
-            </ListItemIcon>
-            {ccaList.map((item) => (
-              <ListItemButton sx={{ pl: 4 }}>
-              <ListItemText primary={item}/></ListItemButton>
-            ))}
-            {/* <ListItemText primary="Starred" /> */}
-          {/* </ListItemButton> */}
-        </List>
-      </Collapse>
-    </List>
+            <ListItemButton onClick={handleClickCCA}>
+              <ListItemIcon>
+                <SportsHandballIcon />
+              </ListItemIcon>
+              <ListItemText primary="CCAs" />
+              {openCCA ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openCCA} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {/* <ListItemButton sx={{ pl: 4 }}> */}
+                <ListItemIcon>{/* <StarBorder /> */}</ListItemIcon>
+                {ccaList.map((item) => (
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemText primary={item} />
+                  </ListItemButton>
+                ))}
+                {/* <ListItemText primary="Starred" /> */}
+                {/* </ListItemButton> */}
+              </List>
+            </Collapse>
+          </List>
 
           {/* <div> */}
-            {/* <OfferingText>Subjects offered:</OfferingText>
+          {/* <OfferingText>Subjects offered:</OfferingText>
             <ul>
               <li>Subject 1</li>
               <li>Subject 2</li>
@@ -538,17 +638,22 @@ const SchoolProfilePage = () => {
               ))}
             </SidebarDropdown> */}
 
-            <List
-      sx={{ width: '50%', bgcolor: 'background.paper', margin: '0px auto 10px auto', borderRadius: "25px" }}
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      // subheader={
-      //   <ListSubheader component="div" id="nested-list-subheader">
-      //     Subjects offered:
-      //   </ListSubheader>
-      // }
-    >
-      {/* <ListItemButton>
+          <List
+            sx={{
+              width: "50%",
+              bgcolor: "background.paper",
+              margin: "0px auto 10px auto",
+              borderRadius: "25px",
+            }}
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+            // subheader={
+            //   <ListSubheader component="div" id="nested-list-subheader">
+            //     Subjects offered:
+            //   </ListSubheader>
+            // }
+          >
+            {/* <ListItemButton>
         <ListItemIcon>
           <SendIcon />
         </ListItemIcon>
@@ -560,29 +665,27 @@ const SchoolProfilePage = () => {
         </ListItemIcon>
         <ListItemText primary="Drafts" />
       </ListItemButton> */}
-      <ListItemButton onClick={handleClickSubject}>
-        <ListItemIcon>
-          <CalculateIcon />
-        </ListItemIcon>
-        <ListItemText primary="Subjects" />
-        {openSubject ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={openSubject} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          {/* <ListItemButton sx={{ pl: 4 }}> */}
-            <ListItemIcon>
-              {/* <StarBorder /> */}
-              
-            </ListItemIcon>
-            {subjList.map((item) => (
-              <ListItemButton sx={{ pl: 4 }}>
-              <ListItemText primary={item}/></ListItemButton>
-            ))}
-            {/* <ListItemText primary="Starred" /> */}
-          {/* </ListItemButton> */}
-        </List>
-      </Collapse>
-    </List>
+            <ListItemButton onClick={handleClickSubject}>
+              <ListItemIcon>
+                <CalculateIcon />
+              </ListItemIcon>
+              <ListItemText primary="Subjects" />
+              {openSubject ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openSubject} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {/* <ListItemButton sx={{ pl: 4 }}> */}
+                <ListItemIcon>{/* <StarBorder /> */}</ListItemIcon>
+                {subjList.map((item) => (
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemText primary={item} />
+                  </ListItemButton>
+                ))}
+                {/* <ListItemText primary="Starred" /> */}
+                {/* </ListItemButton> */}
+              </List>
+            </Collapse>
+          </List>
           {/* </div> */}
 
           {/* <OfferingText>MTLs offered:</OfferingText>
@@ -593,16 +696,21 @@ const SchoolProfilePage = () => {
           </ul> */}
 
           <List
-      sx={{ width: '50%', bgcolor: 'background.paper', margin: '0px auto 50px auto', borderRadius: "25px" }}
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      // subheader={
-      //   <ListSubheader component="div" id="nested-list-subheader">
-      //     MTLs offered:
-      //   </ListSubheader>
-      // }
-    >
-      {/* <ListItemButton>
+            sx={{
+              width: "50%",
+              bgcolor: "background.paper",
+              margin: "0px auto 50px auto",
+              borderRadius: "25px",
+            }}
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+            // subheader={
+            //   <ListSubheader component="div" id="nested-list-subheader">
+            //     MTLs offered:
+            //   </ListSubheader>
+            // }
+          >
+            {/* <ListItemButton>
         <ListItemIcon>
           <SendIcon />
         </ListItemIcon>
@@ -614,88 +722,115 @@ const SchoolProfilePage = () => {
         </ListItemIcon>
         <ListItemText primary="Drafts" />
       </ListItemButton> */}
-      <ListItemButton onClick={handleClickMTL}>
-        <ListItemIcon>
-          <LanguageIcon />
-        </ListItemIcon>
-        <ListItemText primary="MTLs"/>
-        {openMTL ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={openMTL} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          {/* <ListItemButton sx={{ pl: 4 }}> */}
-            <ListItemIcon>
-              {/* <StarBorder /> */}
-              
-            </ListItemIcon>
-            {mtlList.map((item) => (
-              <ListItemButton sx={{ pl: 4 }}>
-              <ListItemText primary={item}/></ListItemButton>
-            ))}
-            {/* <ListItemText primary="Starred" /> */}
-          {/* </ListItemButton> */}
-        </List>
-      </Collapse>
-    </List>
+            <ListItemButton onClick={handleClickMTL}>
+              <ListItemIcon>
+                <LanguageIcon />
+              </ListItemIcon>
+              <ListItemText primary="MTLs" />
+              {openMTL ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openMTL} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {/* <ListItemButton sx={{ pl: 4 }}> */}
+                <ListItemIcon>{/* <StarBorder /> */}</ListItemIcon>
+                {mtlList.map((item) => (
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemText primary={item} />
+                  </ListItemButton>
+                ))}
+                {/* <ListItemText primary="Starred" /> */}
+                {/* </ListItemButton> */}
+              </List>
+            </Collapse>
+          </List>
 
-          <div style={{ backgroundColor: "white", width: "50%", margin: "0 auto", borderRadius: "25px", boxShadow: '5px 5px lightgrey' }}>
+          <div
+            style={{
+              backgroundColor: "white",
+              width: "50%",
+              margin: "0 auto",
+              borderRadius: "25px",
+              boxShadow: "5px 5px lightgrey",
+            }}
+          >
             <OfferingText>Elective Programmes offered:</OfferingText>
             <ul>
-              <li>Title: {epList.llp_title1}</li>
-              <li>Domain: {epList.llp_domain1}</li>
+              <Li>Title: {epList.llp_title1}</Li>
+              <Li>Domain: {epList.llp_domain1}</Li>
             </ul>
           </div>
 
-          
-          <div style={{ backgroundColor: "white", width: "50%", margin: "0 auto", borderRadius: "25px", boxShadow: '5px 5px lightgrey' }}>
-          <OfferingText>Support for Special Education Needs:</OfferingText>
+          <div
+            style={{
+              backgroundColor: "white",
+              width: "50%",
+              margin: "0 auto",
+              borderRadius: "25px",
+              boxShadow: "5px 5px lightgrey",
+            }}
+          >
+            <OfferingText>Support for Special Education Needs:</OfferingText>
 
-          <ul>
-            <li>
-              Learning and Behaviour Support:{" "}
-              {specialneeds["aed-learningnbehavl_suppt"] === "Yes" ? (
-                <CheckCircleIcon color="success" />
-              ) : (
-                <CancelIcon sx={{ color: "red" }}/>
-              )}
-            </li>
-            <li>
-              Barrier Free Facilities:{" "}
-              {specialneeds.barrier_free_facilities === "Yes" ? (
-                <CheckCircleIcon color="success" />
-              ) : (
-                <CancelIcon sx={{ color: "red" }}/>
-              )}
-            </li>
+            <ul>
+              <Li>
+                <LeftLi>Learning and Behaviour Support: </LeftLi>
+                <RightLi>
+                  {specialneeds["aed-learningnbehavl_suppt"] === "Yes" ? (
+                    <CheckCircleIcon color="success" />
+                  ) : (
+                    <CancelIcon sx={{ color: "red" }} />
+                  )}
+                </RightLi>
+              </Li>
+              <Li>
+                <LeftLi>Barrier Free Facilities: </LeftLi>
+                <RightLi>
+                  {specialneeds.barrier_free_facilities === "Yes" ? (
+                    <CheckCircleIcon color="success" />
+                  ) : (
+                    <CancelIcon sx={{ color: "red" }} />
+                  )}
+                </RightLi>
+              </Li>
 
-            <li>
-              Visual Impairment:{" "}
-              {specialneeds.visual_impairment === "Yes" ? (
-                <CheckCircleIcon color="success" />
-              ) : (
-                <CancelIcon sx={{ color: "red" }}/>
-              )}
-            </li>
-            <li>
-              Hearing Loss:{" "}
-              {specialneeds.hearing_loss === "Yes" ? (
-                <CheckCircleIcon color="success" />
-              ) : (
-                <CancelIcon sx={{ color: "red" }}/>
-              )}
-            </li>
-            
-            
+              <Li>
+                <LeftLi>Visual Impairment: </LeftLi>
+                <RightLi>
+                  {specialneeds.visual_impairment === "Yes" ? (
+                    <CheckCircleIcon color="success" />
+                  ) : (
+                    <CancelIcon sx={{ color: "red" }} />
+                  )}
+                </RightLi>
+              </Li>
+              <Li style={{ display: "Flex", justifyContent: "" }}>
+                <LeftLi>Hearing Loss:</LeftLi>
+                <RightLi>
+                  {specialneeds.hearing_loss === "Yes" ? (
+                    <CheckCircleIcon color="success" />
+                  ) : (
+                    <CancelIcon sx={{ color: "red" }} />
+                  )}
+                </RightLi>
+              </Li>
 
-            {/* {Object.entries(specialneeds).map(([key, value]) => (
+              {/* {Object.entries(specialneeds).map(([key, value]) => (
               <li>
                 {key}:{value}
               </li>
             ))} */}
-          </ul>
+            </ul>
           </div>
 
-          <div style={{ backgroundColor: "white", width: "50%", margin: "0 auto", borderRadius: "25px", boxShadow: '5px 5px lightgrey' }}>
+          <div
+            style={{
+              backgroundColor: "white",
+              width: "50%",
+              margin: "0 auto",
+              borderRadius: "25px",
+              boxShadow: "5px 5px lightgrey",
+            }}
+          >
             <AboutText>School Nature: {school.nature_code}</AboutText>{" "}
             <AboutText>School Type: {school.type_code}</AboutText>{" "}
           </div>
@@ -714,13 +849,55 @@ const SchoolProfilePage = () => {
 
       <GettingThereWrapperContainer>
         <GettingThereWrapper>
-          <div style={{ backgroundColor: "white", width: "50%", margin: "0 auto", borderRadius: "25px", boxShadow: '5px 5px lightgrey' }}>
-            <GettingThereHeader><span><DirectionsIcon sx={{ height: "45px", width: "45px", marginBottom: "5px", marginRight: "5px" }}/></span>Getting There</GettingThereHeader>
+          <div
+            style={{
+              backgroundColor: "white",
+              width: "50%",
+              margin: "0 auto",
+              borderRadius: "25px",
+              boxShadow: "5px 5px lightgrey",
+            }}
+          >
+            <GettingThereHeader>
+              <span>
+                <DirectionsIcon
+                  sx={{
+                    height: "45px",
+                    width: "45px",
+                    marginBottom: "5px",
+                    marginRight: "5px",
+                  }}
+                />
+              </span>
+              Getting There
+            </GettingThereHeader>
             <GettingThereText>
-              <span><TrainIcon sx={{ height: "30px", width: "30px", marginBottom: "5px", marginRight: "5px" }}/></span>Nearest MRT Station: {school.mrt_desc}
+              <span>
+                <TrainIcon
+                  sx={{
+                    height: "30px",
+                    width: "30px",
+                    marginBottom: "5px",
+                    marginRight: "5px",
+                  }}
+                />
+              </span>
+              Nearest MRT Station: {school.mrt_desc}
             </GettingThereText>{" "}
             {/* insert nearestMRT here */}
-            <GettingThereText><span><DirectionsBusIcon sx={{ height: "30px", width: "30px", marginBottom: "5px", marginRight: "5px" }}/></span>Buses: {school.bus_desc}</GettingThereText>{" "}
+            <GettingThereText>
+              <span>
+                <DirectionsBusIcon
+                  sx={{
+                    height: "30px",
+                    width: "30px",
+                    marginBottom: "5px",
+                    marginRight: "5px",
+                  }}
+                />
+              </span>
+              Buses: {school.bus_desc}
+            </GettingThereText>{" "}
             {/* insert nearestBus here */}
           </div>
         </GettingThereWrapper>
@@ -739,8 +916,20 @@ const SchoolProfilePage = () => {
       {/* This block of code below is testing implementation of a comments feature */}
       <CommentsWrapperContainer>
         <CommentsWrapper>
-          <CommentsHeader><span><CommentIcon sx={{ height: "45px", width: "45px", marginBottom: "5px", marginRight: "5px" }}/></span>Comments</CommentsHeader>
-          <CommentSection />
+          <CommentsHeader>
+            <span>
+              <CommentIcon
+                sx={{
+                  height: "45px",
+                  width: "45px",
+                  marginBottom: "5px",
+                  marginRight: "5px",
+                }}
+              />
+            </span>
+            Comments
+          </CommentsHeader>
+          <CommentSection nameOfSchool={school.school_name} />
         </CommentsWrapper>
       </CommentsWrapperContainer>
     </Container>
