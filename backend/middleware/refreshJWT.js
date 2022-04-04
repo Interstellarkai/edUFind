@@ -5,7 +5,7 @@ import RefreshTokenRepo from "../dao/refreshTokenRepo.js";
 
 dotenv.config();
 
-const JWT_SECRET = process.env.JWT_REFRESH_SK || null;
+const JWT_SECRET = "adaec7413eaf758df29092053806d0c711de358c96d7d0e05489c8b3457954ff9071f6c6bd2013ee7d55ce822ad44530f3a63343228b97989f23a9108868a575";
 
 // export default class refreshJWT {
 	// static async authenticateRefreshToken(req, res, next) {
