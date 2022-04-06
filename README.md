@@ -1,5 +1,9 @@
 # edUFind
 ---
+## LAB 4 DELIVERABLES
+1. [Test Cases](https://github.com/Interstellarkai/edUFind/blob/main/Lab%204/Test%20Case/Testing%20Document.pdf)
+2. [Automation - BlackBox Testing](https://github.com/Interstellarkai/edUFind/tree/main/automationTest)
+---
 ## LAB 3 DELIVERABLES
 1. [Complete Use Case Descriptions - Page 9](https://github.com/Interstellarkai/edUFind/blob/main/Lab%203/Lab%203%20Deliverables.pdf)
 2. [Complete Class Diagrams](https://github.com/Interstellarkai/edUFind/blob/main/Lab%203/Class%20Diagram.jpg)
