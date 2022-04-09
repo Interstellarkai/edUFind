@@ -1,4 +1,0 @@
-We used M.E.R.N stack for our web application. In order to properly run the application/code, you will need to do an npm install on the dependecies found on the package.json files
-in both front and backend to ensure the proper node modules are installed.
-
-Find edUFind @ http://54.151.182.183/ 
