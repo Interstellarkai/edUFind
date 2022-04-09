@@ -1,5 +1,8 @@
 # edUFind
 ---
+## LAB 5 DELIVERABLES
+1. [SRS Final Documentation](https://github.com/Interstellarkai/edUFind/blob/main/Lab%205/Team%20UPS%20Elon%20SRS.pdf)
+---
 ## LAB 4 DELIVERABLES
 1. [Test Cases](https://github.com/Interstellarkai/edUFind/blob/main/Lab%204/Test%20Case/Testing%20Document.pdf)
 2. [Automation - BlackBox Testing](https://github.com/Interstellarkai/edUFind/tree/main/automationTest)
