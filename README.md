@@ -7,6 +7,7 @@
 ## LAB 4 DELIVERABLES
 1. [Test Cases](https://github.com/Interstellarkai/edUFind/blob/main/Lab%204/Test%20Case/Testing%20Document.pdf)
 2. [Automation - BlackBox Testing](https://github.com/Interstellarkai/edUFind/tree/main/automationTest)
+3. [Demo Script - Powerpoint slides](https://github.com/Interstellarkai/edUFind/blob/main/Lab%204/Team%20UPS%20Elon%20Slides%20and%20Script.pptx)
 ---
 ## LAB 3 DELIVERABLES
 1. [Complete Use Case Descriptions - Page 9](https://github.com/Interstellarkai/edUFind/blob/main/Lab%203/Lab%203%20Deliverables.pdf)
