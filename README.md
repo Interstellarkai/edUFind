@@ -7,12 +7,12 @@ This project is built using MERN Stack framework. The website is hosted on an AW
     http://54.151.182.183/
 
 ### Project Documentation 
-We have done our documentation and all our software requirements specification can be found here: [SRS Document](documentation)
+We have done our documentation and all our software requirements specification can be found here: [SRS Document](/../../documentation)
 
 ### Source Code
 The source code for the `frontend` and `backend`can be found in this repository : 
-- [Backend](backend)
-- [Frontend](frontend)
+- [Backend](/../../backend)
+- [Frontend](/../../frontend)
 
 ### All Diagrams 
 - Use Case Diagrams 
@@ -26,7 +26,7 @@ The source code for the `frontend` and `backend`can be found in this repository 
 Our UI mockups were created on `Figma`. While the website created eventually was not exactly the same as our initial mockups, the mockups gave us a guide as to how we can start creating our User Interface. The UI Mockups can be found [here](documentation/Lab%201/CZ2006%20UI%20MockUp.pdf)
 
 ### Automated Testing
-We use the `Python Selenium` library to do automated testing. The source code can be found [here](automationTest)
+We use the `Python Selenium` library to do automated testing. The source code can be found [here](/../../automationTest)
 
 ## Team Members
 This project was done together with my team members: 
