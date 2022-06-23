@@ -1,56 +1,50 @@
 version: 2
 updates:
-    # MERN STACK
-    - package-ecosystem: "npm"
-      directory: "/"
-      schedule:
-          # Check for updates to NPM every weekday
-          interval: "daily"
-      pull-request-branch-name:
-        separator: "-"
-      labels:
-        - "Dependabot"
-      ignore:
-      - dependency-name:"*"
-        update-types: ["version-update: semver-major"]
-
-
-    - package-ecosystem: "npm"
-      directory: "/frontend"
-      schedule:
-          # Check for updates to NPM every weekday
-          interval: "daily"
-      pull-request-branch-name:
-        separator: "-"
-      labels:
-        - "Dependabot"
-      ignore:
-      - dependency-name:"*"
-        update-types: ["version-update: semver-major"]
-
-    - package-ecosystem: "npm"
-      directory: "/backend"
-      schedule:
-          # Check for updates to NPM every weekday
-          interval: "daily"
-      pull-request-branch-name:
-        separator: "-"
-      labels:
-        - "Dependabot"
-      ignore:
-      - dependency-name:"*"
-        update-types: ["version-update: semver-major"]
-
-    # Automation Test Selenium
-    - package-ecosystem: "pip"
-      directory: "/automationTest"
-      schedule:
-          # Check for updates to NPM every weekday
-          interval: "daily"
-      pull-request-branch-name:
-        separator: "-"
-      labels:
-        - "Dependabot"
-      ignore:
-      - dependency-name:"*"
-        update-types: ["version-update: semver-major"]
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+    pull-request-branch-name:
+      separator: '-'
+    labels:
+      - Dependabot
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - 'version-update:semver-major'
+  - package-ecosystem: npm
+    directory: /frontend
+    schedule:
+      interval: daily
+    pull-request-branch-name:
+      separator: '-'
+    labels:
+      - Dependabot
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - 'version-update:semver-major'
+  - package-ecosystem: npm
+    directory: /backend
+    schedule:
+      interval: daily
+    pull-request-branch-name:
+      separator: '-'
+    labels:
+      - Dependabot
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - 'version-update:semver-major'
+  - package-ecosystem: pip
+    directory: /automationTest
+    schedule:
+      interval: daily
+    pull-request-branch-name:
+      separator: '-'
+    labels:
+      - Dependabot
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - 'version-update:semver-major'
