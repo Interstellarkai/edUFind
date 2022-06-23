@@ -1,21 +1,56 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-
 version: 2
 updates:
+    # MERN STACK
+    - package-ecosystem: "npm"
+      directory: "/"
+      schedule:
+          # Check for updates to NPM every weekday
+          interval: "daily"
+      pull-request-branch-name:
+        separator: "-"
+      labels:
+        - "Dependabot"
+      ignore:
+      - dependency-name:"*"
+        update-types: ["version-update: semver-major"]
 
-  # MERN STACK
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      # Check for updates to NPM every weekday
-      interval: "daily"
-  
-  # Automation Test Selenium
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      # Check for updates to NPM every weekday
-      interval: "daily"
+
+    - package-ecosystem: "npm"
+      directory: "/frontend"
+      schedule:
+          # Check for updates to NPM every weekday
+          interval: "daily"
+      pull-request-branch-name:
+        separator: "-"
+      labels:
+        - "Dependabot"
+      ignore:
+      - dependency-name:"*"
+        update-types: ["version-update: semver-major"]
+
+    - package-ecosystem: "npm"
+      directory: "/backend"
+      schedule:
+          # Check for updates to NPM every weekday
+          interval: "daily"
+      pull-request-branch-name:
+        separator: "-"
+      labels:
+        - "Dependabot"
+      ignore:
+      - dependency-name:"*"
+        update-types: ["version-update: semver-major"]
+
+    # Automation Test Selenium
+    - package-ecosystem: "pip"
+      directory: "/automationTest"
+      schedule:
+          # Check for updates to NPM every weekday
+          interval: "daily"
+      pull-request-branch-name:
+        separator: "-"
+      labels:
+        - "Dependabot"
+      ignore:
+      - dependency-name:"*"
+        update-types: ["version-update: semver-major"]
