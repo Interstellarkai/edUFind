@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: daily
+      interval: monthly
     pull-request-branch-name:
       separator: '-'
     labels:
@@ -15,7 +15,7 @@ updates:
   - package-ecosystem: npm
     directory: /frontend
     schedule:
-      interval: daily
+      interval: monthly
     pull-request-branch-name:
       separator: '-'
     labels:
@@ -27,7 +27,7 @@ updates:
   - package-ecosystem: npm
     directory: /backend
     schedule:
-      interval: daily
+      interval: monthly
     pull-request-branch-name:
       separator: '-'
     labels:
@@ -39,7 +39,7 @@ updates:
   - package-ecosystem: pip
     directory: /automationTest
     schedule:
-      interval: daily
+      interval: monthly
     pull-request-branch-name:
       separator: '-'
     labels:
