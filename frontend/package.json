@@ -19,7 +19,7 @@
     "react-redux": "^7.2.8",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "react-spinners": "^0.13.3",
+    "react-spinners": "^0.13.4",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.0"
