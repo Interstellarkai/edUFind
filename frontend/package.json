@@ -7,7 +7,7 @@
     "@emotion/style": "^0.8.0",
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.6",
-    "@mui/material": "^5.10.7",
+    "@mui/material": "^5.10.12",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
