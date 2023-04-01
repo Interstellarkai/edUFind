@@ -10,7 +10,7 @@ async-generator==1.10; python_version >= '3.5'
 attrs==22.2.0; python_version >= '3.6'
 certifi==2022.12.7
 cffi==1.15.1
-charset-normalizer==3.0.1; python_version >= '3.5'
+charset-normalizer==3.1.0; python_version >= '3.5'
 cryptography==39.0.2
 exceptiongroup==1.1.0; python_version < '3.11'
 h11==0.14.0; python_version >= '3.7'
