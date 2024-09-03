@@ -1,7 +1,7 @@
 -i https://pypi.org/simple
 attrs==23.2.0
 certifi==2024.8.30
-cffi==1.16.0
+cffi==1.17.0
 charset-normalizer==3.3.2
 cryptography==43.0.1
 exceptiongroup==1.2.2
