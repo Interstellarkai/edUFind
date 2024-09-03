@@ -3,7 +3,7 @@ attrs==23.2.0
 certifi==2024.7.4
 cffi==1.16.0
 charset-normalizer==3.3.2
-cryptography==42.0.8
+cryptography==43.0.1
 exceptiongroup==1.2.2
 h11==0.14.0
 idna==3.8
